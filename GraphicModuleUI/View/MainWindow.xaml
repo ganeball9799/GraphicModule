@@ -4,12 +4,127 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:VM="clr-namespace:GraphicModuleUI.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="GraphicModule" Height="450" Width="800" >
+
     <Window.DataContext>
         <VM:MainWindowVM/>
     </Window.DataContext>
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="IsVisible"/>
+        <Style x:Key="RowDefiner">
+            <Setter Property="RowDefinition.Height" Value="30"/>
+        </Style>
+        <Style x:Key="HeaderTb" TargetType="{x:Type TextBlock}">
+            <Setter Property="FontFamily" Value="Verdana"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="243*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="193*"/>
+            <ColumnDefinition Width="211*"/>
+            <ColumnDefinition Width="388*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+        <TextBlock  
+            Text="Transmision Lines"
+            Style="{StaticResource HeaderTb}" Height="18" Margin="0,10"/>
+            <Grid>
+            <ListBox Name="ListBoxLines"
+                     Width="auto"
+                     MaxHeight="200"
+                     
+                     SelectionMode="Single"
+                     DataContext="{Binding LinesName}">
+                <ListBoxItem>Item1</ListBoxItem>
+            </ListBox>
+            </Grid>
+        </StackPanel>
         
+        <StackPanel Grid.Column="1">
+            <Grid>
+                <TextBlock Text="Parametrs"
+                       Style="{StaticResource HeaderTb}" Height="18"  Margin="0,10,0,406"/>
+                <Label   Margin="10,36,113,372">Line  thickness</Label>
+                <Label   Margin="10,66,66,339">Substrate height</Label>
+                <TextBox
+                    BorderBrush="Black" Margin="114,32,10,366"
+                    Height="20"
+                    Width="80"/>
+                <TextBox
+                    BorderBrush="Black" Margin="118,64,13,339"
+                    Height="20"
+                    Width="80"/>
+                <Button 
+                    Width="50"
+                    Height="35"
+                    Content="Apply" Margin="60,346,66,39"/>
+            </Grid>
+            <GroupBox
+                MaxHeight="150"
+                Header="Widht line, mm">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.4*"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        Content="{Binding}"/>
+                                    <TextBox
+                                        Grid.Column="1"
+                                        MaxHeight="20"
+                                        Text="{Binding ddd, UpdateSourceTrigger=PropertyChanged}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="PreviewMouseWheel">
+                                                <command:EventToCommand Command="{Binding MouseWheelCommand}" PassEventArgsToCommand="True"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseEnter">
+                                                <command:EventToCommand Command ="{Binding FocusSetterCommand}" PassEventArgsToCommand="True"/>
+                                            </i:EventTrigger>
+                                            <i:EventTrigger EventName="MouseLeave">
+                                                <command:EventToCommand Command ="{Binding UnFocusSetterCommand}" PassEventArgsToCommand="True"/>
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                    </TextBox>
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+                
+            </GroupBox>
+        </StackPanel>
+        <TabControl Grid.Column="2">
+            <TabItem>
+                <Viewbox>
+                    <ItemsControl ItemsSource="{Binding}" Height="425">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas x:Name="Canvas" Width="400" Height="400"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        ClipToBounds="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Viewbox>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
