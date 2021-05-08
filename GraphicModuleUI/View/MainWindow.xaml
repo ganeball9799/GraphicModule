@@ -7,7 +7,7 @@
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         mc:Ignorable="d"
-        Title="GraphicModule" Height="450" Width="800" >
+        Title="GraphicModule" Height="420" Width="800" >
 
     <Window.DataContext>
         <VM:MainWindowVM/>
@@ -26,105 +26,170 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="243*"/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="193*"/>
-            <ColumnDefinition Width="211*"/>
+            <ColumnDefinition Width="150*"/>
+            <ColumnDefinition Width="140*"/>
             <ColumnDefinition Width="388*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
-        <TextBlock  
+            <TextBlock  
             Text="Transmision Lines"
             Style="{StaticResource HeaderTb}" Height="18" Margin="0,10"/>
-            <Grid>
+
             <ListBox Name="ListBoxLines"
                      Width="auto"
                      MaxHeight="200"
-                     
-                     SelectionMode="Single"
-                     DataContext="{Binding LinesName}">
-                <ListBoxItem>Item1</ListBoxItem>
+                     ItemsSource="{Binding Lines}"
+                     SelectionMode="Single" Margin="0,0,0,-89">
             </ListBox>
-            </Grid>
         </StackPanel>
-        
+
+
+
         <StackPanel Grid.Column="1">
+            <TextBlock Grid.Column="1" Text="Parameters"
+                                   Style="{StaticResource HeaderTb}"   Padding="10" VerticalAlignment="Top"/>
             <Grid>
-                <TextBlock Text="Parametrs"
-                       Style="{StaticResource HeaderTb}" Height="18"  Margin="0,10,0,406"/>
-                <Label   Margin="10,36,113,372">Line  thickness</Label>
-                <Label   Margin="10,66,66,339">Substrate height</Label>
-                <TextBox
-                    BorderBrush="Black" Margin="114,32,10,366"
-                    Height="20"
-                    Width="80"/>
-                <TextBox
-                    BorderBrush="Black" Margin="118,64,13,339"
-                    Height="20"
-                    Width="80"/>
-                <Button 
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label
+                    Grid.RowSpan="2"
+                    Grid.Column="0"
+                    VerticalAlignment="Center"
+                    Content="N = " />
+                <Label
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
                     Width="50"
-                    Height="35"
-                    Content="Apply" Margin="60,346,66,39"/>
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="{Binding StripsNumber}" />
+                <Button
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    Width="20"
+                    VerticalAlignment="Bottom"
+                    Command="{Binding IncrementNCommand}"
+                    Content="+" />
+                <Button
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Width="20"
+                    VerticalAlignment="Top"
+                    Command="{Binding DecrementNCommand}"
+                    Content="-" />
             </Grid>
+            <Label>Lines thickness</Label>
+            <TextBox
+                    x:Name="StripsThickness"
+                    Height="20"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding StripsThickness.ItemValue, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+            <Label Target="{Binding ElementName=SubstrateHeight}">Substrate height</Label>
+            <TextBox
+                    x:Name="SubstrateHeight"
+                    Height="20"
+                    Margin="5"
+                    HorizontalContentAlignment="Center"
+                    Text="{Binding SubstrateHeight.ItemValue, UpdateSourceTrigger=PropertyChanged}">
+                
+            </TextBox>
             <GroupBox
-                MaxHeight="150"
-                Header="Widht line, mm">
+                    MaxHeight="150"
+                    Padding="0,10,0,0"
+                    Header="W, mm">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                    <ItemsControl ItemsSource="{Binding}">
+                    <ItemsControl ItemsSource="{Binding Widths}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Grid VerticalAlignment="Top">
+                                <Grid Margin="0,0,0,5" VerticalAlignment="Top" >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.4*"/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="0.4*" />
+                                        <ColumnDefinition />
                                     </Grid.ColumnDefinitions>
                                     <Label
-                                        Grid.Column="0"
-                                        VerticalAlignment="Center"
-                                        HorizontalAlignment="Center"
-                                        Content="{Binding}"/>
+                                            Grid.Column="0"
+                                            VerticalAlignment="Center"
+                                            HorizontalContentAlignment="Center"
+                                            Content="{Binding ItemName}" />
                                     <TextBox
-                                        Grid.Column="1"
-                                        MaxHeight="20"
-                                        Text="{Binding ddd, UpdateSourceTrigger=PropertyChanged}">
-                                        <i:Interaction.Triggers>
-                                            <i:EventTrigger EventName="PreviewMouseWheel">
-                                                <command:EventToCommand Command="{Binding MouseWheelCommand}" PassEventArgsToCommand="True"/>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="MouseEnter">
-                                                <command:EventToCommand Command ="{Binding FocusSetterCommand}" PassEventArgsToCommand="True"/>
-                                            </i:EventTrigger>
-                                            <i:EventTrigger EventName="MouseLeave">
-                                                <command:EventToCommand Command ="{Binding UnFocusSetterCommand}" PassEventArgsToCommand="True"/>
-                                            </i:EventTrigger>
-                                        </i:Interaction.Triggers>
+                                            x:Uid="1"
+                                            x:Name="Width"
+                                            Grid.Column="1"
+                                            MaxHeight="20"
+                                            Text="{Binding ItemValue, UpdateSourceTrigger=PropertyChanged}" >
+                                        
                                     </TextBox>
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
                 </ScrollViewer>
-                
             </GroupBox>
-        </StackPanel>
-        <TabControl Grid.Column="2">
-            <TabItem>
-                <Viewbox>
-                    <ItemsControl ItemsSource="{Binding}" Height="425">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <Canvas x:Name="Canvas" Width="400" Height="400"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        ClipToBounds="True"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
+            <GroupBox
+     MaxHeight="150"
+     Padding="0,10,0,0"
+     Header="S, mm">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <ItemsControl ItemsSource="{Binding Slots}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,0,0,5" VerticalAlignment="Top">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="0.4*" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                             Grid.Column="0"
+                             VerticalAlignment="Center"
+                             HorizontalContentAlignment="Center"
+                             Content="{Binding ItemName}" />
+                                    <TextBox
+                             Grid.Column="1"
+                             MaxHeight="20"
+                             Text="{Binding ItemValue, UpdateSourceTrigger=PropertyChanged}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
                     </ItemsControl>
+                </ScrollViewer>
+            </GroupBox>
+    <Button
+        Height="30"
+        Width="50"
+        Margin="7"
+        Content="Draw"
+        Background="Cornsilk">
+
+    </Button>
+        </StackPanel>
+
+
+
+
+        <StackPanel Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border
+                Margin="5"
+                BorderBrush="Black"
+                BorderThickness="2">
+                <Viewbox>
+                    <Canvas x:Name="Canvas" 
+                            Width="500" 
+                            Height="500"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        ClipToBounds="True"/>
                 </Viewbox>
-            </TabItem>
-        </TabControl>
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>
