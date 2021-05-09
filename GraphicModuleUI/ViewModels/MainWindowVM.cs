@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphicModule.Models;
@@ -14,16 +15,20 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
-            Lines.Add(new LineStructure());
-            Lines.Add(new LineStructure());
-            Lines.Add(new LineStructure());
+            Lines = new ObservableCollection<LinesStructure>
+            {
+               
+            };
+            IncrementNCommand = new RelayCommand(IncreaseByOne);
+            DecrementNCommand = new RelayCommand(DecreaseByOne);
+            ApplyChangesCommand = new RelayCommand(ButtonDraw);
+            Lines.Add(new LinesStructure());
+            Lines.Add(new LinesStructure());
+            Lines.Add(new LinesStructure());
+            Widths.Add(new ListItemView("W", 30, "mm"));
+            SubstrateHeight = new ListItemView("h", 10, "mm");
+            StripsThickness = new ListItemView("t", 5, "mm");
         }
-
-        private bool ChangeMicrostripLine;
-
-        private bool ChangeSingleLine;
-
-        private bool ChangeCoupledLine;
 
         private int _stripsNumber = 1;
 
@@ -40,7 +45,9 @@ namespace GraphicModuleUI.ViewModel
         public ObservableCollection<ListItemView> Widths { get; set; } = new ObservableCollection<ListItemView>();
 
         public ObservableCollection<ListItemView> Slots { get; set; } = new ObservableCollection<ListItemView>();
-        public ObservableCollection<LineStructure> Lines { get; set; } = new ObservableCollection<LineStructure>();
+        public ObservableCollection<LinesStructure> Lines { get; set; }
+
+        
 
         public int StripsNumber
         {
@@ -91,6 +98,42 @@ namespace GraphicModuleUI.ViewModel
             }
         }
 
-        
+        /// <summary>
+        /// Свойство команды увеличения N на единицу
+        /// </summary>
+        public RelayCommand IncrementNCommand { get; private set; }
+
+        private void IncreaseByOne()
+        {
+            if (StripsNumber<6)
+            {
+              StripsNumber++;  
+            }
+        }
+
+
+        /// <summary>
+        /// Свойство команды уменьшения N на единицу
+        /// </summary>
+        public RelayCommand DecrementNCommand { get; private set; }
+
+        private void DecreaseByOne()
+        {
+            if (StripsNumber>1)
+            {
+                StripsNumber--;
+            }
+        }
+
+        public RelayCommand ApplyChangesCommand { get; private set; }
+
+        private void ButtonDraw()
+        {
+
+        }
     }
+
+
+
+    
 }

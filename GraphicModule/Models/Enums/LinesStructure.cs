@@ -1,6 +1,6 @@
 ﻿namespace GraphicModule.Models.Enums
 {
-    public enum LineStructure
+    public enum LinesStructure
     {
         SingleCoplanar,
         CoupledVerticalInsert,

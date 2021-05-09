@@ -5,7 +5,7 @@ using System.Text;
 
 namespace GraphicModule.Models
 {
-    class CoupledVerticalInsertLine
+    class CoupledVerticalInsertLine:Geometry
     {
     }
 }

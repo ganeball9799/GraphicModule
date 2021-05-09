@@ -43,12 +43,13 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Models\CoupledVerticalInsertLine.cs" />
-    <Compile Include="Models\Enums\LineStructure.cs" />
+    <Compile Include="Models\Lines\CoupledVerticalInsertLine.cs" />
+    <Compile Include="Models\Enums\LinesStructure.cs" />
     <Compile Include="Models\Geometry.cs" />
-    <Compile Include="Models\MicrostripLine.cs" />
-    <Compile Include="Models\Enums\Parameter.cs" />
-    <Compile Include="Models\SingleCoplanarLine.cs" />
+    <Compile Include="Models\Lines\MicrostripLine.cs" />
+    <Compile Include="Models\Enums\ParameterName.cs" />
+    <Compile Include="Models\Parameter.cs" />
+    <Compile Include="Models\Lines\SingleCoplanarLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
