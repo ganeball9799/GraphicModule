@@ -8,6 +8,7 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
+    //Этот класс нужно внести в папку Lines
     public class Geometry
     {
         public LinesStructure Structure;

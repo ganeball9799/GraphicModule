@@ -6,10 +6,10 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
-    class SingleCoplanarLine:Geometry
+    class SingleCoplanarLine : Geometry
     {
-       
 
-        
+
+
     }
 }
