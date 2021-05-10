@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Models\Lines\CoupledVerticalInsertLine.cs" />
     <Compile Include="Models\Enums\LinesStructure.cs" />
-    <Compile Include="Models\Geometry.cs" />
+    <Compile Include="Models\Lines\Geometry.cs" />
     <Compile Include="Models\Lines\MicrostripLine.cs" />
     <Compile Include="Models\Enums\ParameterName.cs" />
     <Compile Include="Models\Parameter.cs" />

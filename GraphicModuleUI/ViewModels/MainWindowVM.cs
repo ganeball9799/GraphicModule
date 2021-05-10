@@ -8,6 +8,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphicModule.Models;
 using GraphicModule.Models.Enums;
+using GraphicModuleUI.ViewModels;
+using Geometry = GraphicModule.Models.Geometry;
 
 namespace GraphicModuleUI.ViewModel
 {
@@ -15,40 +17,45 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
-            Lines = new ObservableCollection<LinesStructure>
-            {
-               
-            };
+            Lines = new ObservableCollection<Geometry>();
+            Lines.Add(new MicrostripLine());
+            Lines.Add(new CoupledVerticalInsertLine());
+            Lines.Add(new SingleCoplanarLine());
             IncrementNCommand = new RelayCommand(IncreaseByOne);
             DecrementNCommand = new RelayCommand(DecreaseByOne);
             ApplyChangesCommand = new RelayCommand(ButtonDraw);
-            Lines.Add(new LinesStructure());
-            Lines.Add(new LinesStructure());
-            Lines.Add(new LinesStructure());
+            
             Widths.Add(new ListItemView("W", 30, "mm"));
-            SubstrateHeight = new ListItemView("h", 10, "mm");
-            StripsThickness = new ListItemView("t", 5, "mm");
+            SubstrateHeight = new ParameterVM(ParameterName.SubstrateHeight,10);
+            StripsThickness = new ParameterVM(ParameterName.StripsThickness, 5);
         }
 
         private int _stripsNumber = 1;
 
-        private ListItemView _stripsThickness;
+        private ParameterVM _stripsThickness;
 
-        private ListItemView _substrateHeight;
+        private ParameterVM _substrateHeight;
 
         private RelayCommand _applyChangesCommand;
 
-        private RelayCommand _incrementNCommand;
-
-        private RelayCommand _decrementNCommand;
+        private GeometryVM _selectedLine;
 
         public ObservableCollection<ListItemView> Widths { get; set; } = new ObservableCollection<ListItemView>();
 
         public ObservableCollection<ListItemView> Slots { get; set; } = new ObservableCollection<ListItemView>();
-        public ObservableCollection<LinesStructure> Lines { get; set; }
+        public ObservableCollection<Geometry> Lines { get; set; }
+
+        public GeometryVM SelectedLine
+        {
+            get => _selectedLine;
+            set
+            {
+                _selectedLine = value;
+                RaisePropertyChanged(nameof(SelectedLine));
+            }
+        }
 
         
-
         public int StripsNumber
         {
             get => _stripsNumber;
@@ -75,7 +82,7 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// Свойство высоты подложки.
         /// </summary>
-        public ListItemView SubstrateHeight
+        public ParameterVM SubstrateHeight
         {
             get => _substrateHeight;
             set
@@ -88,7 +95,7 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// Свойство толщины полос.
         /// </summary>
-        public ListItemView StripsThickness
+        public ParameterVM StripsThickness
         {
             get => _stripsThickness;
             set
@@ -110,7 +117,6 @@ namespace GraphicModuleUI.ViewModel
               StripsNumber++;  
             }
         }
-
 
         /// <summary>
         /// Свойство команды уменьшения N на единицу
