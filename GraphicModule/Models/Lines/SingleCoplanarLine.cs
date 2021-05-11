@@ -10,14 +10,68 @@ namespace GraphicModule.Models
     {
         public LinesStructure Type = LinesStructure.SingleCoplanar;
 
-        public List<Parameter> _parameters = new List<Parameter>
+        private double _stripThickness;
+
+        private double _substrateHeight;
+
+        
+        private double _stripWidth;
+
+        private List<double> _slots;
+
+        public SingleCoplanarLine()
         {
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.StripsNumber,1),
-            new Parameter(ParameterName.StripsThickness,10),
-            new Parameter(ParameterName.SubstrateHeight,20)
-        };
+            InitComponent();
+        }
+
+        public override void Analyze(List<Parameter> inputParams)
+        {
+            DistributeParameters(inputParams);
+            var slots = _slots.ToArray();
+            FillCollections();
+        }
+        private void DistributeParameters(List<Parameter> parameters)
+        {
+            foreach (var item in parameters)
+            {
+                switch (item.ParameterName)
+                {
+                    case ParameterName.StripsThickness:
+                        _stripThickness = item.Values.First();
+                        break;
+                    case ParameterName.SubstrateHeight:
+                        _substrateHeight = item.Values.First();
+                        break;
+                    case ParameterName.StripsWidth:
+                        _stripWidth = item.Values.First();
+                        break;
+                    case ParameterName.Slot:
+                        _slots = item.Values;
+                        break;
+                }
+            }
+        }
+
+        private void InitComponent()
+        {
+            Structure = LinesStructure.SingleCoplanar;
+            _stripThickness = 0.059;
+            _substrateHeight = 15;
+            _stripWidth = 0.6;
+            _slots = new List<double> { 1, 3 };
+            FillCollections();
+        }
+
+        private void FillCollections()
+        {
+            ParametersLine = new List<Parameter>
+            {
+                new Parameter(ParameterName.StripsThickness, new List<double>{_stripThickness}, Measure.Millimeter),
+                new Parameter(ParameterName.SubstrateHeight, new List<double>{_substrateHeight}, Measure.Millimeter),
+                new Parameter(ParameterName.StripsWidth, new List<double>{_stripWidth}, Measure.Millimeter),
+                new Parameter(ParameterName.Slot, _slots, Measure.Millimeter)
+            };
+        }
+
     }
 }

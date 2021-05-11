@@ -43,6 +43,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Enums\Measure.cs" />
     <Compile Include="Models\Lines\CoupledVerticalInsertLine.cs" />
     <Compile Include="Models\Enums\LinesStructure.cs" />
     <Compile Include="Models\Lines\Geometry.cs" />

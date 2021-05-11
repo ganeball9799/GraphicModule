@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Windows;
+using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
@@ -10,26 +11,20 @@ namespace GraphicModule.Models
     {
         // Зачем это сделано автосвойством?
         // Разве не достаточно просто публичной переменной?
-        public ParameterName ParameterName;
+        public ParameterName ParameterName { get; set; }
 
+        public Measure Measure { get; set; }
 
-        private double _values;
+        public List<double> Values { get; set; }
 
-        public double Values
+        public Parameter(ParameterName parameterName, List<double> values, Measure measure)
         {
-            get => _values;
-            set
-            {
-                if (value < 0 || value>50)
-                {
-                    throw new ArgumentException($"Значение не может быть отрицательным");
-                }
-
-                _values = value;
-            }
+            ParameterName = parameterName;
+            Values = values;
+            Measure = measure;
         }
 
-        public Parameter(ParameterName parameterName, double values)
+        public Parameter(ParameterName parameterName, List<double> values)
         {
             ParameterName = parameterName;
             Values = values;

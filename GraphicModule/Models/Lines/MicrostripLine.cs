@@ -12,28 +12,82 @@ namespace GraphicModule.Models
 
         public LinesStructure Type = LinesStructure.Microstrip;
 
-        public List<Parameter> _parameters = new List<Parameter>
+        private int _stripsNumber;
+
+        private double _stripThickness;
+
+        private double _substrateHeight;
+
+
+        private List<double> _stripWidth;
+
+        private List<double> _slots;
+
+        public MicrostripLine()
         {
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.StripsNumber,1),
-            new Parameter(ParameterName.StripsNumber,2),
-            new Parameter(ParameterName.StripsNumber,3),
-            new Parameter(ParameterName.StripsNumber,4),
-            new Parameter(ParameterName.StripsNumber,5),
-            new Parameter(ParameterName.StripsNumber,6),
-            new Parameter(ParameterName.StripsThickness,10),
-            new Parameter(ParameterName.SubstrateHeight,20)
-        };
+            InitComponent();
+            Structure = LinesStructure.Microstrip;
+        }
+
+        public override void Analyze(List<Parameter> inputParams)
+        {
+            DistributeParameters(inputParams);
+            var slots = _slots.ToArray();
+            FillCollections();
+        }
+        private void DistributeParameters(List<Parameter> parameters)
+        {
+            foreach (var item in parameters)
+            {
+                switch (item.ParameterName)
+                {
+                    case ParameterName.StripsNumber:
+                        var value = (int)item.Values.First();
+                        if (value < 1)
+                        {
+                            throw new ArgumentException("There must be at least 1 strip on the microstrip line");
+                        }
+                        if (value > 6)
+                        {
+                            throw new ArgumentException("There must be at least 1 strip on the microstrip line");
+                        }
+                        _stripsNumber = value;
+                        break;
+                    case ParameterName.StripsThickness:
+                        _stripThickness = item.Values.First();
+                        break;
+                    case ParameterName.SubstrateHeight:
+                        _substrateHeight = item.Values.First();
+                        break;
+                    case ParameterName.StripsWidth:
+                        _stripWidth = item.Values;
+                        break;
+                    case ParameterName.Slot:
+                        _slots = item.Values;
+                        break;
+                }
+            }
+        }
+
+        private void InitComponent()
+        {
+            Structure = LinesStructure.Microstrip;
+            _stripThickness = 0.059;
+            _substrateHeight = 15;
+            _stripWidth = new List<double> {2,4};
+            _slots = new List<double> { 1, 3 };
+            FillCollections();
+        }
+
+        private void FillCollections()
+        {
+            ParametersLine = new List<Parameter>
+            {
+                new Parameter(ParameterName.StripsThickness, new List<double>{_stripThickness}, Measure.Millimeter),
+                new Parameter(ParameterName.SubstrateHeight, new List<double>{_substrateHeight}, Measure.Millimeter),
+                new Parameter(ParameterName.StripsWidth, _stripWidth, Measure.Millimeter),
+                new Parameter(ParameterName.Slot, _slots, Measure.Millimeter)
+            };
+        }
     }
 }

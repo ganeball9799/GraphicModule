@@ -5,23 +5,25 @@ using GraphicModule.Models.Enums;
 namespace GraphicModule.Models
 {
     //Этот класс нужно внести в папку Lines
-    public class Geometry
+    public abstract class Geometry
     {
-        public LinesStructure Structure { get; set; }
+        public LinesStructure Structure;
 
-        public List<Parameter> Parameters;
+        public List<Parameter> ParametersLine;
 
-        public double this[ParameterName parameterName]
-        {
-            get => GetParam(parameterName).Values;
-            set
-            {
-                GetParam(parameterName).Values = value;
-            }
-        }
+        //public double this[ParameterName parameterName]
+        //{
+        //    get => GetParam(parameterName).Values;
+        //    set
+        //    {
+        //        GetParam(parameterName).Values = value;
+        //    }
+        //}
 
-        private Parameter GetParam(ParameterName parameterName) =>
-            Parameters.Find((_parameters) => _parameters.ParameterName.Equals(parameterName));
+        //private Parameter GetParam(ParameterName parameterName) =>
+        //    Parameters.Find((_parameters) => _parameters.ParameterName.Equals(parameterName));
+
+        public abstract void Analyze(List<Parameter> inputParameters);
 
     }
 }
