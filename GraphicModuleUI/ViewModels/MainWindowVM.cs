@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -62,6 +63,8 @@ namespace GraphicModuleUI.ViewModel
         private RelayCommand _applyChangesCommand;
 
         public List<TreeNode<LineVM>> LinesTreeView { get; set; }
+
+        public Canvas Canvas { get; set; }
 
         public bool IsSingle
         {

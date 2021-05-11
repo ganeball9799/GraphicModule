@@ -72,6 +72,7 @@ namespace GraphicModule.Models
         private void InitComponent()
         {
             Structure = LinesStructure.Microstrip;
+            _stripsNumber = 2;
             _stripThickness = 0.059;
             _substrateHeight = 15;
             _stripWidth = new List<double> {2,4};
@@ -83,6 +84,7 @@ namespace GraphicModule.Models
         {
             ParametersLine = new List<Parameter>
             {
+                new Parameter(ParameterName.StripsNumber,new List<double>{_stripsNumber}),
                 new Parameter(ParameterName.StripsThickness, new List<double>{_stripThickness}, Measure.Millimeter),
                 new Parameter(ParameterName.SubstrateHeight, new List<double>{_substrateHeight}, Measure.Millimeter),
                 new Parameter(ParameterName.StripsWidth, _stripWidth, Measure.Millimeter),

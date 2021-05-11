@@ -36,24 +36,24 @@ namespace GraphicModuleUI.ViewModels
             {
                 case ParameterName.SubstrateHeight:
                     Sign = "h";
-                    Measure = " (mm)";
+                    Measure = " (mm):  ";
                     break;
                     ;
                 case ParameterName.Slot:
                     Sign = "S";
-                    Measure = " (mm):";
+                    Measure = " (mm):  ";
                     break;
                 case ParameterName.StripsNumber:
                     Sign = "N";
-                    Measure = " :";
+                    Measure = " :  ";
                     break;
                 case ParameterName.StripsThickness:
                     Sign = "t";
-                    Measure = " (mm):";
+                    Measure = " (mm):  ";
                     break;
                 case ParameterName.StripsWidth:
                     Sign = "W";
-                    Measure = " (mm):";
+                    Measure = " (mm):  ";
                     break;
             }
         }
