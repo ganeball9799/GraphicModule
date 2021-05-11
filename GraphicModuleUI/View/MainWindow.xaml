@@ -98,13 +98,20 @@
                 BorderBrush="Black"
                 BorderThickness="2">
                 <Viewbox>
-                    <Canvas 
+                    <ItemsControl ItemsSource="{Binding SelectedLine.GraphicComponent}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Canvas 
                             x:Name="Canvas" 
                             Width="500" 
                             Height="500"
                             ClipToBounds="True"/>
-                            
-               </Viewbox>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+
+
+                </Viewbox>
             </Border>
         </StackPanel>
     </Grid>
