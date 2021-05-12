@@ -20,7 +20,7 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <TextBlock Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center"/>
-            <ListBox Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89"/>
+            <ListBox Name="ListBoxLines" ItemsSource="{Binding SelectedLine}" Height="89"/>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock Text="Parameters" FontWeight="Bold" TextAlignment="Center"/>

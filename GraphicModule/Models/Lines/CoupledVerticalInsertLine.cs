@@ -10,7 +10,7 @@ namespace GraphicModule.Models
     {
         public LinesStructure Type = LinesStructure.CoupledVerticalInsert;
 
-        public List<Parameter> _parameters = new List<Parameter>
+        private List<Parameter> _parameters = new List<Parameter>
         {
             new Parameter(ParameterName.StripsWidth, 30),
             new Parameter(ParameterName.Slot,20),
@@ -19,5 +19,7 @@ namespace GraphicModule.Models
             new Parameter(ParameterName.StripsThickness,10),
             new Parameter(ParameterName.SubstrateHeight,20)
         };
+
+
     }
 }

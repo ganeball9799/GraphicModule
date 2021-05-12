@@ -12,7 +12,7 @@ namespace GraphicModule.Models
 
         public LinesStructure Type = LinesStructure.Microstrip;
 
-        public List<Parameter> _parameters = new List<Parameter>
+        private List<Parameter> _parameters = new List<Parameter>
         {
             new Parameter(ParameterName.StripsWidth, 30),
             new Parameter(ParameterName.StripsWidth, 30),

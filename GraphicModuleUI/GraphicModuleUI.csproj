@@ -66,7 +66,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ViewModels\GeometryVM.cs" />
-    <Compile Include="ViewModels\ListItemView.cs" />
+    <Compile Include="ViewModels\LineVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

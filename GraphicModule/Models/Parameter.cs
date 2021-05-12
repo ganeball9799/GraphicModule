@@ -8,9 +8,8 @@ namespace GraphicModule.Models
 {
     public class Parameter
     {
-        // Зачем это сделано автосвойством?
-        // Разве не достаточно просто публичной переменной?
-        public ParameterName ParameterName;
+        
+        public ParameterName ParameterName { get; set; }
 
 
         private double _values;
@@ -20,7 +19,7 @@ namespace GraphicModule.Models
             get => _values;
             set
             {
-                if (value < 0 || value>50)
+                if (value < 0)
                 {
                     throw new ArgumentException($"Значение не может быть отрицательным");
                 }
