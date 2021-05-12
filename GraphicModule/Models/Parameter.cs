@@ -8,12 +8,13 @@ namespace GraphicModule.Models
 {
     public class Parameter
     {
-        
+        //TODO: set -> private set
         public ParameterName ParameterName { get; set; }
 
-
+        //TODO: _values -> _value
         private double _values;
 
+        //TODO: Values -> Value
         public double Values
         {
             get => _values;

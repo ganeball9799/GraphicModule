@@ -9,6 +9,7 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModuleUI.ViewModels
 {
+    //TODO: Удалить лишний класс
     public class GeometryVM:ViewModelBase
     {
         public LinesStructure Type;

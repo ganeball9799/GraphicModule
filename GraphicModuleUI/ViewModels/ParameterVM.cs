@@ -11,6 +11,7 @@ namespace GraphicModuleUI.ViewModels
     {
         private double _value;
 
+        //TODO: private set
         public string Sign { get; set; }
 
         public double Value
@@ -24,6 +25,8 @@ namespace GraphicModuleUI.ViewModels
         }
 
         public ParameterName ParameterName;
+
+        //TODO: От этого можно избавиться, т.к. ед-ца измеения нигде не фигурирует
         public string Measure { get; set; }
 
         public ParameterVM(ParameterName parameterName, double value)

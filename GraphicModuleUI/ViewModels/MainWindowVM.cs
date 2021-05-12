@@ -17,7 +17,7 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
-            
+            //TODO: –азобратьс€ с заполнением
             Lines = new ObservableCollection<LineVM>
             {
                 Lines.Add(new LineVM(new SingleCoplanarLine()),
@@ -41,16 +41,19 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// явл€етс€ ли лини€ одиночной.
         /// </summary>
+        /// //TODO: Ёто зачем?
         private bool _isSingle;
 
         /// <summary>
         /// явл€етс€ ли лини€ св€занной.
         /// </summary>
+        /// //TODO: Ёто зачем?
         private bool _isCoupled;
 
         /// <summary>
         /// явл€етс€ ли лини€ многрпроводной.
         /// </summary>
+        /// //TODO: Ёто зачем?
         private bool _isMultiple;
 
 
@@ -58,6 +61,7 @@ namespace GraphicModuleUI.ViewModel
 
         public List<LineVM> LinesTreeView { get; set; }
 
+        //TODO: Ёто зачем?
         public bool IsSingle
         {
             get => _isSingle;
@@ -71,6 +75,7 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// —войство св€занности линии.
         /// </summary>
+        /// //TODO: Ёто зачем?
         public bool IsCoupled
         {
             get => _isCoupled;
@@ -84,6 +89,7 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// —войство многопроводности линии.
         /// </summary>
+        /// //TODO: Ёто зачем?
         public bool IsMultiple
         {
             get => _isMultiple;
@@ -97,6 +103,7 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// —войство команды выбора линии в списке.
         /// </summary>
+        //TODO: ѕереименовать дл€ работы со списком
         public RelayCommand TreeViewSelectionCommand { get; private set; }
         
 
@@ -110,6 +117,7 @@ namespace GraphicModuleUI.ViewModel
             }
         }
 
+        //TODO: Ёто зачем?
         private void SelectStructure()
         {
             switch (SelectedLine.Type)
@@ -132,12 +140,12 @@ namespace GraphicModuleUI.ViewModel
             }
         }
 
-        
 
 
 
 
 
+        //TODO: Ёто зачем?
         private void ButtonDraw()
         {
 

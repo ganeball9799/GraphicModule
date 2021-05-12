@@ -9,12 +9,12 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
-    // А этот класс решил не наследовать от geometry?
     public class MicrostripLine: Geometry
     {
 
         public LinesStructure Type = LinesStructure.Microstrip;
 
+        //TODO: Убрать объявление - оно есть в базовом классе
         private List<Parameter> _parameters = new List<Parameter>
         {
             new Parameter(ParameterName.StripsWidth, 30),

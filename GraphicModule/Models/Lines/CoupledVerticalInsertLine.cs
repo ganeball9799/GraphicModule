@@ -13,6 +13,7 @@ namespace GraphicModule.Models
     {
         public LinesStructure Type = LinesStructure.CoupledVerticalInsert;
 
+        //TODO: Убрать объявление - оно есть в базовом классе
         private List<Parameter> _parameters = new List<Parameter>
         {
             new Parameter(ParameterName.StripsWidth, 30),
