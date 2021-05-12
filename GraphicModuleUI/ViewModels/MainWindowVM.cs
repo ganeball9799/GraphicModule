@@ -17,35 +17,90 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
-            Lines = new ObservableCollection<Geometry>();
-            Lines.Add(new MicrostripLine());
-            Lines.Add(new CoupledVerticalInsertLine());
-            Lines.Add(new SingleCoplanarLine());
-            IncrementNCommand = new RelayCommand(IncreaseByOne);
-            DecrementNCommand = new RelayCommand(DecreaseByOne);
-            ApplyChangesCommand = new RelayCommand(ButtonDraw);
             
-            Widths.Add(new ListItemView("W", 30, "mm"));
-            SubstrateHeight = new ParameterVM(ParameterName.SubstrateHeight,10);
-            StripsThickness = new ParameterVM(ParameterName.StripsThickness, 5);
+            Lines = new ObservableCollection<LineVM>
+            {
+                Lines.Add(new LineVM(new SingleCoplanarLine()),
+                Lines.Add(MicrostripLine),
+                new LineVM(new MicrostripLine())
+            };
+            
+            
+            
+            TreeViewSelectionCommand = new RelayCommand(SelectStructure);
+        }
+        public ObservableCollection<LineVM> Lines { get; set; }
+
+        private void FillTreeView()
+        {
+            Geometry g = (Geometry)Lines.GetEnumerator();
+            MessageBox.Show(g.Name);
         }
 
-        private int _stripsNumber = 1;
 
-        private ParameterVM _stripsThickness;
+        /// <summary>
+        /// явл€етс€ ли лини€ одиночной.
+        /// </summary>
+        private bool _isSingle;
 
-        private ParameterVM _substrateHeight;
+        /// <summary>
+        /// явл€етс€ ли лини€ св€занной.
+        /// </summary>
+        private bool _isCoupled;
 
-        private RelayCommand _applyChangesCommand;
+        /// <summary>
+        /// явл€етс€ ли лини€ многрпроводной.
+        /// </summary>
+        private bool _isMultiple;
 
-        private GeometryVM _selectedLine;
 
-        public ObservableCollection<ListItemView> Widths { get; set; } = new ObservableCollection<ListItemView>();
+        private LineVM _selectedLine;
 
-        public ObservableCollection<ListItemView> Slots { get; set; } = new ObservableCollection<ListItemView>();
-        public ObservableCollection<Geometry> Lines { get; set; }
+        public List<LineVM> LinesTreeView { get; set; }
 
-        public GeometryVM SelectedLine
+        public bool IsSingle
+        {
+            get => _isSingle;
+            set
+            {
+                _isSingle = value;
+                RaisePropertyChanged(nameof(IsSingle));
+            }
+        }
+
+        /// <summary>
+        /// —войство св€занности линии.
+        /// </summary>
+        public bool IsCoupled
+        {
+            get => _isCoupled;
+            set
+            {
+                _isCoupled = value;
+                RaisePropertyChanged(nameof(IsCoupled));
+            }
+        }
+
+        /// <summary>
+        /// —войство многопроводности линии.
+        /// </summary>
+        public bool IsMultiple
+        {
+            get => _isMultiple;
+            set
+            {
+                _isMultiple = value;
+                RaisePropertyChanged(nameof(IsMultiple));
+            }
+        }
+
+        /// <summary>
+        /// —войство команды выбора линии в списке.
+        /// </summary>
+        public RelayCommand TreeViewSelectionCommand { get; private set; }
+        
+
+        public LineVM SelectedLine
         {
             get => _selectedLine;
             set
@@ -55,83 +110,33 @@ namespace GraphicModuleUI.ViewModel
             }
         }
 
+        private void SelectStructure()
+        {
+            switch (SelectedLine.Type)
+            {
+                case LinesStructure.SingleCoplanar:
+                    IsSingle = true;
+                    IsCoupled = false;
+                    IsMultiple = false;
+                    break;
+                case LinesStructure.CoupledVerticalInsert:
+                    IsSingle = false;
+                    IsCoupled = true;
+                    IsMultiple = false;
+                    break;
+                case LinesStructure.Microstrip:
+                    IsSingle = false;
+                    IsCoupled = false;
+                    IsMultiple = true;
+                    break;
+            }
+        }
+
         
-        public int StripsNumber
-        {
-            get => _stripsNumber;
-            set
-            {
-                if (_stripsNumber > value)
-                {
-                    Widths.Remove(Widths.Last());
-                    Slots.Remove(Slots.Last());
-                    ListItemView.Decrement();
-                }
-                else
-                {
-                    Widths.Add(new ListItemView("W", 30, "mm"));
-                    Slots.Add(new ListItemView("S", 10, "mm"));
-                }
 
 
-                _stripsNumber = value;
-                RaisePropertyChanged(nameof(StripsNumber));
-            }
-        }
 
-        /// <summary>
-        /// —войство высоты подложки.
-        /// </summary>
-        public ParameterVM SubstrateHeight
-        {
-            get => _substrateHeight;
-            set
-            {
-                _substrateHeight = value;
-                RaisePropertyChanged(nameof(SubstrateHeight));
-            }
-        }
 
-        /// <summary>
-        /// —войство толщины полос.
-        /// </summary>
-        public ParameterVM StripsThickness
-        {
-            get => _stripsThickness;
-            set
-            {
-                _stripsThickness = value;
-                RaisePropertyChanged(nameof(StripsThickness));
-            }
-        }
-
-        /// <summary>
-        /// —войство команды увеличени€ N на единицу
-        /// </summary>
-        public RelayCommand IncrementNCommand { get; private set; }
-
-        private void IncreaseByOne()
-        {
-            if (StripsNumber<6)
-            {
-              StripsNumber++;  
-            }
-        }
-
-        /// <summary>
-        /// —войство команды уменьшени€ N на единицу
-        /// </summary>
-        public RelayCommand DecrementNCommand { get; private set; }
-
-        private void DecreaseByOne()
-        {
-            if (StripsNumber>1)
-            {
-                StripsNumber--;
-            }
-        }
-
-        public RelayCommand ApplyChangesCommand { get; private set; }
 
         private void ButtonDraw()
         {

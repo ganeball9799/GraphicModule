@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Windows;
 using GraphicModule.Models.Enums;
 
 
 namespace GraphicModule.Models
 {
     //Этот класс нужно внести в папку Lines
-    public abstract class Geometry
+    public abstract class Geometry:FrameworkElement
     {
         public LinesStructure Structure { get; set; }
 
@@ -14,10 +15,7 @@ namespace GraphicModule.Models
         public double this[ParameterName parameterName]
         {
             get => GetParam(parameterName).Values;
-            set
-            {
-                GetParam(parameterName).Values = value;
-            }
+            set=> GetParam(parameterName).Values = value;
         }
 
         private Parameter GetParam(ParameterName parameterName) =>

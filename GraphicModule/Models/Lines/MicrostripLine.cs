@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
@@ -35,5 +38,21 @@ namespace GraphicModule.Models
             new Parameter(ParameterName.StripsThickness,10),
             new Parameter(ParameterName.SubstrateHeight,20)
         };
+
+        public MicrostripLine()
+        {
+            Canvas.SetLeft(this, 80);
+            Canvas.SetTop(this, 40);
+        }
+
+        protected override void OnRender(DrawingContext dc)
+        {
+            base.OnRender(dc);
+            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+            mySolidColorBrush.Color = Colors.LimeGreen;
+            Pen myPen = new Pen(Brushes.Red, 10);
+            Rect myRect = new Rect(10, 10, _parameters[0].Values, 50);
+            dc.DrawRectangle(mySolidColorBrush, myPen, myRect);
+        }
     }
 }

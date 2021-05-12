@@ -40,7 +40,7 @@ namespace GraphicModuleUI.ViewModels
             {
                 case ParameterName.SubstrateHeight:
                     Sign = "h";
-                    Measure = " (mm)";
+                    Measure = " (mm):";
                     break;
                     ;
                 case ParameterName.Slot:

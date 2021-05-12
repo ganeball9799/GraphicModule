@@ -1,84 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using GalaSoft.MvvmLight;
+using GraphicModule.Models.Enums;
+using GraphicModuleUI.ViewModels;
 
 namespace GraphicModule.Models
 {
-    public class ListItemView: ViewModelBase
+    public class LineVM: ViewModelBase
     {
-        /// <summary>
-        /// Номер элемента списка ширин
-        /// </summary>
-        private static int _numberW = 1;
+        private Geometry _line;
 
-        /// <summary>
-        /// Номер элемента списка слотов
-        /// </summary>
-        private static int _numberS = 1;
+        public LinesStructure Type;
 
-        private double _itemValue;
+        public bool IsSelected;
 
-        /// <summary>
-        /// Имя элемента списка
-        /// </summary>
-        public string ItemName { get; set; }
+        public string Name { get; set; }
 
-        /// <summary>
-        /// Значение элемента списка
-        /// </summary>
-        public double ItemValue
+        public List<Geometry> GraphicComponent { get; set; }
+
+        public ObservableCollection<ParameterVM> Parameters { get; set; }
+
+        public LineVM(Geometry line)
         {
-            get => _itemValue;
-            set
+            _line = line;
+            IsSelected = line is MicrostripLine;
+            DefineLine(line);
+            InitGraphicComponent();
+            InitParameters();
+        }
+
+        private void InitParameters()
+        {
+            Parameters = new ObservableCollection<ParameterVM>();
+            foreach (var subCollection in _line.Parameters)
             {
-                _itemValue = value;
-                RaisePropertyChanged(nameof(ItemValue));
+                foreach (var item in subCollection.Values.ToString())
+                {
+                    var param = new ParameterVM(subCollection.ParameterName, item);
+                    if (subCollection.ParameterName != ParameterName.StripsNumber &&
+                        subCollection.ParameterName != ParameterName.SubstrateHeight
+                        && subCollection.ParameterName != ParameterName.StripsThickness)
+                    {
+                        var counter = 0;
+                        foreach (var elem in Parameters)
+                        {
+                            if (elem.ParameterName == param.ParameterName)
+                            {
+                                counter++;
+                            }  
+                        }
+
+                        param.Sign = $"{param.Sign}{counter}";
+                    }
+                    Parameters.Add(param);
+                }
+                
             }
         }
 
-        /// <summary>
-        /// Еденица измерения элемента списка
-        /// </summary>
-        public string ItemMeasure { get; set; }
-
-        public ListItemView(string name, double value, string measure)
+        private void DefineLine(Geometry line)
         {
-            ItemValue = value;
-            ItemMeasure = measure;
-            DefineItem(name);
+            switch (line.Structure)
+            {
+                case LinesStructure.SingleCoplanar:
+                    Name = "Coplanar";
+                    Type = LinesStructure.SingleCoplanar;
+                    break;
+                case LinesStructure.CoupledVerticalInsert:
+                    Name = "Vertical Insert";
+                    Type = LinesStructure.CoupledVerticalInsert;
+                    break;
+                case LinesStructure.Microstrip:
+                    Name = "Microstrip";
+                    Type = LinesStructure.Microstrip;
+                    break;
+
+            }
         }
 
-        /// <summary>
-        /// Метод определения элемента для отображения
-        /// </summary>
-        /// <param name="name">Имя элемента для отображения</param>
-        private void DefineItem(string name)
+        private void InitGraphicComponent()
         {
-            switch (name)
+            GraphicComponent = new List<Geometry>();
+            switch (_line.Structure)
             {
-                case "W":
-                    ItemName = name + _numberW.ToString() + " = ";
-                    _numberW++;
+                case LinesStructure.SingleCoplanar:
+                    GraphicComponent.Add(new SingleCoplanarLine());
                     break;
-                case "S":
-                    ItemName = name + _numberS.ToString() + " = ";
-                    _numberS++;
+                case LinesStructure.CoupledVerticalInsert:
+                    GraphicComponent.Add(new CoupledVerticalInsertLine());
                     break;
+                case LinesStructure.Microstrip:
+                    GraphicComponent.Add(new MicrostripLine());
+                    break;
+
                 default:
-                    ItemName = name + " = ";
-                    break;
+                    throw new ArgumentException($"{_line.Structure} is not found");
             }
-        }
-
-        /// <summary>
-        /// Уменьшить кол-во линий и слотов
-        /// </summary>
-        public static void Decrement()
-        {
-            _numberW--;
-            _numberS--;
         }
     }
 
