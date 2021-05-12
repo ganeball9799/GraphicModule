@@ -37,7 +37,7 @@ namespace GraphicModuleUI.ViewModels
 
             foreach (var subCollection in _geometry.Parameters)
             {
-                foreach (var item in subCollection.Values.ToString())
+                foreach (var item in subCollection.Value.ToString())
                 {
                     var param = new ParameterVM(subCollection.ParameterName, item);
                     if (subCollection.ParameterName != ParameterName.StripsNumber && subCollection.ParameterName != ParameterName.SubstrateHeight

@@ -14,30 +14,24 @@ namespace GraphicModule.Models
         public LinesStructure Type = LinesStructure.CoupledVerticalInsert;
 
         //TODO: Убрать объявление - оно есть в базовом классе
-        private List<Parameter> _parameters = new List<Parameter>
-        {
-            new Parameter(ParameterName.StripsWidth, 30),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.Slot,20),
-            new Parameter(ParameterName.StripsNumber,1),
-            new Parameter(ParameterName.StripsThickness,10),
-            new Parameter(ParameterName.SubstrateHeight,20)
-        };
+        
 
         public CoupledVerticalInsertLine()
         {
-            Canvas.SetLeft(this, 80);
-            Canvas.SetTop(this, 40);
+            InitComponent();
         }
-
-        protected override void OnRender(DrawingContext dc)
+        private void InitComponent()
         {
-            base.OnRender(dc);
-            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
-            mySolidColorBrush.Color = Colors.LimeGreen;
-            Pen myPen = new Pen(Brushes.Red, 10);
-            Rect myRect = new Rect(10, 10, 50, 50);
-            dc.DrawRectangle(mySolidColorBrush, myPen, myRect);
+            Structure = LinesStructure.CoupledVerticalInsert;
+            Parameters = new List<Parameter>
+            {
+                new Parameter(ParameterName.StripsWidth, 30),
+                new Parameter(ParameterName.Slot,20),
+                new Parameter(ParameterName.Slot,20),
+                new Parameter(ParameterName.StripsNumber,1),
+                new Parameter(ParameterName.StripsThickness,10),
+                new Parameter(ParameterName.SubstrateHeight,20)
+            };
         }
 
     }

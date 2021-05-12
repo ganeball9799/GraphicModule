@@ -20,8 +20,8 @@ namespace GraphicModuleUI.ViewModel
             //TODO: Разобраться с заполнением
             Lines = new ObservableCollection<LineVM>
             {
-                Lines.Add(new LineVM(new SingleCoplanarLine()),
-                Lines.Add(MicrostripLine),
+                new LineVM(new SingleCoplanarLine()),
+                new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine())
             };
             
@@ -101,7 +101,7 @@ namespace GraphicModuleUI.ViewModel
         }
 
         /// <summary>
-        /// Свойство команды выбора линии в списке.
+        /// Свойство команды .
         /// </summary>
         //TODO: Переименовать для работы со списком
         public RelayCommand TreeViewSelectionCommand { get; private set; }

@@ -6,21 +6,20 @@ using GraphicModule.Models.Enums;
 namespace GraphicModule.Models
 {
     //TODO: Убрать наследование от FrameworkElement
-    //Этот класс нужно внести в папку Lines
-    public abstract class Geometry:FrameworkElement
+    public abstract class Geometry
     {
         public LinesStructure Structure { get; set; }
 
         //TODO: Установить модификатор доступа protected
-        public List<Parameter> Parameters;
+        protected List<Parameter> Parameters;
 
         public double this[ParameterName parameterName]
         {
-            get => GetParam(parameterName).Values;
-            set=> GetParam(parameterName).Values = value;
+            get => GetParam(parameterName).Value;
+            set=> GetParam(parameterName).Value = value;
         }
 
-        private Parameter GetParam(ParameterName parameterName) =>
+        public Parameter GetParam(ParameterName parameterName) =>
             Parameters.Find((_parameters) => _parameters.ParameterName.Equals(parameterName));
 
     }

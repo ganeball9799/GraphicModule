@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Windows;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GraphicModule.Models.Enums;
 using GraphicModuleUI.ViewModels;
@@ -36,9 +38,9 @@ namespace GraphicModule.Models
         private void InitParameters()
         {
             Parameters = new ObservableCollection<ParameterVM>();
-            foreach (var subCollection in _line.Parameters)
+            foreach (var subCollection in )
             {
-                foreach (var item in subCollection.Values.ToString())
+                foreach (var item in subCollection.Value.ToString())
                 {
                     var param = new ParameterVM(subCollection.ParameterName, item);
                     if (subCollection.ParameterName != ParameterName.StripsNumber &&

@@ -12,12 +12,12 @@ namespace GraphicModule.Models
         public ParameterName ParameterName { get; set; }
 
         //TODO: _values -> _value
-        private double _values;
+        private double _value;
 
         //TODO: Values -> Value
-        public double Values
+        public double Value
         {
-            get => _values;
+            get => _value;
             set
             {
                 if (value < 0)
@@ -25,14 +25,14 @@ namespace GraphicModule.Models
                     throw new ArgumentException($"Значение не может быть отрицательным");
                 }
 
-                _values = value;
+                _value = value;
             }
         }
 
-        public Parameter(ParameterName parameterName, double values)
+        public Parameter(ParameterName parameterName, double value)
         {
             ParameterName = parameterName;
-            Values = values;
+            Value = value;
         }
     }
 }
