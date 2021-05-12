@@ -7,7 +7,7 @@ using GraphicModule.Models.Enums;
 namespace GraphicModule.Models
 {
     // А этот класс решил не наследовать от geometry?
-    public class MicrostripLine: Geometry
+    public class MicrostripLine : Geometry
     {
         private int _stripsNumber;
 
@@ -70,10 +70,11 @@ namespace GraphicModule.Models
             _stripsNumber = 2;
             _stripThickness = 0.059;
             _substrateHeight = 15;
-            _stripWidth = new List<double> {2,4};
+            _stripWidth = new List<double>{2,4};
             _slots = new List<double> { 1 };
             FillCollections();
         }
+
 
         private void FillCollections()
         {

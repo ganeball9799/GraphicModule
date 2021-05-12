@@ -16,6 +16,16 @@ namespace GraphicModuleUI.ViewModels
     {
         private Geometry _line;
 
+        public Geometry Line
+        {
+            get => _line;
+            set
+            {
+                _line = value;
+                RaisePropertyChanged(nameof(Line));
+            }
+        }
+
         public StructureType Type;
 
         public bool IsSelected { get; set; }
@@ -28,7 +38,7 @@ namespace GraphicModuleUI.ViewModels
 
         public LineVM(Geometry line)
         {
-            _line = line;
+            Line = line;
             IsSelected = line is MicrostripLine;
             DefineLine(line);
             InitGraphicComponent();
@@ -62,7 +72,7 @@ namespace GraphicModuleUI.ViewModels
         {
             GraphicComponent = new List<GeometryVM>();
 
-            switch (_line.Structure)
+            switch (Line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
                     GraphicComponent.Add(new SingleCoplanarGC());
@@ -77,7 +87,7 @@ namespace GraphicModuleUI.ViewModels
                     break;
 
                 default:
-                    throw new ArgumentException($"Graphic component for {_line.Structure} is not found");
+                    throw new ArgumentException($"Graphic component for {Line.Structure} is not found");
             };
         }
 
@@ -85,7 +95,7 @@ namespace GraphicModuleUI.ViewModels
         {
             ParametersLine = new ObservableCollection<ParameterVM>();
 
-            foreach (var subCollection in _line.ParametersLine)
+            foreach (var subCollection in Line.ParametersLine)
             {
                 foreach (var item in subCollection.Values)
                 {
