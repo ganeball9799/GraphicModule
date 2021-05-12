@@ -8,8 +8,6 @@ namespace GraphicModule.Models
 {
     public class SingleCoplanarLine : Geometry
     {
-        public LinesStructure Type = LinesStructure.SingleCoplanar;
-
         private double _stripThickness;
 
         private double _substrateHeight;
@@ -27,7 +25,6 @@ namespace GraphicModule.Models
         public override void Analyze(List<Parameter> inputParams)
         {
             DistributeParameters(inputParams);
-            var slots = _slots.ToArray();
             FillCollections();
         }
         private void DistributeParameters(List<Parameter> parameters)

@@ -9,9 +9,6 @@ namespace GraphicModule.Models
     // А этот класс решил не наследовать от geometry?
     public class MicrostripLine: Geometry
     {
-
-        public LinesStructure Type = LinesStructure.Microstrip;
-
         private int _stripsNumber;
 
         private double _stripThickness;
@@ -32,7 +29,6 @@ namespace GraphicModule.Models
         public override void Analyze(List<Parameter> inputParams)
         {
             DistributeParameters(inputParams);
-            var slots = _slots.ToArray();
             FillCollections();
         }
         private void DistributeParameters(List<Parameter> parameters)
@@ -71,12 +67,11 @@ namespace GraphicModule.Models
 
         private void InitComponent()
         {
-            Structure = LinesStructure.Microstrip;
             _stripsNumber = 2;
             _stripThickness = 0.059;
             _substrateHeight = 15;
             _stripWidth = new List<double> {2,4};
-            _slots = new List<double> { 1, 3 };
+            _slots = new List<double> { 1 };
             FillCollections();
         }
 

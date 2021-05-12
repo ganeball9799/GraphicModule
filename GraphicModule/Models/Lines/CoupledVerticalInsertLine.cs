@@ -8,8 +8,6 @@ namespace GraphicModule.Models
 {
     public class CoupledVerticalInsertLine : Geometry
     {
-        public LinesStructure Type = LinesStructure.CoupledVerticalInsert;
-
         private double _stripThickness;
 
         /// <summary>
@@ -35,7 +33,6 @@ namespace GraphicModule.Models
         public override void Analyze(List<Parameter> inputParams)
         {
             DistributeParameters(inputParams);
-            var slots = _slots.ToArray();
             FillCollections();
         }
         private void DistributeParameters(List<Parameter> parameters)
