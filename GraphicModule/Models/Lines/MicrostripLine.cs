@@ -73,11 +73,11 @@ namespace GraphicModule.Models
             Structure = LinesStructure.Microstrip;
             _parameters = new List<Parameter>
             {
-                new Parameter(ParameterName.StripWidth, 30,70),
-                new Parameter(ParameterName.StripWidth, 30,70),
                 new Parameter(ParameterName.Slot,20,40),
                 new Parameter(ParameterName.StripsNumber,2,6),
                 new Parameter(ParameterName.StripsThickness,10,70),
+                new Parameter(ParameterName.StripWidth, 30,70),
+                new Parameter(ParameterName.StripWidth, 30,70),
                 new Parameter(ParameterName.SubstrateHeight,10,70)
             };
             
@@ -90,7 +90,7 @@ namespace GraphicModule.Models
             var substrateHeight = GetParam(ParameterName.SubstrateHeight).Value;
             var stripsWidths = ParamsToArray(ParameterName.StripWidth);
             var slots = ParamsToArray(ParameterName.Slot);
-            ResetParams();
+            //ResetParams();
         }
 
         public override List<Parameter> ParametersLine()
@@ -104,15 +104,7 @@ namespace GraphicModule.Models
 
             var stripsNumber = GetParam(ParameterName.StripsNumber).Value;
 
-            var widths = _parameters.FindAll((item) => item.Number.Equals(ParameterName.StripWidth));
-
-            for (var i = 0; i < stripsNumber; i++)
-            {
-                var param = widths.Find((item) => item.ParameterName.Equals(i));
-                parameters.Add(param);
-            }
-
-            var slots = _parameters.FindAll((item) => item.ParameterName.Equals(ParameterName.Slot));
+            var widths = _parameters.FindAll((item) => item.ParameterName.Equals(ParameterName.StripWidth));
 
             for (var i = 0; i < stripsNumber; i++)
             {
@@ -120,7 +112,16 @@ namespace GraphicModule.Models
                 parameters.Add(param);
             }
 
+            var slots = _parameters.FindAll((item) => item.ParameterName.Equals(ParameterName.Slot));
+
+            for (var i = 0; i < stripsNumber; i++)
+            {
+                var param = slots.Find((item) => item.Number.Equals(i));
+                parameters.Add(param);
+            }
+            //ResetParams();
             return parameters;
+            
         }
 
         private void ResetParams()
@@ -129,6 +130,7 @@ namespace GraphicModule.Models
             _parameters.Add(GetParam(ParameterName.StripsThickness));
             _parameters = parameters;
         }
+
         private double[] ParamsToArray(ParameterName paramName)
         {
             var linesNumber = (int)Math.Round(GetParam(ParameterName.StripsNumber).Value);

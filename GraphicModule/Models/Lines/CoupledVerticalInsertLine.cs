@@ -24,10 +24,6 @@ namespace GraphicModule.Models
 
         public CoupledVerticalInsertLine()
         {
-            InitComponent();
-        }
-        private void InitComponent()
-        {
             Structure = LinesStructure.CoupledVerticalInsert;
             _parameters = new List<Parameter>
             {
@@ -38,19 +34,21 @@ namespace GraphicModule.Models
                 new Parameter(ParameterName.StripsThickness,10,70),
                 new Parameter(ParameterName.SubstrateHeight,20,70)
             };
-            
         }
-
+        
         public override List<Parameter> ParametersLine()
         {
             var parameters = new List<Parameter>
             {
+                GetParam(ParameterName.Slot),
+                GetParam(ParameterName.Slot,1),
                 GetParam(ParameterName.StripsNumber),
-                GetParam(ParameterName.SubstrateHeight),
                 GetParam(ParameterName.StripsThickness),
                 GetParam(ParameterName.StripWidth),
-                GetParam(ParameterName.Slot),
-                GetParam(ParameterName.Slot,1)
+                GetParam(ParameterName.SubstrateHeight),
+
+
+
             };
             return parameters;
         }

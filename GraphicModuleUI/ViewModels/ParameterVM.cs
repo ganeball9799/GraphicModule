@@ -82,10 +82,6 @@ namespace GraphicModuleUI.ViewModels
         {
             switch (parameterName)
             {
-                case ParameterName.SubstrateHeight:
-                    Sign = "h";
-                    break;
-                    ;
                 case ParameterName.Slot:
                     Sign = "S";
                     break;
@@ -98,6 +94,14 @@ namespace GraphicModuleUI.ViewModels
                 case ParameterName.StripWidth:
                     Sign = "W";
                     break;
+                case ParameterName.SubstrateHeight:
+                    Sign = "h";
+                    break;
+                    ;
+                
+                
+                
+                
             }
         }
     }
