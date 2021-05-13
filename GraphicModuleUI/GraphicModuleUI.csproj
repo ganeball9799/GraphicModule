@@ -65,7 +65,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModels\GeometryVM.cs" />
+    <Compile Include="ViewModels\Graphic\CoupledVerticalInsertGraphic.cs" />
+    <Compile Include="ViewModels\Graphic\MicrostripGraphic.cs" />
+    <Compile Include="ViewModels\Graphic\SingleCoplanarGraphic.cs" />
+    <Compile Include="ViewModels\Graphic\StructureImage.cs" />
     <Compile Include="ViewModels\LineVM.cs" />
     <Compile Include="ViewModels\MainWindowVM.cs" />
     <Page Include="View\MainWindow.xaml">
@@ -112,5 +115,6 @@
       <Name>GraphicModule</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

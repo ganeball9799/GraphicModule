@@ -3,10 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:VM="clr-namespace:GraphicModuleUI.ViewModels"
+        xmlns:vm="clr-namespace:GraphicModuleUI.ViewModels"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:command="http://www.galasoft.ch/mvvmlight"
         xmlns:viewModel="clr-namespace:GraphicModuleUI.ViewModel"
+        xmlns:models="clr-namespace:GraphicModule.Models"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Title="GraphicModule" Height="570" Width="920" >
@@ -20,24 +21,24 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <StackPanel Grid.Column="0">
-            <TextBlock Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center"/>
-            <ListBox x:Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89">
+        
+            <TextBlock Grid.Column="0" Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center"/>
+        <ListBox Grid.Column="0" VerticalAlignment="Top" Margin="0,20,0,0" x:Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="2">
-                            <TextBlock Text="{Binding }"/>
+                            <TextBlock Text="{Binding Name }"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
-        </StackPanel>
+        
 
 
         <StackPanel Grid.Column="1">
             <TextBlock Text="Parameters" FontWeight="Bold" TextAlignment="Center"/>
             <ScrollViewer>
-                <ItemsControl ItemsSource="{Binding SelectedLine.Parameters }">
+                <ItemsControl ItemsSource="{Binding SelectedLine.Parameters}">
                     <DataTemplate>
                         <Grid Margin="5" HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -45,8 +46,8 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                <TextBlock Text="{Binding IsSingle}"/>
                                 <TextBlock Text="{Binding }"/>
-                                <TextBlock Text="{Binding Measure}"/>
                             </StackPanel>
                             <TextBox Grid.Column="1" Width="70" Height="20"
                                      HorizontalAlignment="Left"

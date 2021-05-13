@@ -24,17 +24,16 @@ namespace GraphicModuleUI.ViewModels
             }
         }
 
-        public ParameterName ParameterName;
+        public ParameterName ParameterName { get; set; }
 
-        //TODO: От этого можно избавиться, т.к. ед-ца измеения нигде не фигурирует
-        public string Measure { get; set; }
+        public int Number { get; set; } = 0;
 
-        public ParameterVM(ParameterName parameterName, double value)
+        public ParameterVM(ParameterName parameterName, double value, int number)
         {
             Value = value;
             SetSign(parameterName);
             ParameterName = parameterName;
-            
+            Number = number;
         }
 
         private void SetSign(ParameterName parameterName)
@@ -43,24 +42,19 @@ namespace GraphicModuleUI.ViewModels
             {
                 case ParameterName.SubstrateHeight:
                     Sign = "h";
-                    Measure = " (mm):";
                     break;
                     ;
                 case ParameterName.Slot:
                     Sign = "S";
-                    Measure = " (mm):";
                     break;
                 case ParameterName.StripsNumber:
                     Sign = "N";
-                    Measure = " :";
                     break;
                 case ParameterName.StripsThickness:
                     Sign = "t";
-                    Measure = " (mm):";
                     break;
                 case ParameterName.StripsWidth:
                     Sign = "W";
-                    Measure = " (mm):";
                     break;
             }
         }

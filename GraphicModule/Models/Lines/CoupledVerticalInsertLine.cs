@@ -11,7 +11,6 @@ namespace GraphicModule.Models
 {
     public class CoupledVerticalInsertLine : Geometry
     {
-        public LinesStructure Type = LinesStructure.CoupledVerticalInsert;
 
         //TODO: Убрать объявление - оно есть в базовом классе
         

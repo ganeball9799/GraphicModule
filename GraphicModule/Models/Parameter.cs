@@ -29,10 +29,13 @@ namespace GraphicModule.Models
             }
         }
 
-        public Parameter(ParameterName parameterName, double value)
+        public int Number { get; set; } = 0;
+
+        public Parameter(ParameterName parameterName, double value, int number)
         {
             ParameterName = parameterName;
             Value = value;
+            Number = number;
         }
     }
 }

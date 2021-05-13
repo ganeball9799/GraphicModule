@@ -38,7 +38,7 @@ namespace GraphicModule.Models
         private void InitParameters()
         {
             Parameters = new ObservableCollection<ParameterVM>();
-            foreach (var subCollection in )
+            foreach (var subCollection in Parameters)
             {
                 foreach (var item in subCollection.Value.ToString())
                 {

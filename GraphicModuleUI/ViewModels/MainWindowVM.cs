@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Documents;
@@ -9,7 +10,6 @@ using GalaSoft.MvvmLight.Command;
 using GraphicModule.Models;
 using GraphicModule.Models.Enums;
 using GraphicModuleUI.ViewModels;
-using Geometry = GraphicModule.Models.Geometry;
 
 namespace GraphicModuleUI.ViewModel
 {
@@ -31,11 +31,6 @@ namespace GraphicModuleUI.ViewModel
         }
         public ObservableCollection<LineVM> Lines { get; set; }
 
-        private void FillTreeView()
-        {
-            Geometry g = (Geometry)Lines.GetEnumerator();
-            MessageBox.Show(g.Name);
-        }
 
 
         /// <summary>
@@ -101,7 +96,7 @@ namespace GraphicModuleUI.ViewModel
         }
 
         /// <summary>
-        /// Свойство команды .
+        /// Свойство команды для работы со списком.
         /// </summary>
         //TODO: Переименовать для работы со списком
         public RelayCommand TreeViewSelectionCommand { get; private set; }
@@ -154,5 +149,4 @@ namespace GraphicModuleUI.ViewModel
 
 
 
-    
 }

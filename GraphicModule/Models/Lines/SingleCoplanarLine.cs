@@ -11,7 +11,6 @@ namespace GraphicModule.Models
 {
     public class SingleCoplanarLine : Geometry
     {
-        public LinesStructure Type = LinesStructure.SingleCoplanar;
 
         //TODO: Убрать объявление - оно есть в базовом классе
         
