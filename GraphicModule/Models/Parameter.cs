@@ -8,13 +8,10 @@ namespace GraphicModule.Models
 {
     public class Parameter
     {
-        //TODO: set -> private set
-        public ParameterName ParameterName { get; set; }
+        public ParameterName ParameterName;
 
-        //TODO: _values -> _value
         private double _value;
 
-        //TODO: Values -> Value
         public double Value
         {
             get => _value;
@@ -29,12 +26,29 @@ namespace GraphicModule.Models
             }
         }
 
-        public int Number { get; set; } = 0;
+        private double _max;
 
-        public Parameter(ParameterName parameterName, double value, int number)
+        public double Max
+        {
+            get => _max;
+            set
+            {
+                var Result = Comparer<double>.Default.Compare(value, 0);
+                if (Result <0)
+                {
+                    throw new ArgumentException("Минимальное значение не может быть больше максимального");
+                }
+
+                _max = value;
+            }
+        }
+        public int Number { get;private set; }
+
+        public Parameter(ParameterName parameterName, double value,double max ,int number = 0)
         {
             ParameterName = parameterName;
             Value = value;
+            Max = max;
             Number = number;
         }
     }

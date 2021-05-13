@@ -17,16 +17,14 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
-            //TODO: Разобраться с заполнением
             Lines = new ObservableCollection<LineVM>
             {
                 new LineVM(new SingleCoplanarLine()),
                 new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine())
             };
-            
-            
-            
+
+
             TreeViewSelectionCommand = new RelayCommand(SelectStructure);
         }
         public ObservableCollection<LineVM> Lines { get; set; }
@@ -98,7 +96,6 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// Свойство команды для работы со списком.
         /// </summary>
-        //TODO: Переименовать для работы со списком
         public RelayCommand TreeViewSelectionCommand { get; private set; }
         
 
@@ -121,28 +118,23 @@ namespace GraphicModuleUI.ViewModel
                     IsSingle = true;
                     IsCoupled = false;
                     IsMultiple = false;
+                    _selectedLine.IsSelected = true;
                     break;
                 case LinesStructure.CoupledVerticalInsert:
                     IsSingle = false;
                     IsCoupled = true;
                     IsMultiple = false;
+                    _selectedLine.IsSelected = true;
+
                     break;
                 case LinesStructure.Microstrip:
                     IsSingle = false;
                     IsCoupled = false;
                     IsMultiple = true;
+                    _selectedLine.IsSelected = true;
+
                     break;
             }
-        }
-
-
-
-
-
-
-        //TODO: Это зачем?
-        private void ButtonDraw()
-        {
 
         }
     }

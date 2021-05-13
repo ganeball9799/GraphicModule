@@ -5,7 +5,7 @@
         Slot,
         StripsNumber,
         StripsThickness,
-        StripsWidth,
+        StripWidth,
         SubstrateHeight
     }
 }

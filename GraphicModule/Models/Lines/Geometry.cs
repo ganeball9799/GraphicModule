@@ -1,26 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using GraphicModule.Models;
 using GraphicModule.Models.Enums;
 
 
 namespace GraphicModule.Models
 {
-    //TODO: Убрать наследование от FrameworkElement
+    
     public abstract class Geometry
     {
-        public LinesStructure Structure { get; set; }
+        public LinesStructure Structure;
 
-        //TODO: Установить модификатор доступа protected
-        protected List<Parameter> Parameters;
+        protected List<Parameter> _parameters;
 
-        public double this[ParameterName parameterName]
-        {
-            get => GetParam(parameterName).Value;
-            set=> GetParam(parameterName).Value = value;
-        }
+        public abstract Parameter this[ParameterName parameterName,int number = 0] { get; set; }
 
-        public Parameter GetParam(ParameterName parameterName) =>
-            Parameters.Find((_parameters) => _parameters.ParameterName.Equals(parameterName));
+        public abstract List<Parameter> ParametersLine();
+
+        protected Parameter GetParam(ParameterName paramName, int paramNumber = 0) =>
+            _parameters.Find((parameter) => parameter.ParameterName.Equals(paramName) && parameter.Number.Equals(paramNumber));
+
+        public abstract void Doit();
+
 
     }
 }

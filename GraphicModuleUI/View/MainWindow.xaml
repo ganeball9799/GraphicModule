@@ -23,8 +23,11 @@
         
         
             <TextBlock Grid.Column="0" Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center"/>
-        <ListBox Grid.Column="0" VerticalAlignment="Top" Margin="0,20,0,0" x:Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89">
-                <ListBox.ItemTemplate>
+        <ListBox Grid.Column="0" VerticalAlignment="Top" IsSelected="{Binding Path=SelectedLine.IsSelected}" Margin="0,20,0,0" SelectionMode="Single" x:Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89">
+            <i:EventTrigger EventName="SelectedItemChange">
+                <i:InvokeCommandAction Command="{Binding SelectedLine}"></i:InvokeCommandAction>
+            </i:EventTrigger>
+            <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="2">
                             <TextBlock Text="{Binding Name }"/>
@@ -39,21 +42,22 @@
             <TextBlock Text="Parameters" FontWeight="Bold" TextAlignment="Center"/>
             <ScrollViewer>
                 <ItemsControl ItemsSource="{Binding SelectedLine.Parameters}">
-                    <DataTemplate>
-                        <Grid Margin="5" HorizontalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="0.4*"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                <TextBlock Text="{Binding IsSingle}"/>
-                                <TextBlock Text="{Binding }"/>
-                            </StackPanel>
-                            <TextBox Grid.Column="1" Width="70" Height="20"
-                                     HorizontalAlignment="Left"
-                                     Text="{Binding Value}"></TextBox>
-                        </Grid>
-                    </DataTemplate>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="5" HorizontalAlignment="Center">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.4*"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Sign}"/>
+                                </StackPanel>
+                                <TextBox Grid.Column="1" Width="70" Height="20"
+                                         HorizontalAlignment="Left"
+                                         Text="{Binding Value}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
 
@@ -181,12 +185,19 @@
                 BorderBrush="Black"
                 BorderThickness="2">
                 <Viewbox>
-                    <Canvas x:Name="Canvas" 
+                    <ItemsControl ItemsSource="{Binding SelectedLine.GraphicComponent}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                            <Canvas x:Name="Canvas" 
                             Width="500" 
                             Height="500"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        ClipToBounds="True"/>
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            ClipToBounds="True"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                    
                 </Viewbox>
             </Border>
         </StackPanel>

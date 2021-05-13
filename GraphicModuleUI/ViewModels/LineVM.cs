@@ -9,6 +9,7 @@ using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using GraphicModule.Models.Enums;
 using GraphicModuleUI.ViewModels;
+using GraphicModuleUI.ViewModels.Graphic;
 
 namespace GraphicModule.Models
 {
@@ -18,11 +19,11 @@ namespace GraphicModule.Models
 
         public LinesStructure Type;
 
-        public bool IsSelected;
+        public bool IsSelected { get; set; }
 
         public string Name { get; set; }
 
-        public List<Geometry> GraphicComponent { get; set; }
+        public List<StructureImage> GraphicComponent { get; set; }
 
         public ObservableCollection<ParameterVM> Parameters { get; set; }
 
@@ -35,33 +36,35 @@ namespace GraphicModule.Models
             InitParameters();
         }
 
+        private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
+        {
+            var parametersVM = new List<ParameterVM>();
+            foreach (var param in paramsList)
+            {
+                parametersVM.Add(new ParameterVM(param));
+            }
+
+            return parametersVM;
+        }
+
+        private List<Parameter> ParamsVMToParams(List<ParameterVM> parametersVMList)
+        {
+            var parameters = new List<Parameter>();
+
+            foreach (var parameterVM in parametersVMList)
+            {
+                parameters.Add(parameterVM.GetValid());
+            }
+
+            return parameters;
+        }
+
         private void InitParameters()
         {
-            Parameters = new ObservableCollection<ParameterVM>();
-            foreach (var subCollection in Parameters)
-            {
-                foreach (var item in subCollection.Value.ToString())
-                {
-                    var param = new ParameterVM(subCollection.ParameterName, item);
-                    if (subCollection.ParameterName != ParameterName.StripsNumber &&
-                        subCollection.ParameterName != ParameterName.SubstrateHeight
-                        && subCollection.ParameterName != ParameterName.StripsThickness)
-                    {
-                        var counter = 0;
-                        foreach (var elem in Parameters)
-                        {
-                            if (elem.ParameterName == param.ParameterName)
-                            {
-                                counter++;
-                            }  
-                        }
+            var physParams = _line.ParametersLine();
+            var physParamsVM = ParamsToParamsVM(physParams);
 
-                        param.Sign = $"{param.Sign}{counter}";
-                    }
-                    Parameters.Add(param);
-                }
-                
-            }
+            Parameters = new ObservableCollection<ParameterVM>(physParamsVM);
         }
 
         private void DefineLine(Geometry line)
@@ -86,17 +89,17 @@ namespace GraphicModule.Models
 
         private void InitGraphicComponent()
         {
-            GraphicComponent = new List<Geometry>();
+            GraphicComponent = new List<StructureImage>();
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarLine());
+                    GraphicComponent.Add(new SingleCoplanarGraphic());
                     break;
                 case LinesStructure.CoupledVerticalInsert:
-                    GraphicComponent.Add(new CoupledVerticalInsertLine());
+                    GraphicComponent.Add(new CoupledVerticalInsertGraphic());
                     break;
                 case LinesStructure.Microstrip:
-                    GraphicComponent.Add(new MicrostripLine());
+                    GraphicComponent.Add(new MicrostripGraphic());
                     break;
 
                 default:
