@@ -20,7 +20,7 @@ namespace GraphicModule.Models
         protected Parameter GetParam(ParameterName paramName, int paramNumber = 0) =>
             _parameters.Find((parameter) => parameter.ParameterName.Equals(paramName) && parameter.Number.Equals(paramNumber));
 
-        public abstract void Doit();
+       
 
 
     }

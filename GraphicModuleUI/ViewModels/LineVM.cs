@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.AccessControl;
 using System.Text;
 using System.Windows;
 using System.Windows.Media;
@@ -25,7 +26,17 @@ namespace GraphicModule.Models
 
         public List<StructureImage> GraphicComponent { get; set; }
 
-        public ObservableCollection<ParameterVM> Parameters { get; set; }
+        private ObservableCollection<ParameterVM> parameters;
+
+        public ObservableCollection<ParameterVM> Parameters
+        {
+            get => parameters;
+            set
+            {
+                parameters = value;
+                RaisePropertyChanged(nameof(Parameters));
+            }
+        }
 
         public LineVM(Geometry line)
         {
@@ -41,23 +52,23 @@ namespace GraphicModule.Models
             var parametersVM = new List<ParameterVM>();
             foreach (var param in paramsList)
             {
-                parametersVM.Add(new ParameterVM(param));
+                parametersVM.Add(new ParameterVM((Parameter)param.Clone(), OnParameterChanged));
             }
 
             return parametersVM;
         }
 
-        private List<Parameter> ParamsVMToParams(List<ParameterVM> parametersVMList)
+        private void OnParameterChanged(Parameter parameter)
         {
-            var parameters = new List<Parameter>();
+            _line[parameter.ParameterName] = parameter;
 
-            foreach (var parameterVM in parametersVMList)
+            if (parameter.ParameterName.Equals(ParameterName.StripsNumber))
             {
-                parameters.Add(parameterVM.GetValid());
+                InitParameters();
             }
-
-            return parameters;
         }
+
+
 
         private void InitParameters()
         {

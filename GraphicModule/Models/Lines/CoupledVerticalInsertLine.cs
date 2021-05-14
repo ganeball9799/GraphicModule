@@ -27,12 +27,11 @@ namespace GraphicModule.Models
             Structure = LinesStructure.CoupledVerticalInsert;
             _parameters = new List<Parameter>
             {
-                new Parameter(ParameterName.StripWidth, 30,70),
-                new Parameter(ParameterName.Slot,20,40),
-                new Parameter(ParameterName.Slot,20,40),
-                new Parameter(ParameterName.StripsNumber,1,6),
-                new Parameter(ParameterName.StripsThickness,10,70),
-                new Parameter(ParameterName.SubstrateHeight,20,70)
+                new Parameter(ParameterName.StripWidth, 70,1,20),
+                new Parameter(ParameterName.Slot,70,1,20),
+                new Parameter(ParameterName.Slot,70,1,20,1),
+                new Parameter(ParameterName.StripsThickness,70,1,20),
+                new Parameter(ParameterName.SubstrateHeight,70,1,20)
             };
         }
         
@@ -42,38 +41,11 @@ namespace GraphicModule.Models
             {
                 GetParam(ParameterName.Slot),
                 GetParam(ParameterName.Slot,1),
-                GetParam(ParameterName.StripsNumber),
                 GetParam(ParameterName.StripsThickness),
                 GetParam(ParameterName.StripWidth),
                 GetParam(ParameterName.SubstrateHeight),
-
-
-
             };
             return parameters;
-        }
-
-        private void ResetParams()
-        {
-            var parameters = new List<Parameter>
-            {
-                GetParam(ParameterName.StripsThickness),
-                GetParam(ParameterName.StripsThickness),
-                GetParam(ParameterName.SubstrateHeight),
-                GetParam(ParameterName.StripWidth),
-                GetParam(ParameterName.Slot),
-                GetParam(ParameterName.Slot, 1)
-                
-            };
-            _parameters = parameters;
-        }
-        public override void Doit()
-        {
-            var stripsThickness = GetParam(ParameterName.StripsThickness).Value;
-            var substrateHeight = GetParam(ParameterName.SubstrateHeight).Value;
-            var stripWidth = GetParam(ParameterName.StripWidth).Value;
-            var slots = new double[] { GetParam(ParameterName.Slot).Value, GetParam(ParameterName.Slot, 1).Value };
-            ResetParams();
         }
     }
 }

@@ -23,7 +23,10 @@
         
         
             <TextBlock Grid.Column="0" Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center"/>
-        <ListBox Grid.Column="0" VerticalAlignment="Top" IsSelected="{Binding Path=SelectedLine.IsSelected}" Margin="0,20,0,0" SelectionMode="Single" x:Name="ListBoxLines" ItemsSource="{Binding Lines}" Height="89">
+        <ListBox Grid.Column="0" VerticalAlignment="Top"
+                 IsSynchronizedWithCurrentItem="True"
+                 Margin="0,20,0,0" SelectionMode="Single" x:Name="ListBoxLines" 
+                 ItemsSource="{Binding Lines}" Height="89">
             <i:EventTrigger EventName="SelectedItemChange">
                 <i:InvokeCommandAction Command="{Binding SelectedLine}"></i:InvokeCommandAction>
             </i:EventTrigger>

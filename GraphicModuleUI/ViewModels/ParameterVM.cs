@@ -3,18 +3,50 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Windows.Input;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GraphicModule.Models;
 
 namespace GraphicModuleUI.ViewModels
 {
     public class ParameterVM : ViewModelBase
     {
+        /// <summary>
+        /// Регулярное выражения для числа типа double.
+        /// </summary>
+        private const string DoubleRegex = "^[0-9]*[.,]?[0-9]+$";
+
+        /// <summary>
+        /// Регулярное выражения для числа типа int.
+        /// </summary>
+        private const string IntRegex = "^[0-9]+$";
+
         private Parameter _parameter;
 
         private string _value;
 
-        
+        private RelayCommand<MouseWheelEventArgs> _mouseWheelCommand;
+
+        public RelayCommand<MouseWheelEventArgs> MouseWheelCommand
+        {
+            get
+            {
+                return _mouseWheelCommand ??
+                       (_mouseWheelCommand = new RelayCommand<MouseWheelEventArgs>(obj =>
+                       {
+                           var step = ParameterName.Equals(ParameterName.StripsNumber) ||
+                                      ParameterName.Equals(ParameterName.Slot) ? 1 : 0.01;
+                           var sign = Math.Sign(obj.Delta);
+                           var curValue = double.Parse(Value);
+
+                           obj.Handled = true;
+                           curValue += step * sign;
+                           Value = curValue.ToString();
+                       }));
+            }
+        }
 
         public string Sign { get; set; }
 
@@ -25,7 +57,7 @@ namespace GraphicModuleUI.ViewModels
             get => _value;
             set
             {
-                _value = value;
+                _value = DotToComma(value);
                 RaisePropertyChanged(nameof(Value));
             }
         }
@@ -40,6 +72,19 @@ namespace GraphicModuleUI.ViewModels
 
                 if (propertyName == nameof(Value))
                 {
+                    if (ParameterName.Equals(ParameterName.StripsNumber))
+                    {
+                        if (!Regex.IsMatch(Value, IntRegex))
+                        {
+                            return "Value must be an integer";
+                        }
+                    }
+
+                    if (!Regex.IsMatch(Value, DoubleRegex))
+                    {
+                        return "Value must be a fraction";
+                    }
+
                     try
                     {
                         _parameter.Value = double.Parse(Value);
@@ -60,7 +105,7 @@ namespace GraphicModuleUI.ViewModels
         {
             _parameter = parameter;
             Value = _parameter.Value.ToString();
-            SetSign(_parameter.ParameterName);
+            SetSign(_parameter.ParameterName,_parameter.Number);
             ParameterName = _parameter.ParameterName;
             Number = _parameter.Number.ToString();
         }
@@ -69,21 +114,43 @@ namespace GraphicModuleUI.ViewModels
         {
             _parameter = parameter;
             Value = _parameter.Value.ToString();
-            SetSign(_parameter.ParameterName);
+            SetSign(_parameter.ParameterName,_parameter.Number);
             ParameterName = _parameter.ParameterName;
             Number = _parameter.Number.ToString();
             PropertyChanged += (s, e) =>
             {
-                action?.Invoke(_parameter);
+                if (s is ParameterVM p && e.PropertyName == nameof(p.Value) && p[e.PropertyName] is null)
+                {
+                    action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min , double.Parse(p.Value)));
+                }
             };
         }
 
-        private void SetSign(ParameterName parameterName)
+        private string DotToComma(string str)
         {
+            var replaced = str.Replace('.', ',').Trim();
+
+            var first = replaced[0];
+
+            if (replaced.Length > 1)
+            {
+                if (first.Equals('0') && !replaced[1].Equals(','))
+                {
+                    replaced = replaced.Substring(1);
+                }
+            }
+
+
+            return replaced;
+        }
+
+        private void SetSign(ParameterName parameterName, int num)
+        {
+            var numElm = num.ToString();
             switch (parameterName)
             {
                 case ParameterName.Slot:
-                    Sign = "S";
+                    Sign = $"S{numElm}";
                     break;
                 case ParameterName.StripsNumber:
                     Sign = "N";
@@ -92,16 +159,11 @@ namespace GraphicModuleUI.ViewModels
                     Sign = "t";
                     break;
                 case ParameterName.StripWidth:
-                    Sign = "W";
+                    Sign = $"S{numElm }";
                     break;
                 case ParameterName.SubstrateHeight:
                     Sign = "h";
                     break;
-                    ;
-                
-                
-                
-                
             }
         }
     }
