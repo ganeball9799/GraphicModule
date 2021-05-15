@@ -9,7 +9,7 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
-    public class MicrostripLine: Geometry
+    public class MicrostripLine : Geometry
     {
         public override Parameter this[ParameterName paramName, int number = 0]
         {
@@ -42,7 +42,7 @@ namespace GraphicModule.Models
                         for (var i = 0; i <= diff; i++)
                         {
                             var lastWidth = _parameters.FindLast((elem) => elem.ParameterName.Equals(ParameterName.StripWidth));
-                            var newWidth = new Parameter(ParameterName.StripWidth, 100,1, 20, lastWidth.Number + 1);
+                            var newWidth = new Parameter(ParameterName.StripWidth, 100, 1, 20, lastWidth.Number + 1);
                             var index = _parameters.IndexOf(lastWidth);
                             _parameters.Insert(index + 1, newWidth);
                         }
@@ -74,7 +74,7 @@ namespace GraphicModule.Models
                 new Parameter(ParameterName.Slot,70,1,20)
             };
         }
-        
+
         public override List<Parameter> ParametersLine()
         {
             var parameters = new List<Parameter>
@@ -96,13 +96,13 @@ namespace GraphicModule.Models
 
             var slots = _parameters.FindAll((item) => item.ParameterName.Equals(ParameterName.Slot));
 
-            for (var i = 0; i < stripsNumber; i++)
+            for (var i = 0; i < stripsNumber - 1; i++)
             {
                 var param = slots.Find((item) => item.Number.Equals(i));
                 parameters.Add(param);
             }
             return parameters;
-            
+
         }
     }
 }

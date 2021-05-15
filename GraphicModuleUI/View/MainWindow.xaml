@@ -27,9 +27,6 @@
                  IsSynchronizedWithCurrentItem="True"
                  Margin="0,20,0,0" SelectionMode="Single" x:Name="ListBoxLines" 
                  ItemsSource="{Binding Lines}" Height="89">
-            <i:EventTrigger EventName="SelectedItemChange">
-                <i:InvokeCommandAction Command="{Binding SelectedLine}"></i:InvokeCommandAction>
-            </i:EventTrigger>
             <ListBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="2">
@@ -43,7 +40,7 @@
 
         <StackPanel Grid.Column="1">
             <TextBlock Text="Parameters" FontWeight="Bold" TextAlignment="Center"/>
-            <ScrollViewer>
+            <ScrollViewer Height="200">
                 <ItemsControl ItemsSource="{Binding SelectedLine.Parameters}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

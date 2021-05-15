@@ -17,9 +17,11 @@ namespace GraphicModuleUI.ViewModel
     {
         public MainWindowVM()
         {
+            SelectedLine = new LineVM(new SingleCoplanarLine());
+
             Lines = new ObservableCollection<LineVM>
             {
-                new LineVM(new SingleCoplanarLine()),
+                SelectedLine,
                 new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine())
             };

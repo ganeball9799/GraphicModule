@@ -95,9 +95,9 @@ namespace GraphicModule.Models
         public Parameter(ParameterName parameterName, double max, double min, double value, int number = 0)
         {
             ParameterName = parameterName;
-            Value = value;
             Max = max;
             Min = min;
+            Value = value;
             
             Number = number;
         }

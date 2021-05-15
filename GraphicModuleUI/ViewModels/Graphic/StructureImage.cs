@@ -28,7 +28,7 @@ namespace GraphicModuleUI.ViewModels
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
             mySolidColorBrush.Color = Colors.Pink;
             Pen myPen = new Pen(Brushes.Black, 10);
-            Rect myRect = new Rect(_parameters[0].Value, 10, 50, 50);
+            Rect myRect = new Rect(3, 10, 50, 50);
             dc.DrawRectangle(mySolidColorBrush, myPen, myRect);
         }
     }
