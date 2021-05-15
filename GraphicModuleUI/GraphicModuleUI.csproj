@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\ItemToListConverter.cs" />
     <Compile Include="ViewModels\Graphic\CoupledVerticalInsertGraphic.cs" />
     <Compile Include="ViewModels\Graphic\MicrostripGraphic.cs" />
     <Compile Include="ViewModels\Graphic\SingleCoplanarGraphic.cs" />

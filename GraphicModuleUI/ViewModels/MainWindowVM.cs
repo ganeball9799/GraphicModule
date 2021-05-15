@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using GalaSoft.MvvmLight;
@@ -25,6 +26,7 @@ namespace GraphicModuleUI.ViewModel
                 new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine())
             };
+
         }
         public ObservableCollection<LineVM> Lines { get; set; }
 
@@ -34,7 +36,8 @@ namespace GraphicModuleUI.ViewModel
         /// Свойство команды для работы со списком.
         /// </summary>
         public RelayCommand TreeViewSelectionCommand { get; private set; }
-        
+
+
 
         public LineVM SelectedLine
         {

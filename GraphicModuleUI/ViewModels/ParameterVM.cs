@@ -146,23 +146,24 @@ namespace GraphicModuleUI.ViewModels
 
         private void SetSign(ParameterName parameterName, int num)
         {
+            var numberEl = num + 1;
             var numElm = num.ToString();
             switch (parameterName)
             {
                 case ParameterName.Slot:
-                    Sign = $"S{numElm}";
+                    Sign = $"S{numberEl}";
                     break;
                 case ParameterName.StripsNumber:
-                    Sign = "N";
+                    Sign = $"N  ";
                     break;
                 case ParameterName.StripsThickness:
-                    Sign = "t";
+                    Sign = $"t ";
                     break;
                 case ParameterName.StripWidth:
-                    Sign = $"S{numElm }";
+                    Sign = $"W{numberEl}";
                     break;
                 case ParameterName.SubstrateHeight:
-                    Sign = "h";
+                    Sign = $"h ";
                     break;
             }
         }

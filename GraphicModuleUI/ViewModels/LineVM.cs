@@ -104,7 +104,7 @@ namespace GraphicModule.Models
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarGraphic());
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine()));
                     break;
                 case LinesStructure.CoupledVerticalInsert:
                     GraphicComponent.Add(new CoupledVerticalInsertGraphic());
