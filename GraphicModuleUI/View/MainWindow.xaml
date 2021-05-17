@@ -16,12 +16,6 @@
         <viewModel:MainWindowVM/>
     </Window.DataContext>
     <Window.Resources>
-        <local:ItemToListConverter x:Key="ItemToListConverter"/>
-        <Style TargetType="ListBox">
-            <Style.Triggers>
-                <DataTrigger Binding="{Binding ElementName=listBoxLines, Path=SelectedItem}"></DataTrigger>
-            </Style.Triggers>
-        </Style>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -36,7 +30,7 @@
         <TextBlock Grid.Column="0" Grid.Row="0" Text="Transmision Lines" FontWeight="Bold" TextAlignment="Center" Margin="0,0,0,0"/>
         <ListBox Grid.Column="0" Grid.Row="0" VerticalAlignment="Top"
                  IsSynchronizedWithCurrentItem="True"
-                 Margin="0,20,0,0" SelectionMode="Single" x:Name="listBoxLines"
+                 Margin="0,20,0,0" SelectionMode="Single"
                  ItemsSource="{Binding Lines}"
                  SelectedItem="{Binding SelectedLine , UpdateSourceTrigger=PropertyChanged}"
                  Height="89">

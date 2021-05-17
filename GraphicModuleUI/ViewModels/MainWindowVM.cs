@@ -35,7 +35,6 @@ namespace GraphicModuleUI.ViewModel
         /// <summary>
         /// Свойство команды для работы со списком.
         /// </summary>
-        public RelayCommand TreeViewSelectionCommand { get; private set; }
 
         private ObservableCollection<ParameterVM> _parameters;
         public ObservableCollection<ParameterVM> Parameters
