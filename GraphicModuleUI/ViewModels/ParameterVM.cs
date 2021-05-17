@@ -36,8 +36,7 @@ namespace GraphicModuleUI.ViewModels
                 return _mouseWheelCommand ??
                        (_mouseWheelCommand = new RelayCommand<MouseWheelEventArgs>(obj =>
                        {
-                           var step = ParameterName.Equals(ParameterName.StripsNumber) ||
-                                      ParameterName.Equals(ParameterName.Slot) ? 1 : 0.01;
+                           var step = ParameterName.Equals(ParameterName.StripsNumber) ? 1 : 0.1;
                            var sign = Math.Sign(obj.Delta);
                            var curValue = double.Parse(Value);
 

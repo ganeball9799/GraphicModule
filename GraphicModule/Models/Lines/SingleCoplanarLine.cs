@@ -25,10 +25,10 @@ namespace GraphicModule.Models
             Structure = LinesStructure.SingleCoplanar;
             _parameters = new List<Parameter>
             {
-                new Parameter(ParameterName.StripWidth,70,1,30),
                 new Parameter(ParameterName.Slot,70,1,20),
-                new Parameter(ParameterName.Slot,70,10,20,1),
+                new Parameter(ParameterName.Slot,70,1,30,1),
                 new Parameter(ParameterName.StripsThickness,70,1,20),
+                new Parameter(ParameterName.StripWidth,70,1,30),
                 new Parameter(ParameterName.SubstrateHeight,70,1,20),
             };
         }
