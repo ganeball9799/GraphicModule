@@ -1,42 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.AccessControl;
-using System.Text;
-using System.Windows;
-using System.Windows.Media;
-using GalaSoft.MvvmLight;
-using GraphicModule.Models.Enums;
-using GraphicModuleUI.ViewModels;
-using GraphicModuleUI.ViewModels.Graphic;
-
-namespace GraphicModule.Models
+﻿namespace GraphicModule.Models
 {
-    public class LineVM: ViewModelBase
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+
+    using GalaSoft.MvvmLight;
+
+    using GraphicModule.Models.Enums;
+
+    using GraphicModuleUI.ViewModels;
+    using GraphicModuleUI.ViewModels.Graphic;
+
+    public class LineVM : ViewModelBase
     {
-        private Geometry _line;
-
-        public LinesStructure Type;
-
-        public bool IsSelected { get; set; }
-
-        public string Name { get; set; }
-
-        public List<StructureImage> GraphicComponent { get; set; }
+        private readonly Geometry _line;
 
         private ObservableCollection<ParameterVM> parameters;
 
-        public ObservableCollection<ParameterVM> Parameters
-        {
-            get => parameters;
-            set
-            {
-                parameters = value;
-                RaisePropertyChanged(nameof(Parameters));
-            }
-        }
+        public LinesStructure Type;
 
         public LineVM(Geometry line)
         {
@@ -47,35 +28,20 @@ namespace GraphicModule.Models
             InitParameters();
         }
 
-        private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
+        public ObservableCollection<StructureImage> GraphicComponent { get; set; }
+
+        public bool IsSelected { get; set; }
+
+        public string Name { get; set; }
+
+        public ObservableCollection<ParameterVM> Parameters
         {
-            var parametersVM = new List<ParameterVM>();
-            foreach (var param in paramsList)
+            get => parameters;
+            set
             {
-                parametersVM.Add(new ParameterVM((Parameter)param.Clone(), OnParameterChanged));
+                parameters = value;
+                RaisePropertyChanged(nameof(Parameters));
             }
-
-            return parametersVM;
-        }
-
-        private void OnParameterChanged(Parameter parameter)
-        {
-            _line[parameter.ParameterName] = parameter;
-
-            if (parameter.ParameterName.Equals(ParameterName.StripsNumber))
-            {
-                InitParameters();
-            }
-        }
-
-
-
-        private void InitParameters()
-        {
-            var physParams = _line.ParametersLine();
-            var physParamsVM = ParamsToParamsVM(physParams);
-
-            Parameters = new ObservableCollection<ParameterVM>(physParamsVM);
         }
 
         private void DefineLine(Geometry line)
@@ -94,13 +60,63 @@ namespace GraphicModule.Models
                     Name = "Microstrip";
                     Type = LinesStructure.Microstrip;
                     break;
-
             }
         }
 
         private void InitGraphicComponent()
         {
-            GraphicComponent = new List<StructureImage>();
+            GraphicComponent = new ObservableCollection<StructureImage>();
+            GraphicComponent.Clear();
+            switch (_line.Structure)
+            {
+                case LinesStructure.SingleCoplanar:
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine()));
+                    break;
+                case LinesStructure.CoupledVerticalInsert:
+                    GraphicComponent.Add(new CoupledVerticalInsertGraphic());
+                    break;
+                case LinesStructure.Microstrip:
+                    GraphicComponent.Add(new MicrostripGraphic());
+                    break;
+
+                default:
+                    throw new ArgumentException($"{_line.Structure} is not found");
+            }
+        }
+
+
+        private void InitParameters()
+        {
+            var physParams = _line.ParametersLine();
+            var physParamsVM = ParamsToParamsVM(physParams);
+
+            Parameters = new ObservableCollection<ParameterVM>(physParamsVM);
+        }
+
+        private void OnParameterChanged(Parameter parameter)
+        {
+            _line[parameter.ParameterName] = parameter;
+
+            if (parameter.ParameterName.Equals(ParameterName.StripsNumber))
+                InitParameters();
+        }
+
+        private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
+        {
+            var parametersVM = new List<ParameterVM>();
+            foreach (var param in paramsList)
+            {
+                var parametrVm = new ParameterVM((Parameter)param.Clone(), OnParameterChanged, Render);
+
+                parametersVM.Add(parametrVm);
+            }
+
+            return parametersVM;
+        }
+
+        private void Render(ParameterVM parameter)
+        {
+            GraphicComponent.Clear();
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
@@ -118,6 +134,4 @@ namespace GraphicModule.Models
             }
         }
     }
-
-
 }

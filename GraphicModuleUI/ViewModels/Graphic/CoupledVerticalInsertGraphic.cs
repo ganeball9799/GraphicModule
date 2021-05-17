@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-
-namespace GraphicModuleUI.ViewModels.Graphic
+﻿namespace GraphicModuleUI.ViewModels.Graphic
 {
-    public class CoupledVerticalInsertGraphic:StructureImage
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Media;
+
+    public class CoupledVerticalInsertGraphic : StructureImage
     {
         public CoupledVerticalInsertGraphic()
         {
@@ -19,10 +15,10 @@ namespace GraphicModuleUI.ViewModels.Graphic
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
-            SolidColorBrush mySolidColorBrush = new SolidColorBrush();
+            var mySolidColorBrush = new SolidColorBrush();
             mySolidColorBrush.Color = Colors.Pink;
-            Pen myPen = new Pen(Brushes.Black, 10);
-            Rect myRect = new Rect(10, 10, 50, 50);
+            var myPen = new Pen(Brushes.Black, 10);
+            var myRect = new Rect(10, 10, 50, 50);
             dc.DrawRectangle(mySolidColorBrush, myPen, myRect);
         }
     }

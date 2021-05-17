@@ -23,13 +23,13 @@ namespace GraphicModule.Models
                     {
                         var diff = param.Value - value.Value;
 
-                        for (var i = 0; i <= diff; i++)
+                        for (var i = 0; i < diff; i++)
                         {
                             var lastWidth = _parameters.FindLast((elem) => elem.ParameterName.Equals(ParameterName.StripWidth));
                             _parameters.Remove(lastWidth);
                         }
 
-                        for (var i = 0; i <= diff - 1; i++)
+                        for (var i = 0; i < diff - 1; i++)
                         {
                             var lastSlot = _parameters.FindLast((elem) => elem.ParameterName.Equals(ParameterName.Slot));
                             _parameters.Remove(lastSlot);
@@ -50,7 +50,11 @@ namespace GraphicModule.Models
                         for (var i = 0; i <= diff - 1; i++)
                         {
                             var lastSlot = _parameters.FindLast((elem) => elem.ParameterName.Equals(ParameterName.Slot));
-                            var newSlot = new Parameter(ParameterName.Slot, 100, 1, 20, lastSlot.Number + 1);
+
+
+                            var newSlotNumber = lastSlot != null ? lastSlot.Number + 1 : 0;
+                            var newSlot = new Parameter(ParameterName.Slot, 100, 1, 20, newSlotNumber);
+
                             var index = _parameters.IndexOf(lastSlot);
                             _parameters.Insert(index + 1, newSlot);
                         }

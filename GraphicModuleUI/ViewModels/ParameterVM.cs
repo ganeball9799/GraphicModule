@@ -52,6 +52,10 @@ namespace GraphicModuleUI.ViewModels
 
         public string Number { get; private set; }
 
+        public delegate void ValueHandler(ParameterVM parameter);
+
+        public event ValueHandler UpdateValue;
+
         public string Value
         {
             get => _value;
@@ -59,6 +63,7 @@ namespace GraphicModuleUI.ViewModels
             {
                 _value = DotToComma(value);
                 RaisePropertyChanged(nameof(Value));
+                UpdateValue?.Invoke(this);
             }
         }
 
@@ -124,6 +129,11 @@ namespace GraphicModuleUI.ViewModels
                     action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min , double.Parse(p.Value)));
                 }
             };
+        }
+
+        public ParameterVM(Parameter parameter, Action<Parameter> action, ValueHandler Render) : this(parameter, action)
+        {
+            UpdateValue += Render;
         }
 
         private string DotToComma(string str)
