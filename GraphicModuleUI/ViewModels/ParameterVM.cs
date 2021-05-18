@@ -102,9 +102,7 @@ namespace GraphicModuleUI.ViewModels
                 return error;
             }
         }
-
-        public Parameter GetValid() => _parameter;
-
+        
         public ParameterVM(Parameter parameter)
         {
             _parameter = parameter;

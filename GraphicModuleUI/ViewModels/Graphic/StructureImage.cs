@@ -3,12 +3,10 @@
     using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Media;
-
     using GraphicModule.Models;
 
-    public class StructureImage : FrameworkElement
+    public class StructureImage : UIElement
     {
-        private List<Parameter> _parameters;
 
         protected override void OnRender(DrawingContext dc)
         {

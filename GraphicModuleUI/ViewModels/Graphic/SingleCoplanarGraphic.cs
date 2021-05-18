@@ -7,25 +7,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using GraphicModule.Models;
+using Geometry = GraphicModule.Models.Geometry;
 
 namespace GraphicModuleUI.ViewModels.Graphic
 {
     public class SingleCoplanarGraphic : StructureImage
     {
-        private List<Parameter> _parameters;
-
-        private double h;
-
-        private double t;
-
-        private double S1;
-
-        private double S2;
-
-        private double W1;
-
-        public SingleCoplanarGraphic(List<Parameter> parameters)
+        private List<Parameter> _parameters = new List<Parameter>();
+        private Geometry _geometry;
+         
+        public SingleCoplanarGraphic(List<Parameter> parameters, Geometry geometry)
         {
+            _geometry = geometry;
             _parameters = parameters;
             Canvas.SetLeft(this, 100);
             Canvas.SetTop(this, 200);
@@ -33,13 +26,21 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
         protected override void OnRender(DrawingContext dc)
         {
-            S1 = _parameters[0].Value*2;
-            S2 = _parameters[1].Value * 2;
-            t = _parameters[2].Value * 2;
-            W1 = _parameters[3].Value * 2;
-            h = _parameters[4].Value * 2;
+            double h;
+            double t;
+            double S1;
+            double W1;
+            double S2;
+            S1 = _geometry[ParameterName.Slot, 0].Value*2;
+            //S1 = _parameters[0].Value * 2;
+            //S2 = _parameters[1].Value * 2;
+            S2 = _geometry[ParameterName.Slot, 1].Value;
+            W1 = _parameters[2].Value * 2;
+            t = _parameters[3].Value * 2;
+            h = _geometry[ParameterName.SubstrateHeight].Value*2;
+            //h = _parameters[4].Value * 2;
             var g = 20;
-            var S = _parameters[1].Value.ToString();
+            var S = _parameters[1].ParameterName+ _parameters[1].Number.ToString();
 
             base.OnRender(dc);
 
@@ -50,10 +51,10 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 new Typeface("verdana"), 10, Brushes.Red);
 
             var myPen = new Pen(Brushes.Black, 0.1);
-            var substrateRect = new Rect(0, 0, W1+S1+S2+g*2, h);
-            var widthRect = new Rect(g+S1, -t,W1,t);
+            var substrateRect = new Rect(0, 0, W1+ S1 + S2+g*2, h);
+            var widthRect = new Rect(g+ S1, -t,W1,t);
             var groundLeft = new Rect(0, -t,g,t);
-            var groundRight = new Rect(g+S1+S2+W1,-t,g,t);
+            var groundRight = new Rect(g+ S1 + S2+W1,-t,g,t);
 
             dc.DrawRectangle(wSolidBrush, myPen, widthRect);
             dc.DrawRectangle(hSolidBrsh, myPen, substrateRect);

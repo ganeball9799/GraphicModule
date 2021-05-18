@@ -32,20 +32,18 @@ namespace GraphicModuleUI.ViewModel
 
         private LineVM _selectedLine;
 
-        /// <summary>
-        /// Свойство команды для работы со списком.
-        /// </summary>
+        
 
-        private ObservableCollection<ParameterVM> _parameters;
-        public ObservableCollection<ParameterVM> Parameters
-        {
-            get => _parameters;
-            set
-            {
-                _parameters = value;
-                RaisePropertyChanged(nameof(Parameters));
-            }
-        }
+        //private ObservableCollection<ParameterVM> _parameters;
+        //public ObservableCollection<ParameterVM> Parameters
+        //{
+        //    get => _parameters;
+        //    set
+        //    {
+        //        _parameters = value;
+        //        RaisePropertyChanged(nameof(Parameters));
+        //    }
+        //}
 
         public LineVM SelectedLine
         {
@@ -53,7 +51,7 @@ namespace GraphicModuleUI.ViewModel
             set
             {
                 _selectedLine = value;
-                Parameters = SelectedLine.Parameters;
+                //Parameters = SelectedLine.Parameters;
                 RaisePropertyChanged(nameof(SelectedLine));
             }
         }

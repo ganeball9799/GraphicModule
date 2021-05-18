@@ -16,7 +16,7 @@
         {
             base.OnRender(dc);
             var mySolidColorBrush = new SolidColorBrush();
-            mySolidColorBrush.Color = Colors.Pink;
+            mySolidColorBrush.Color = Colors.GreenYellow;
             var myPen = new Pen(Brushes.Black, 10);
             var myRect = new Rect(10, 10, 50, 50);
             dc.DrawRectangle(mySolidColorBrush, myPen, myRect);

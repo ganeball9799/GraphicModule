@@ -20,7 +20,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
         {
             base.OnRender(dc);
             SolidColorBrush mySolidColorBrush = new SolidColorBrush();
-            mySolidColorBrush.Color = Colors.Pink;
+            mySolidColorBrush.Color = Colors.Red;
             Pen myPen = new Pen(Brushes.Black, 10);
             Rect myRect = new Rect(10, 10, 50, 50);
             dc.DrawRectangle(mySolidColorBrush, myPen, myRect);

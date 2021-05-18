@@ -3,11 +3,8 @@
     using System;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
-
     using GalaSoft.MvvmLight;
-
     using GraphicModule.Models.Enums;
-
     using GraphicModuleUI.ViewModels;
     using GraphicModuleUI.ViewModels.Graphic;
 
@@ -22,7 +19,6 @@
         public LineVM(Geometry line)
         {
             _line = line;
-            IsSelected = line is MicrostripLine;
             DefineLine(line);
             InitGraphicComponent();
             InitParameters();
@@ -30,9 +26,8 @@
 
         public ObservableCollection<StructureImage> GraphicComponent { get; set; }
 
-        public bool IsSelected { get; set; }
 
-        public string Name { get; set; }
+        public string Name { get;private set; }
 
         public ObservableCollection<ParameterVM> Parameters
         {
@@ -66,11 +61,10 @@
         private void InitGraphicComponent()
         {
             GraphicComponent = new ObservableCollection<StructureImage>();
-            GraphicComponent.Clear();
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine()));
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine(),_line));
                     break;
                 case LinesStructure.CoupledVerticalInsert:
                     GraphicComponent.Add(new CoupledVerticalInsertGraphic());
@@ -98,7 +92,9 @@
             _line[parameter.ParameterName] = parameter;
 
             if (parameter.ParameterName.Equals(ParameterName.StripsNumber))
+            {
                 InitParameters();
+            }
         }
 
         private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
@@ -120,7 +116,7 @@
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine()));
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine(),_line));
                     break;
                 case LinesStructure.CoupledVerticalInsert:
                     GraphicComponent.Add(new CoupledVerticalInsertGraphic());
