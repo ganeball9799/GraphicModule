@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -23,8 +24,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
         protected override void OnRender(DrawingContext dc)
         {
             double n = _geometry[ParameterName.StripsNumber].Value;
-            double h = _geometry[ParameterName.SubstrateHeight].Value;
-            double t = _geometry[ParameterName.StripsThickness].Value;
+            double h = _geometry[ParameterName.SubstrateHeight].Value * 2;
+            double t = _geometry[ParameterName.StripsThickness].Value * 2;
             var gap = 10;
             var groung = 5;
 
@@ -35,18 +36,73 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var widthBrush = new SolidColorBrush(Colors.Blue);
             var substrateHeightBrush = new SolidColorBrush(Colors.LimeGreen);
             var groundBrush = new SolidColorBrush(Colors.Black);
-            //var text = new FormattedText(S, CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-            //    new Typeface("verdana"), 10, Brushes.Red);
+            var penLine = new Pen(Brushes.Red, 1);
+
+
+            var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textWidth2 = new FormattedText("W2", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textWidth3 = new FormattedText("W3", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textWidth4 = new FormattedText("W4", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textWidth5 = new FormattedText("W5", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textWidth6 = new FormattedText("W6", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textS1 = new FormattedText("S1", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textS2 = new FormattedText("S2", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textS3 = new FormattedText("S3", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textS4 = new FormattedText("S4", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textS5 = new FormattedText("S5", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textSubstrateHeight = new FormattedText("h", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+            var textThickness = new FormattedText("t", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
+                new Typeface("verdana"), 8, Brushes.Red);
+
+
             if (n == 1)
             {
                 double W1 = _geometry[ParameterName.StripWidth, 0].Value;
                 var substrateRect = new Rect(70, 0, W1 + gap * 2, h);
                 var groundRect = new Rect(70, h, W1 + gap * 2, groung);
+                var widthRect = new Rect(gap + 70, -t, W1, t);
 
-                var widthRect = new Rect(gap+50, -t, W1, t);
+
                 dc.DrawRectangle(widthBrush, myPen, widthRect);
                 dc.DrawRectangle(substrateHeightBrush, myPen, substrateRect);
                 dc.DrawRectangle(groundBrush, myPen, groundRect);
+
+                //Линии для разделения ширин и зазоров
+                dc.DrawLine(penLine, new Point(gap + 70, -t), new Point(gap + 70, -(t + 20)));
+                dc.DrawLine(penLine, new Point(gap + 70 + W1, -t), new Point(gap + 70 + W1, -(t + 20)));
+                dc.DrawLine(penLine, new Point(gap + 65, -(t + 15)), new Point(gap + 75 + W1, -(t + 15)));
+
+
+
+                //Линии для разделения толщин линии и подложки
+                dc.DrawLine(penLine, new Point(70, 0), new Point(40, 0));
+                dc.DrawLine(penLine, new Point(70, h), new Point(40, h));
+                dc.DrawLine(penLine, new Point(70+gap, -t), new Point(40, -t));
+                dc.DrawLine(penLine, new Point(45, -t-5), new Point(45, h+5));
+
+
+
+
+
+                //Подписи зазоров и ширин линий
+                dc.DrawText(textWidth, new Point(gap + 70 + W1 / 2 - 3, -(t + 25)));
+
+                //Подписи толщин линии и подложки
+                dc.DrawText(textSubstrateHeight, new Point(35, h / 2 - 3));
+                dc.DrawText(textThickness, new Point(35, -(t / 2) - 3));
+
             }
             else if (n == 2)
             {
@@ -65,7 +121,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             }
             else if (n == 3)
             {
-                double W1 = _geometry[ParameterName.StripWidth, 0].Value*0.9;
+                double W1 = _geometry[ParameterName.StripWidth, 0].Value * 0.9;
                 double W2 = _geometry[ParameterName.StripWidth, 1].Value * 0.9;
                 double W3 = _geometry[ParameterName.StripWidth, 2].Value * 0.9;
                 double S1 = _geometry[ParameterName.Slot, 0].Value * 0.9;

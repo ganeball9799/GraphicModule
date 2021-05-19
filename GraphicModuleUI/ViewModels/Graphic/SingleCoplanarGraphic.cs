@@ -96,11 +96,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
         protected override void OnRender(DrawingContext dc)
         {
-            //double h;
-            //double t;
-            //double S1;
-            //double W1;
-            //double S2;
             S2 = _geometry[ParameterName.Slot, 1].Value*2;
             S1 = _geometry[ParameterName.Slot, 0].Value*2;
             W1 = _geometry[ParameterName.StripWidth].Value * 2;
@@ -144,26 +139,16 @@ namespace GraphicModuleUI.ViewModels.Graphic
             dc.DrawText(textS1, new Point(g + S1/2-3, -(t + 25)));
             dc.DrawText(textS2, new Point(g + S1 + S2/2 + W1-3, -(t + 25)));
 
-
-
             //Линии для разделения толщины подложки
             dc.DrawLine(penLine, new Point(0, 0), new Point(-20, 0));
             dc.DrawLine(penLine, new Point(0, h), new Point(-20, h));
             dc.DrawText(textSubstrateHeight, new Point(-30, h/2-3));
-
-            //dc.DrawText(text, new Point(50, 50));
 
             //Линии для разделения толщины линии
             dc.DrawLine(penLine, new Point(0, -t), new Point(-25, -t));
             dc.DrawLine(penLine, new Point(-20, -5-t), new Point(-20, h+5));
             dc.DrawText(textThickness, new Point(-30, -t / 2 -5));
 
-
-            //dc.DrawText(text, new Point(50, 50));
-
-
-
-            //dc.DrawText(text, new Point(50, 50));
         }
     }
 }
