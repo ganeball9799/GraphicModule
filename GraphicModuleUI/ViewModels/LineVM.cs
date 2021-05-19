@@ -64,13 +64,13 @@
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine(),_line));
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line));
                     break;
                 case LinesStructure.CoupledVerticalInsert:
-                    GraphicComponent.Add(new CoupledVerticalInsertGraphic());
+                    GraphicComponent.Add(new CoupledVerticalInsertGraphic(_line));
                     break;
                 case LinesStructure.Microstrip:
-                    GraphicComponent.Add(new MicrostripGraphic());
+                    GraphicComponent.Add(new MicrostripGraphic(_line));
                     break;
 
                 default:
@@ -116,13 +116,13 @@
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
-                    GraphicComponent.Add(new SingleCoplanarGraphic(_line.ParametersLine(),_line));
+                    GraphicComponent.Add(new SingleCoplanarGraphic(_line));
                     break;
                 case LinesStructure.CoupledVerticalInsert:
-                    GraphicComponent.Add(new CoupledVerticalInsertGraphic());
+                    GraphicComponent.Add(new CoupledVerticalInsertGraphic(_line));
                     break;
                 case LinesStructure.Microstrip:
-                    GraphicComponent.Add(new MicrostripGraphic());
+                    GraphicComponent.Add(new MicrostripGraphic(_line));
                     break;
 
                 default:
