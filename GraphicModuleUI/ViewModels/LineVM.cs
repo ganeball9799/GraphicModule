@@ -89,7 +89,7 @@
 
         private void OnParameterChanged(Parameter parameter)
         {
-            _line[parameter.ParameterName] = parameter;
+            _line[parameter.ParameterName, parameter.Number] = parameter;
 
             if (parameter.ParameterName.Equals(ParameterName.StripsNumber))
             {

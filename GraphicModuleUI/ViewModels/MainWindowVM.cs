@@ -32,8 +32,6 @@ namespace GraphicModuleUI.ViewModel
 
         private LineVM _selectedLine;
 
-        
-
         //private ObservableCollection<ParameterVM> _parameters;
         //public ObservableCollection<ParameterVM> Parameters
         //{

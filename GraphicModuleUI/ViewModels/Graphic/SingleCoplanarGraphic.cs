@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -31,10 +29,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
             double S1;
             double W1;
             double S2;
+            S2 = _geometry[ParameterName.Slot, 1].Value*2;
             S1 = _geometry[ParameterName.Slot, 0].Value*2;
             //S1 = _parameters[0].Value * 2;
             //S2 = _parameters[1].Value * 2;
-            S2 = _geometry[ParameterName.Slot, 1].Value;
+            
             W1 = _parameters[2].Value * 2;
             t = _parameters[3].Value * 2;
             h = _geometry[ParameterName.SubstrateHeight].Value*2;
@@ -61,8 +60,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
             dc.DrawRectangle(groundBrush, myPen, groundLeft);
             dc.DrawRectangle(groundBrush, myPen, groundRight);
             dc.DrawText(text, new Point(50, 50));
-
-
         }
     }
 }

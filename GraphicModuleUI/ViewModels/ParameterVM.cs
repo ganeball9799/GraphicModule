@@ -103,16 +103,16 @@ namespace GraphicModuleUI.ViewModels
             }
         }
         
-        public ParameterVM(Parameter parameter)
-        {
-            _parameter = parameter;
-            Value = _parameter.Value.ToString();
-            SetSign(_parameter.ParameterName,_parameter.Number);
-            ParameterName = _parameter.ParameterName;
-            Number = _parameter.Number.ToString();
-        }
+        //public ParameterVM(Parameter parameter)
+        //{
+        //    _parameter = parameter;
+        //    Value = _parameter.Value.ToString();
+        //    SetSign(_parameter.ParameterName,_parameter.Number);
+        //    ParameterName = _parameter.ParameterName;
+        //    Number = _parameter.Number.ToString();
+        //}
 
-        public ParameterVM(Parameter parameter, Action<Parameter> action)
+        public ParameterVM(Parameter parameter, Action<Parameter> action, ValueHandler Render) /*: this(parameter, action)*/
         {
             _parameter = parameter;
             Value = _parameter.Value.ToString();
@@ -123,16 +123,20 @@ namespace GraphicModuleUI.ViewModels
             {
                 if (s is ParameterVM p && e.PropertyName == nameof(p.Value) && p[e.PropertyName] is null)
                 {
-                    action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min , double.Parse(p.Value)));
+                    action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min , double.Parse(p.Value),_parameter.Number));
                 }
             };
-        }
-
-        public ParameterVM(Parameter parameter, Action<Parameter> action, ValueHandler Render) : this(parameter, action)
-        {
             UpdateValue += Render;
         }
 
+        //public ParameterVM(Parameter parameter, Action<Parameter> action, ValueHandler Render) : this(parameter, action)
+        //{
+        //    UpdateValue += Render;
+        //}
+
+        /// <summary>
+        /// Метод замены точки на запятую
+        /// </summary>
         private string DotToComma(string str)
         {
             var replaced = str.Replace('.', ',').Trim();
@@ -146,11 +150,12 @@ namespace GraphicModuleUI.ViewModels
                     replaced = replaced.Substring(1);
                 }
             }
-
-
             return replaced;
         }
 
+        /// <summary>
+        /// Метод установки подписей полей
+        /// </summary>
         private void SetSign(ParameterName parameterName, int num)
         {
             var numberEl = num + 1;
