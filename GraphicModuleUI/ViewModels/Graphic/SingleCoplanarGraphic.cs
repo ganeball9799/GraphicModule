@@ -101,7 +101,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             W1 = _geometry[ParameterName.StripWidth].Value;
             t = _geometry[ParameterName.StripsThickness].Value;
             h = _geometry[ParameterName.SubstrateHeight].Value;
-            var g = 20;
+            var g = 10;
             base.OnRender(dc);
             var wSolidBrush = new SolidColorBrush(Colors.Blue);
             var hSolidBrsh = new SolidColorBrush(Colors.LimeGreen);
