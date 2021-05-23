@@ -109,43 +109,43 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 double W1 = _geometry[ParameterName.StripWidth, 0].Value;
                 double W2 = _geometry[ParameterName.StripWidth, 1].Value;
                 double S1 = _geometry[ParameterName.Slot, 0].Value;
-                var substrateRect = new Rect(40, 0, W1 + S1 + W2 + gap * 2, h);
-                var groundRect = new Rect(40, h, W1 + S1 + W2 + gap * 2, groung);
+                var substrateRect = new Rect(-(gap+W1), 0, W1 + S1 + W2 + gap * 2, h);
+                var groundRect = new Rect(-(gap + W1), h, W1 + S1 + W2 + gap * 2, groung);
 
-                var widthRect = new Rect(gap + 40, -t, W1, t);
-                var widthRect2 = new Rect(gap + 40 + W1 + S1, -t, W2, t);
+                var widthRect = new Rect(-W1, -t, W1, t);
+                var widthRect2 = new Rect(S1, -t, W2, t);
                 dc.DrawRectangle(widthBrush, myPen, widthRect);
                 dc.DrawRectangle(widthBrush, myPen, widthRect2);
                 dc.DrawRectangle(substrateHeightBrush, myPen, substrateRect);
                 dc.DrawRectangle(groundBrush, myPen, groundRect);
 
                 //Линии для разделения ширин и зазоров
-                dc.DrawLine(penLine, new Point(gap + 40, -t), new Point(gap + 40, -(t + 20)));
-                dc.DrawLine(penLine, new Point(gap + 40 + W1, -t), new Point(gap + 40 + W1, -(t + 20)));
-                dc.DrawLine(penLine, new Point(gap + 40 + W1+S1, -t), new Point(gap + 40 + W1+S1, -(t + 20)));
-                dc.DrawLine(penLine, new Point(gap + 40 + W1 + S1+W2, -t), new Point(gap + 40 + W1 + S1+W2, -(t + 20)));
+                dc.DrawLine(penLine, new Point(-W1, -t), new Point(-W1, -(t + 20)));
+                dc.DrawLine(penLine, new Point(0, -t), new Point(0, -(t + 20)));
+                dc.DrawLine(penLine, new Point(S1, -t), new Point(S1, -(t + 20)));
+                dc.DrawLine(penLine, new Point(S1+W2, -t), new Point(S1+W2, -(t + 20)));
                 
-                dc.DrawLine(penLine, new Point(gap + 35, -(t + 15)), new Point(gap + 45 + W1+S1+W2, -(t + 15)));
+                dc.DrawLine(penLine, new Point(-(gap + W1), -(t + 15)), new Point(S1 + W2+10, -(t + 15)));
 
 
 
                 //Линии для разделения толщин линии и подложки
-                dc.DrawLine(penLine, new Point(15, 0), new Point(40, 0));
-                dc.DrawLine(penLine, new Point(15, h), new Point(40, h));
-                dc.DrawLine(penLine, new Point(15 , -t), new Point(40+gap, -t));
-                dc.DrawLine(penLine, new Point(20, -t - 5), new Point(20, h + 5));
+                dc.DrawLine(penLine, new Point(-( W1+25), 0), new Point(-(gap + W1), 0));
+                dc.DrawLine(penLine, new Point(-(W1 + 25), h), new Point(-(gap + W1), h));
+                dc.DrawLine(penLine, new Point(-(W1 + 25), -t), new Point(-W1, -t));
+                dc.DrawLine(penLine, new Point(-(W1 + 20), -t - 5), new Point(-(W1 + 20), h + 5));
 
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(gap + 40 + W1 / 2 - 2, -(t + 25)));
-                dc.DrawText(textWidth2, new Point(gap + 40 + W1+S1+W2 / 2 - 2, -(t + 25)));
-                dc.DrawText(textS1, new Point(gap + 40 + W1 + S1/ 2 - 2, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1/2+2), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(S1+W1/2-2, -(t + 25)));
+                dc.DrawText(textS1, new Point(S1/2-2, -(t + 25)));
 
 
 
                 //Подписи толщин линии и подложки
-                dc.DrawText(textSubstrateHeight, new Point(10, h / 2 - 3));
-                dc.DrawText(textThickness, new Point(10, -(t / 2) - 3));
+                dc.DrawText(textSubstrateHeight, new Point(-(W1 + 35), h / 2 - 3));
+                dc.DrawText(textThickness, new Point(-(W1 + 35), -(t / 2) - 3));
             }
             else if (n == 3)
             {
