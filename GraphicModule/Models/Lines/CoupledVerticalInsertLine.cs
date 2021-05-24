@@ -28,10 +28,9 @@ namespace GraphicModule.Models
             _parameters = new List<Parameter>
             {
                 new Parameter(ParameterName.StripWidth, 70,1,20),
-                new Parameter(ParameterName.Slot,70,1,20),
-                new Parameter(ParameterName.Slot,70,1,20,1),
                 new Parameter(ParameterName.StripsThickness,70,1,20),
-                new Parameter(ParameterName.SubstrateHeight,70,1,20)
+                new Parameter(ParameterName.SubstrateHeight,70,1,20),
+                new Parameter(ParameterName.SubstrateHeight,70,1,20,1)
             };
         }
         
@@ -39,11 +38,10 @@ namespace GraphicModule.Models
         {
             var parameters = new List<Parameter>
             {
-                GetParam(ParameterName.Slot),
-                GetParam(ParameterName.Slot,1),
                 GetParam(ParameterName.StripsThickness),
                 GetParam(ParameterName.StripWidth),
                 GetParam(ParameterName.SubstrateHeight),
+                GetParam(ParameterName.SubstrateHeight,1),
             };
             return parameters;
         }

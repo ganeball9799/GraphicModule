@@ -175,7 +175,7 @@ namespace GraphicModuleUI.ViewModels
                     Sign = $"W{numberEl}";
                     break;
                 case ParameterName.SubstrateHeight:
-                    Sign = $"h ";
+                    Sign = $"h{numberEl}";
                     break;
             }
         }
