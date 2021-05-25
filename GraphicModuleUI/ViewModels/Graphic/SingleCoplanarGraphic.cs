@@ -103,9 +103,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
             h = _geometry[ParameterName.SubstrateHeight].Value;
             var g = 10;
             base.OnRender(dc);
-            var wSolidBrush = new SolidColorBrush(Colors.Blue);
-            var hSolidBrsh = new SolidColorBrush(Colors.LimeGreen);
+
+            var wSolidBrush = new SolidColorBrush(Color.FromRgb(80, 80, 230));
+            var hSolidBrsh = new SolidColorBrush(Color.FromRgb(140, 137, 126));
             var groundBrush = new SolidColorBrush(Colors.Black);
+
             var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
                 new Typeface("verdana"), 8, Brushes.Red);
             var textS1 = new FormattedText("S1", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,

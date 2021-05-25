@@ -30,9 +30,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
             var myPen = new Pen(Brushes.Black, 0.1);
 
-            var widthBrush = new SolidColorBrush(Colors.RoyalBlue);
-            var substrateHeightBrush1 = new SolidColorBrush(Colors.SaddleBrown);
-            var substrateHeightBrush2 = new SolidColorBrush(Colors.Gray);
+            var widthBrush = new SolidColorBrush(Color.FromRgb(80,80,230));
+            var substrateHeightBrush1 = new SolidColorBrush(Color.FromRgb(140,137,126));
+            var substrateHeightBrush2 = new SolidColorBrush(Color.FromRgb(204, 173, 96));
             var penLine = new Pen(Brushes.Red, 0.5);
 
             var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,

@@ -34,8 +34,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
             var myPen = new Pen(Brushes.Black, 0.1);
 
-            var widthBrush = new SolidColorBrush(Colors.RoyalBlue);
-            var substrateHeightBrush = new SolidColorBrush(Colors.SaddleBrown);
+            var widthBrush = new SolidColorBrush(Color.FromRgb(80, 80, 230));
+            var substrateHeightBrush = new SolidColorBrush(Color.FromRgb(140, 137, 126));
             var groundBrush = new SolidColorBrush(Colors.Black);
             var penLine = new Pen(Brushes.Red, 0.5);
 
