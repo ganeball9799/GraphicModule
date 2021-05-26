@@ -28,8 +28,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var S1 = _geometry[ParameterName.Slot, 0].Value;
             var S2 = _geometry[ParameterName.Slot, 1].Value;
             var W1 = _geometry[ParameterName.StripWidth].Value;
-            var t = _geometry[ParameterName.StripsThickness].Value /2* zoomt;
-            var h = _geometry[ParameterName.SubstrateHeight].Value/2*zoomh;
+            var t = _geometry[ParameterName.StripsThickness].Value*1.5* (zoomt/3);
+            var h = _geometry[ParameterName.SubstrateHeight].Value*1.5*(zoomh/3);
             var g = 10;
             base.OnRender(dc);
 

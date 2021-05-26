@@ -37,14 +37,15 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var penLine = new Pen(Brushes.Red, 0.5);
             var groundBrush = new SolidColorBrush(Colors.Black);
 
+            var textSize = 6;
             var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textSubstrateHeight = new FormattedText("h1", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textSubstrateHeight2 = new FormattedText("h2", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textThickness = new FormattedText("t", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
 
 
             var substrateRect1 = new Rect(-(gap+t+h2/2), 0, t*2+h2+gap * 2, h1);
