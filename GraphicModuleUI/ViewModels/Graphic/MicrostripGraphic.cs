@@ -38,34 +38,34 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var substrateHeightBrush = new SolidColorBrush(Color.FromRgb(140, 137, 126));
             var groundBrush = new SolidColorBrush(Colors.Black);
             var penLine = new Pen(Brushes.Red, 0.5);
-
+            var textSize = 6;
 
             var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textWidth2 = new FormattedText("W2", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textWidth3 = new FormattedText("W3", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textWidth4 = new FormattedText("W4", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textWidth5 = new FormattedText("W5", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textWidth6 = new FormattedText("W6", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textS1 = new FormattedText("S1", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textS2 = new FormattedText("S2", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textS3 = new FormattedText("S3", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textS4 = new FormattedText("S4", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textS5 = new FormattedText("S5", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textSubstrateHeight = new FormattedText("h", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
             var textThickness = new FormattedText("t", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
-                new Typeface("verdana"), 8, Brushes.Red);
+                new Typeface("verdana"), textSize, Brushes.Red);
 
 
             if (n == 1)
@@ -115,9 +115,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
                 //Линии для разделения ширин и зазоров
                 dc.DrawLine(penLine, new Point(-W1, -t), new Point(-W1, -(t + 20)));
-                dc.DrawLine(penLine, new Point(0, -t), new Point(0, -(t + 20)));
-                dc.DrawLine(penLine, new Point(S1, -t), new Point(S1, -(t + 20)));
-                dc.DrawLine(penLine, new Point(S1 + W2, -t), new Point(S1 + W2, -(t + 20)));
+                dc.DrawLine(penLine, new Point(-z, -t), new Point(-z, -(t + 20)));
+                dc.DrawLine(penLine, new Point(S1+z, -t), new Point(S1+z, -(t + 20)));
+                dc.DrawLine(penLine, new Point(S1-z + W2, -t), new Point(S1-z + W2, -(t + 20)));
 
                 dc.DrawLine(penLine, new Point(-(gap + W1), -(t + 15)), new Point(S1 + W2 + 10, -(t + 15)));
 
@@ -128,9 +128,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(W1 + 20), -t - 5), new Point(-(W1 + 20), h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-(W1 / 2 + 2), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(S1 + W1 / 2 - 2, -(t + 25)));
-                dc.DrawText(textS1, new Point(S1 / 2 - 2, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1 / 2 + 3), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(S1 + W1 / 2 - 3, -(t + 25)));
+                dc.DrawText(textS1, new Point(S1 / 2 - 4, -(t + 25)));
 
                 //Подписи толщин линии и подложки
                 dc.DrawText(textSubstrateHeight, new Point(-(W1 + 35), h / 2 - 3));
@@ -210,7 +210,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(W1 + S1 + W2 - z), -t), new Point(-(W1 + S1 + W2 - z), -(t + 20)));
                 dc.DrawLine(penLine, new Point(-(W2 + S1 + z), -t), new Point(-(W2 + S1 + z), -(t + 20)));
                 dc.DrawLine(penLine, new Point(-W2 + z, -t), new Point(-W2 + z, -(t + 20)));
-                dc.DrawLine(penLine, new Point(0, -t), new Point(0, -(t + 20)));
+                dc.DrawLine(penLine, new Point(-z, -t), new Point(-z, -(t + 20)));
                 dc.DrawLine(penLine, new Point(S2 + z, -t), new Point(S2 + z, -(t + 20)));
                 dc.DrawLine(penLine, new Point(S2 + W3 - z, -t), new Point(S2 + W3 - z, -(t + 20)));
                 dc.DrawLine(penLine, new Point(S2 + W3 + S3 + z, -t), new Point(S2 + W3 + S3 + z, -(t + 20)));

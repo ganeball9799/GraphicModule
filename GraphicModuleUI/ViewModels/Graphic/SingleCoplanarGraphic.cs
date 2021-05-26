@@ -11,7 +11,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
 {
     public class SingleCoplanarGraphic : StructureImage
     {
-        
         private Geometry _geometry;
          
         public SingleCoplanarGraphic( Geometry geometry)
@@ -51,7 +50,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
 
             var myPen = new Pen(Brushes.Black, 0.1);
-            var penLine = new Pen(Brushes.Red, 1);
+            var penLine = new Pen(Brushes.Red, 0.5);
             var substrateRect = new Rect(-(g+S1+W1/2), 0, W1 + S1 + S2 + g * 2, h);
             var widthRect = new Rect(-W1/2, -t, W1, t);
             var groundLeft = new Rect(-(g+S1+W1/2), -t, g, t);
