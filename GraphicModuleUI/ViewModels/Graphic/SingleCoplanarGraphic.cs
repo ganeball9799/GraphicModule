@@ -24,6 +24,16 @@ namespace GraphicModuleUI.ViewModels.Graphic
         {
             var zoomt = _geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value;
             var zoomh = _geometry[ParameterName.SubstrateHeight].Value/ _geometry[ParameterName.StripsThickness].Value;
+            if (zoomh>4)
+            {
+                zoomh = 4;
+            }
+            else if (zoomt>4)
+            {
+                zoomt = 4;
+            }
+            
+
 
             var S1 = _geometry[ParameterName.Slot, 0].Value;
             var S2 = _geometry[ParameterName.Slot, 1].Value;
