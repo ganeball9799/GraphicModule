@@ -88,8 +88,8 @@
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <Canvas x:Name="Canvas" 
-                            Width="400" 
-                            Height="400"
+                            Width="250" 
+                            Height="250"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             ClipToBounds="True"/>

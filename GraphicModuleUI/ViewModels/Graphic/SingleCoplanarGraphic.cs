@@ -16,8 +16,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
         public SingleCoplanarGraphic( Geometry geometry)
         {
             _geometry = geometry;
-            Canvas.SetLeft(this, 200);
-            Canvas.SetTop(this, 200);
+            Canvas.SetLeft(this, 120);
+            Canvas.SetTop(this, 120);
         }
 
        
@@ -37,17 +37,17 @@ namespace GraphicModuleUI.ViewModels.Graphic
             {
                 zoomh = 3;
             }
-            else if (zoomh < 0.2)
+            else if (zoomh < 0.3)
             {
-                zoomh = 0.2;
+                zoomh = 0.3;
             }
             if (zoomt > 3)
             {
                 zoomt = 3;
             }
-            else if (zoomt < 0.2)
+            else if (zoomt < 0.3)
             {
-                zoomt = 0.2;
+                zoomt = 0.3;
             }
 
             var S1 = _geometry[ParameterName.Slot, 0].Value*zooms1;
