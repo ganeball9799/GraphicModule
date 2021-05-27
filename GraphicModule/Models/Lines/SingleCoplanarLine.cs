@@ -27,7 +27,7 @@ namespace GraphicModule.Models
             {
                 new Parameter(ParameterName.Slot,70,1,20),
                 new Parameter(ParameterName.StripWidth,70,1,30),
-                new Parameter(ParameterName.Slot,70,1,30,1),
+                new Parameter(ParameterName.Slot,70,1,20,1),
                 new Parameter(ParameterName.StripsThickness,70,1,20),
                 new Parameter(ParameterName.SubstrateHeight,70,1,20),
             };
