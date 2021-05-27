@@ -24,37 +24,37 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
         protected override void OnRender(DrawingContext dc)
         {
-            var zoomt =( _geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value)/3;
-            var zoomh = (_geometry[ParameterName.SubstrateHeight].Value/ _geometry[ParameterName.StripsThickness].Value)/3;
+            var zoomt =( _geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value);
+            var zoomh = (_geometry[ParameterName.SubstrateHeight].Value/ _geometry[ParameterName.StripsThickness].Value);
             var zooms1 = (_geometry[ParameterName.Slot, 0].Value /
-                          (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.StripWidth].Value)/2);
+                          (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.StripWidth].Value));
             var zooms2 = (_geometry[ParameterName.Slot, 1].Value /
-                          (_geometry[ParameterName.Slot, 0].Value + _geometry[ParameterName.StripWidth].Value)/2);
+                          (_geometry[ParameterName.Slot, 0].Value + _geometry[ParameterName.StripWidth].Value));
             var zoomw = (_geometry[ParameterName.StripWidth].Value /
-                         (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value) /2);
+                         (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value));
 
-            //if (zoomh > 2)
-            //{
-            //    zoomh = 2;
-            //}
-            //else if (zoomh < 0.4)
-            //{
-            //    zoomh = 0.4;
-            //}
-            //if (zoomt>2)
-            //{
-            //    zoomt = 2;
-            //}
-            //else if (zoomt<0.4)
-            //{
-            //    zoomt = 0.4;
-            //}
-            
-            var S1 = _geometry[ParameterName.Slot, 0].Value*3*zooms1;
-            var S2 = _geometry[ParameterName.Slot, 1].Value*3*zooms2;
-            var W1 = _geometry[ParameterName.StripWidth].Value*3*zoomw;
-            var t = _geometry[ParameterName.StripsThickness].Value*3* zoomt;
-            var h = _geometry[ParameterName.SubstrateHeight].Value*3*zoomh;
+            if (zoomh > 2.5)
+            {
+                zoomh = 2.5;
+            }
+            else if (zoomh < 0.2)
+            {
+                zoomh = 0.2;
+            }
+            if (zoomt > 2.5)
+            {
+                zoomt = 2.5;
+            }
+            else if (zoomt < 0.2)
+            {
+                zoomt = 0.2;
+            }
+
+            var S1 = _geometry[ParameterName.Slot, 0].Value*zooms1;
+            var S2 = _geometry[ParameterName.Slot, 1].Value*zooms2;
+            var W1 = _geometry[ParameterName.StripWidth].Value*zoomw;
+            var t = 30*zoomt;
+            var h = 30*zoomh;
             var g = 10;
             base.OnRender(dc);
 
@@ -95,7 +95,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
             dc.DrawText(textWidth, new Point(-3, -(t + 25)));
             dc.DrawText(textS1, new Point(-(S1/2+W1/2+3), -(t + 25)));
-            dc.DrawText(textS2, new Point(W1/2+S1/2, -(t + 25)));
+            dc.DrawText(textS2, new Point(W1/2+S2/2-3, -(t + 25)));
 
             //Линии для разделения толщины подложки
             dc.DrawLine(penLine, new Point(-(g + S1 + W1 / 2), 0), new Point(-(25+g+S1+W1/2), 0));
