@@ -33,17 +33,17 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var zoomw = (_geometry[ParameterName.StripWidth].Value /
                          (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value));
 
-            if (zoomh > 4)
+            if (zoomh > 3)
             {
-                zoomh = 4;
+                zoomh = 3;
             }
             else if (zoomh < 0.2)
             {
                 zoomh = 0.2;
             }
-            if (zoomt > 4)
+            if (zoomt > 3)
             {
-                zoomt = 4;
+                zoomt = 3;
             }
             else if (zoomt < 0.2)
             {
@@ -53,8 +53,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var S1 = _geometry[ParameterName.Slot, 0].Value*zooms1;
             var S2 = _geometry[ParameterName.Slot, 1].Value*zooms2;
             var W1 = _geometry[ParameterName.StripWidth].Value*zoomw;
-            var t = 30*zoomt;
-            var h = 30*zoomh;
+            var t = 30*zoomt-1;
+            var h = 30*zoomh-1;
             var g = 10;
             base.OnRender(dc);
 
