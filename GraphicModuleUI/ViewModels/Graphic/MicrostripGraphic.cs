@@ -23,10 +23,30 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
         protected override void OnRender(DrawingContext dc)
         {
+            var zoomt = (_geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value)*2 ;
+            var zoomh = (_geometry[ParameterName.SubstrateHeight].Value / _geometry[ParameterName.StripsThickness].Value)*2 ;
+
+            if (zoomh > 2)
+            {
+                zoomh = 2;
+            }
+            else if (zoomh < 0.4)
+            {
+                zoomh = 0.4;
+            }
+            if (zoomt > 2)
+            {
+                zoomt = 2;
+            }
+            else if (zoomt < 0.4)
+            {
+                zoomt = 0.4;
+            }
+
             var z = 0.5;
             double n = _geometry[ParameterName.StripsNumber].Value;
-            double h = _geometry[ParameterName.SubstrateHeight].Value * 2;
-            double t = _geometry[ParameterName.StripsThickness].Value * 2;
+            double h = _geometry[ParameterName.SubstrateHeight].Value * zoomt*zoomh;
+            double t = _geometry[ParameterName.StripsThickness].Value * zoomh*zoomt;
             var gap = 10;
             var groung = 5;
 
