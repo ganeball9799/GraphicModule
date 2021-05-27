@@ -33,17 +33,17 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var zoomw = (_geometry[ParameterName.StripWidth].Value /
                          (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value));
 
-            if (zoomh > 2.5)
+            if (zoomh > 4)
             {
-                zoomh = 2.5;
+                zoomh = 4;
             }
             else if (zoomh < 0.2)
             {
                 zoomh = 0.2;
             }
-            if (zoomt > 2.5)
+            if (zoomt > 4)
             {
-                zoomt = 2.5;
+                zoomt = 4;
             }
             else if (zoomt < 0.2)
             {
