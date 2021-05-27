@@ -20,10 +20,15 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
         protected override void OnRender(DrawingContext dc)
         {
-            double h1 = _geometry[ParameterName.SubstrateHeight].Value ;
-            double h2 = _geometry[ParameterName.SubstrateHeight,1].Value;
-            double t = _geometry[ParameterName.StripsThickness].Value;
-            double W = _geometry[ParameterName.StripWidth].Value;
+            var zoomw = (_geometry[ParameterName.StripWidth].Value / _geometry[ParameterName.SubstrateHeight].Value) / 3;
+            var zoomh1 = (_geometry[ParameterName.SubstrateHeight].Value / _geometry[ParameterName.StripWidth].Value) / 3;
+            var zoomh2 = (_geometry[ParameterName.SubstrateHeight,1].Value / _geometry[ParameterName.StripsThickness].Value) / 3;
+            var zoomt = (_geometry[ParameterName.StripsThickness].Value /_geometry[ParameterName.SubstrateHeight, 1].Value) /3;
+
+            double h1 = _geometry[ParameterName.SubstrateHeight].Value*3*zoomh1 ;
+            double h2 = _geometry[ParameterName.SubstrateHeight,1].Value * 3 * zoomh2;
+            double t = _geometry[ParameterName.StripsThickness].Value * 3 * zoomt;
+            double W = _geometry[ParameterName.StripWidth].Value * 3 * zoomw;
             var z = 0.5;
             var gap = 10;
             var groung = 5;
