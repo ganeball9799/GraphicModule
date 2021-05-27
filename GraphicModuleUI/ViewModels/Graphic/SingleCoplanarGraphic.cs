@@ -20,26 +20,41 @@ namespace GraphicModuleUI.ViewModels.Graphic
             Canvas.SetTop(this, 200);
         }
 
+       
+
         protected override void OnRender(DrawingContext dc)
         {
-            var zoomt = _geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value;
-            var zoomh = _geometry[ParameterName.SubstrateHeight].Value/ _geometry[ParameterName.StripsThickness].Value;
-            if (zoomh>4)
-            {
-                zoomh = 4;
-            }
-            else if (zoomt>4)
-            {
-                zoomt = 4;
-            }
+            var zoomt =( _geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value)/3;
+            var zoomh = (_geometry[ParameterName.SubstrateHeight].Value/ _geometry[ParameterName.StripsThickness].Value)/3;
+            var zooms1 = (_geometry[ParameterName.Slot, 0].Value /
+                          (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.StripWidth].Value)/2);
+            var zooms2 = (_geometry[ParameterName.Slot, 1].Value /
+                          (_geometry[ParameterName.Slot, 0].Value + _geometry[ParameterName.StripWidth].Value)/2);
+            var zoomw = (_geometry[ParameterName.StripWidth].Value /
+                         (_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value) /2);
+
+            //if (zoomh > 2)
+            //{
+            //    zoomh = 2;
+            //}
+            //else if (zoomh < 0.4)
+            //{
+            //    zoomh = 0.4;
+            //}
+            //if (zoomt>2)
+            //{
+            //    zoomt = 2;
+            //}
+            //else if (zoomt<0.4)
+            //{
+            //    zoomt = 0.4;
+            //}
             
-
-
-            var S1 = _geometry[ParameterName.Slot, 0].Value;
-            var S2 = _geometry[ParameterName.Slot, 1].Value;
-            var W1 = _geometry[ParameterName.StripWidth].Value;
-            var t = _geometry[ParameterName.StripsThickness].Value*1.5* (zoomt/3);
-            var h = _geometry[ParameterName.SubstrateHeight].Value*1.5*(zoomh/3);
+            var S1 = _geometry[ParameterName.Slot, 0].Value*3*zooms1;
+            var S2 = _geometry[ParameterName.Slot, 1].Value*3*zooms2;
+            var W1 = _geometry[ParameterName.StripWidth].Value*3*zoomw;
+            var t = _geometry[ParameterName.StripsThickness].Value*3* zoomt;
+            var h = _geometry[ParameterName.SubstrateHeight].Value*3*zoomh;
             var g = 10;
             base.OnRender(dc);
 
