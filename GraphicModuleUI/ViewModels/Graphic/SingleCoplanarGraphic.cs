@@ -14,75 +14,67 @@ namespace GraphicModuleUI.ViewModels.Graphic
     {
         private Geometry _geometry;
 
-        public double S1 { get; private set; }
-        public double S2 { get; private set; }
+        private double slot1;
+        private double slot2;
 
-        public double W1 { get; private set; }
-        public double t { get; private set; }
-        public double h { get; private set; }
-        public double g { get; private set; }
-        public double textSize { get; private set; }
-        public double zoomt { get; private set; }
-        public double zoomh { get; private set; }
-        public double zoomw { get; private set; }
-        public double zooms1 { get; private set; }
-        public double zooms2 { get; private set; }
+        private double width;
+        private double stripsThicknees;
+        private double substrateHeight;
+
+        private const double g=10;
+        private const double textSize=5;
+
+        private double zoomt;
+        private double zoomh;
+        private double zoomw;
+        private double zooms1;
+        private double zooms2;
 
         public SingleCoplanarGraphic(Geometry geometry)
         {
-            S1 = 20;
-            S2 = 20;
-            W1 = 30;
-            t = 20;
-            h = 20;
-            g = 10;
-            textSize = 5;
-            zoomt = 0;
-            zoomh = 0;
-            zoomw = 0;
-            zooms1 = 0;
-            zooms2 = 0;
             _geometry = geometry;
+
+            slot1 = _geometry[ParameterName.Slot].Value;
+            slot2 = _geometry[ParameterName.Slot,1].Value;
+            width = _geometry[ParameterName.StripWidth].Value;
+            stripsThicknees = _geometry[ParameterName.StripsThickness].Value;
+            substrateHeight = _geometry[ParameterName.SubstrateHeight].Value;
+
             Canvas.SetLeft(this, 120);
             Canvas.SetTop(this, 120);
         }
 
-
-
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
-            zoomt = (_geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value);
-            zoomh = (_geometry[ParameterName.SubstrateHeight].Value / _geometry[ParameterName.StripsThickness].Value);
-            zooms1 = _geometry[ParameterName.Slot, 0].Value /
-                         ((_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.StripWidth].Value) / 2);
-            zooms2 = _geometry[ParameterName.Slot, 1].Value /
-                         ((_geometry[ParameterName.Slot, 0].Value + _geometry[ParameterName.StripWidth].Value) / 2);
-            zoomw = _geometry[ParameterName.StripWidth].Value /
-                        ((_geometry[ParameterName.Slot, 1].Value + _geometry[ParameterName.Slot, 0].Value) / 2);
+            zoomt = (stripsThicknees / substrateHeight);
+            zoomh = (substrateHeight / stripsThicknees);
+            zooms1 = slot1 / ((slot2 + width) / 2);
+            zooms2 = slot2 / ((slot1 + width) / 2);
+            zoomw = width / ((slot1 + slot2) / 2);
 
             if (zoomh > 3)
             {
                 zoomh = 3;
             }
-            else if (zoomh < 0.3)
+            else if (zoomh < 0.2)
             {
-                zoomh = 0.3;
+                zoomh = 0.2;
             }
             if (zoomt > 3)
             {
                 zoomt = 3;
             }
-            else if (zoomt < 0.3)
+            else if (zoomt < 0.2)
             {
-                zoomt = 0.3;
+                zoomt = 0.2;
             }
 
-            S1 *= zooms1;
-            S2 *= zooms2;
-            W1 *= zoomw;
-            t *= zoomt;
-            h *= zoomh;
+            var S1 = 20 * zooms1;
+            var S2 = 20 * zooms2;
+            var W1 = 30 * zoomw;
+            var t = 20 * zoomt;
+            var h = 20 * zoomh;
 
 
             var wSolidBrush = new SolidColorBrush(Color.FromRgb(80, 80, 230));
