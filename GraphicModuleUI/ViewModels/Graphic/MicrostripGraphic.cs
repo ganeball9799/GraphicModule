@@ -14,41 +14,82 @@ namespace GraphicModuleUI.ViewModels.Graphic
     public class MicrostripGraphic : StructureImage
     {
         private Geometry _geometry;
+
+        private double numberOfLine;
+        private double stripsThicknees;
+        private double substrateHeight;
+        private double stripWidth1;
+        private double stripWidth2;
+        private double stripWidth3;
+        private double stripWidth4;
+        private double stripWidth5;
+        private double stripWidth6;
+        private double slot1;
+        private double slot2;
+        private double slot3;
+        private double slot4;
+        private double slot5;
+
+
+
+        private const double gap = 10;
+        private const double ground = 5;
+        private const double textSize = 5;
+        private const double graphicZoom = 4;
+
+        private double zoomt;
+        private double zoomh;
+        private double zoomw1;
+        private double zoomw2;
+        private double zoomw3;
+        private double zoomw4;
+        private double zoomw5;
+        private double zoomw6;
+        private double zooms1;
+        private double zooms2;
+        private double zooms3;
+        private double zooms4;
+        private double zooms5;
+
+
+
         public MicrostripGraphic(Geometry geometry)
         {
             _geometry = geometry;
-            Canvas.SetLeft(this, 200);
-            Canvas.SetTop(this, 200);
+            numberOfLine = _geometry[ParameterName.StripsNumber].Value;
+            stripsThicknees = _geometry[ParameterName.StripsThickness].Value;
+            substrateHeight = _geometry[ParameterName.SubstrateHeight].Value;
+
+            Canvas.SetLeft(this, 120);
+            Canvas.SetTop(this, 120);
         }
+
+        private double ZoomTH(double zoom)
+        {
+            if (zoom > 2.5)
+            {
+                zoom = 2.5;
+            }
+            else if (zoom < 0.3)
+            {
+                zoom = 0.3;
+            }
+
+            return zoom;
+        }
+
+        
 
         protected override void OnRender(DrawingContext dc)
         {
-            var zoomt = (_geometry[ParameterName.StripsThickness].Value / _geometry[ParameterName.SubstrateHeight].Value)*2 ;
-            var zoomh = (_geometry[ParameterName.SubstrateHeight].Value / _geometry[ParameterName.StripsThickness].Value)*2 ;
-
-            if (zoomh > 2)
-            {
-                zoomh = 2;
-            }
-            else if (zoomh < 0.4)
-            {
-                zoomh = 0.4;
-            }
-            if (zoomt > 2)
-            {
-                zoomt = 2;
-            }
-            else if (zoomt < 0.4)
-            {
-                zoomt = 0.4;
-            }
-
+            zoomt = stripsThicknees / substrateHeight;
+            zoomh = substrateHeight / stripsThicknees;
+            
             var z = 0.5;
-            double n = _geometry[ParameterName.StripsNumber].Value;
-            double h = _geometry[ParameterName.SubstrateHeight].Value * zoomt*zoomh;
-            double t = _geometry[ParameterName.StripsThickness].Value * zoomh*zoomt;
-            var gap = 10;
-            var groung = 5;
+            double n = numberOfLine;
+            double h = 10 * ZoomTH(zoomh) + substrateHeight/ graphicZoom;
+            double t = 10* ZoomTH(zoomt) + stripsThicknees/ graphicZoom;
+            
 
             base.OnRender(dc);
 
@@ -58,7 +99,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var substrateHeightBrush = new SolidColorBrush(Color.FromRgb(140, 137, 126));
             var groundBrush = new SolidColorBrush(Colors.Black);
             var penLine = new Pen(Brushes.Red, 0.5);
-            var textSize = 6;
 
             var textWidth = new FormattedText("W", CultureInfo.GetCultureInfo("en-Us"), FlowDirection.LeftToRight,
                 new Typeface("verdana"), textSize, Brushes.Red);
@@ -92,7 +132,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             {
                 double W1 = _geometry[ParameterName.StripWidth, 0].Value;
                 var substrateRect = new Rect(-(W1 + gap * 2) / 2, 0, W1 + gap * 2, h);
-                var groundRect = new Rect(-(W1 + gap * 2) / 2, h, W1 + gap * 2, groung);
+                var groundRect = new Rect(-(W1 + gap * 2) / 2, h, W1 + gap * 2, ground);
                 var widthRect = new Rect(-W1 / 2, -t, W1, t);
 
                 dc.DrawRectangle(widthBrush, myPen, widthRect);
@@ -111,7 +151,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-5 - (W1 + gap * 2) / 2, -t - 5), new Point(-5 - (W1 + gap * 2) / 2, h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-3, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-2, -(t + 25)));
 
                 //Подписи толщин линии и подложки
                 dc.DrawText(textSubstrateHeight, new Point(-15 - (W1 + gap * 2) / 2, h / 2 - 4));
@@ -120,11 +160,19 @@ namespace GraphicModuleUI.ViewModels.Graphic
             }
             else if (n == 2)
             {
-                double W1 = _geometry[ParameterName.StripWidth, 0].Value;
-                double W2 = _geometry[ParameterName.StripWidth, 1].Value;
-                double S1 = _geometry[ParameterName.Slot, 0].Value;
+                stripWidth1 = _geometry[ParameterName.StripWidth, 0].Value;
+                stripWidth2 = _geometry[ParameterName.StripWidth, 1].Value;
+                slot1 = _geometry[ParameterName.Slot, 0].Value;
+
+                zoomw1 = stripWidth1 / ((slot1 + stripWidth2) / 2);
+                zoomw2 = stripWidth2 / ((stripWidth1 + slot1) / 2);
+                zooms1 = slot1 / ((stripWidth1 + stripWidth2) / 2);
+                double W1 = 20*ZoomTH(zoomw1)+stripWidth1/ graphicZoom;
+                double W2 = 20* ZoomTH(zoomw2) + stripWidth2/ graphicZoom;
+                double S1 = 10* ZoomTH(zooms1) +slot1/ graphicZoom;
+                
                 var substrateRect = new Rect(-(gap + W1), 0, W1 + S1 + W2 + gap * 2, h);
-                var groundRect = new Rect(-(gap + W1), h, W1 + S1 + W2 + gap * 2, groung);
+                var groundRect = new Rect(-(gap + W1), h, W1 + S1 + W2 + gap * 2, ground);
 
                 var widthRect = new Rect(-W1, -t, W1, t);
                 var widthRect2 = new Rect(S1, -t, W2, t);
@@ -149,22 +197,37 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
                 //Подписи зазоров и ширин линий
                 dc.DrawText(textWidth, new Point(-(W1 / 2 + 3), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(S1 + W1 / 2 - 3, -(t + 25)));
-                dc.DrawText(textS1, new Point(S1 / 2 - 4, -(t + 25)));
+                dc.DrawText(textWidth2, new Point(S1 + W2 / 2 - 3, -(t + 25)));
+                dc.DrawText(textS1, new Point(S1 / 2 - 2, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                dc.DrawText(textSubstrateHeight, new Point(-(W1 + 35), h / 2 - 3));
-                dc.DrawText(textThickness, new Point(-(W1 + 35), -(t / 2) - 3));
+                dc.DrawText(textSubstrateHeight, new Point(-(W1 + 30), h / 2 - 3));
+                dc.DrawText(textThickness, new Point(-(W1 + 30), -(t / 2) - 3));
             }
             else if (n == 3)
             {
-                double W1 = _geometry[ParameterName.StripWidth, 0].Value * 0.9;
-                double W2 = _geometry[ParameterName.StripWidth, 1].Value * 0.9;
-                double W3 = _geometry[ParameterName.StripWidth, 2].Value * 0.9;
-                double S1 = _geometry[ParameterName.Slot, 0].Value * 0.9;
-                double S2 = _geometry[ParameterName.Slot, 1].Value * 0.9;
+                stripWidth1 = _geometry[ParameterName.StripWidth, 0].Value;
+                stripWidth2 = _geometry[ParameterName.StripWidth, 1].Value;
+                stripWidth3 = _geometry[ParameterName.StripWidth, 2].Value;
+                slot1 = _geometry[ParameterName.Slot, 0].Value;
+                slot2 = _geometry[ParameterName.Slot, 1].Value;
+
+                zoomw1 = stripWidth1 / ((slot1+ slot2 + stripWidth2+ stripWidth3) / 4);
+                zoomw2 = stripWidth2 / ((stripWidth1 + stripWidth3 + slot1+ slot2) / 4);
+                zoomw3 = stripWidth3 / ((stripWidth1+ stripWidth2+ slot1+ slot2) /4);
+                zooms1 = slot1 / ((stripWidth1 + stripWidth2+ stripWidth3+ slot2) / 4);
+                zooms2 = slot1 / ((stripWidth1 + stripWidth2+ stripWidth3+ slot1) / 4);
+
+
+
+                double W1 = 20 * ZoomTH(zoomw1) + stripWidth1 / graphicZoom;
+                double W2 = 20 * ZoomTH(zoomw2) + stripWidth2 / graphicZoom;
+                double W3 = 20 * ZoomTH(zoomw3) + stripWidth3 / graphicZoom;
+                double S1 = 10 * ZoomTH(zooms1) + slot1 / graphicZoom;
+                double S2 = 10 * ZoomTH(zooms2) + slot2 / graphicZoom;
+                
                 var substrateRect = new Rect(-(W1 + S1 + gap), 0, W1 + S1 + W2 + W3 + S2 + gap * 2, h);
-                var groundRect = new Rect(-(W1 + S1 + gap), h, W1 + S1 + W2 + W3 + S2 + gap * 2, groung);
+                var groundRect = new Rect(-(W1 + S1 + gap), h, W1 + S1 + W2 + W3 + S2 + gap * 2, ground);
 
                 var widthRect = new Rect(-(W1 + S1), -t, W1, t);
                 var widthRect2 = new Rect(0, -t, W2, t);
@@ -192,11 +255,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(W1 + S1 + gap + 20), -t - 5), new Point(-(W1 + S1 + gap + 20), h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + 3), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(W2 / 2 - 3, -(t + 25)));
-                dc.DrawText(textWidth3, new Point(W2 + S2 + W3 / 2 - 3, -(t + 25)));
-                dc.DrawText(textS1, new Point(-(S1 / 2 + 3), -(t + 25)));
-                dc.DrawText(textS2, new Point(W2 + S2 / 2 - 3, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + 2), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(W2 / 2 - 4, -(t + 25)));
+                dc.DrawText(textWidth3, new Point(W2 + S2 + W3 / 2 - 4, -(t + 25)));
+                dc.DrawText(textS1, new Point(-(S1 / 2 + 2), -(t + 25)));
+                dc.DrawText(textS2, new Point(W2 + S2 / 2 - 2, -(t + 25)));
 
                 //Подписи толщин линии и подложки
                 dc.DrawText(textSubstrateHeight, new Point(-(W1 + S1 + gap + 35), h / 2 - 3));
@@ -212,7 +275,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 double S2 = _geometry[ParameterName.Slot, 1].Value * 0.8;
                 double S3 = _geometry[ParameterName.Slot, 2].Value * 0.8;
                 var substrateRect = new Rect(-(gap + W1 + S1 + W2), 0, W1 + S1 + W2 + W3 + W4 + S2 + S3 + gap * 2, h);
-                var groundRect = new Rect(-(gap + W1 + S1 + W2), h, W1 + S1 + W2 + W3 + W4 + S2 + S3 + gap * 2, groung);
+                var groundRect = new Rect(-(gap + W1 + S1 + W2), h, W1 + S1 + W2 + W3 + W4 + S2 + S3 + gap * 2, ground);
 
                 var widthRect = new Rect(-(W1 + S1 + W2), -t, W1, t);
                 var widthRect2 = new Rect(-W2, -t, W2, t);
@@ -246,10 +309,10 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(gap + W1 + S1 + W2 + 20), -t - 5), new Point(-(gap + W1 + S1 + W2 + 20), h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + W2 + 4), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(-(W2 / 2 + 4), -(t + 25)));
-                dc.DrawText(textWidth3, new Point(S2 + W3 / 2 - 4, -(t + 25)));
-                dc.DrawText(textWidth4, new Point(S2 + S3 + W3 + W4 / 2 - 4, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + W2 + 3), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(-(W2 / 2 + 3), -(t + 25)));
+                dc.DrawText(textWidth3, new Point(S2 + W3 / 2 - 3, -(t + 25)));
+                dc.DrawText(textWidth4, new Point(S2 + S3 + W3 + W4 / 2 - 3, -(t + 25)));
                 dc.DrawText(textS1, new Point(-(S1 / 2 + W2 + 3), -(t + 25)));
                 dc.DrawText(textS2, new Point(S2 / 2 - 3, -(t + 25)));
                 dc.DrawText(textS3, new Point(W3 + S2 + S3 / 2 - 3, -(t + 25)));
@@ -271,7 +334,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 double S4 = _geometry[ParameterName.Slot, 3].Value * 0.8;
 
                 var substrateRect = new Rect(-(W1 + S1 + W2 + S2 + gap), 0, W1 + S1 + W2 + W3 + W4 + W5 + S2 + S3 + S4 + gap * 2, h);
-                var groundRect = new Rect(-(W1 + S1 + W2 + S2 + gap), h, W1 + S1 + W2 + W3 + W4 + W5 + S2 + S3 + S4 + gap * 2, groung);
+                var groundRect = new Rect(-(W1 + S1 + W2 + S2 + gap), h, W1 + S1 + W2 + W3 + W4 + W5 + S2 + S3 + S4 + gap * 2, ground);
 
                 var widthRect = new Rect(-(W1 + S1 + W2 + S2 ), -t, W1, t);
                 var widthRect2 = new Rect(-(W2 + S2 ), -t, W2, t);
@@ -309,15 +372,15 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(gap + W1 + S1 + W2 + S2 + 20), -t - 5), new Point(-(gap + W1 + S1 + W2 + S2 + 20), h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + W2+S2 + 4), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(-(W2 / 2 +S2+ 4), -(t + 25)));
-                dc.DrawText(textWidth3, new Point(W3 / 2 - 4, -(t + 25)));
-                dc.DrawText(textWidth4, new Point(S3 + W3 + W4 / 2 - 4, -(t + 25)));
-                dc.DrawText(textWidth5, new Point(S3 + W3 + W4 +S4+W5/2 - 4, -(t + 25)));
-                dc.DrawText(textS1, new Point(-(S1 / 2 + W2 +S2+ 3), -(t + 25)));
-                dc.DrawText(textS2, new Point(-S2 / 2 - 3, -(t + 25)));
-                dc.DrawText(textS3, new Point(W3 +S3 / 2 - 3, -(t + 25)));
-                dc.DrawText(textS4, new Point(W3 + S3 +W4+S4/2 - 3, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1 / 2 + S1 + W2+S2 + 3), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(-(W2 / 2 +S2+ 3), -(t + 25)));
+                dc.DrawText(textWidth3, new Point(W3 / 2 - 3, -(t + 25)));
+                dc.DrawText(textWidth4, new Point(S3 + W3 + W4 / 2 - 3, -(t + 25)));
+                dc.DrawText(textWidth5, new Point(S3 + W3 + W4 +S4+W5/2 - 3, -(t + 25)));
+                dc.DrawText(textS1, new Point(-(S1 / 2 + W2 +S2+ 2), -(t + 25)));
+                dc.DrawText(textS2, new Point(-S2 / 2 - 2, -(t + 25)));
+                dc.DrawText(textS3, new Point(W3 +S3 / 2 - 2, -(t + 25)));
+                dc.DrawText(textS4, new Point(W3 + S3 +W4+S4/2 - 2, -(t + 25)));
 
                 //Подписи толщин линии и подложки
                 dc.DrawText(textSubstrateHeight, new Point(-(gap + W1 + S1 + W2+S2 + 35), h / 2 - 3));
@@ -339,7 +402,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 double S5 = _geometry[ParameterName.Slot, 4].Value;
 
                 var substrateRect = new Rect(-(gap+W1+S1+W2+S2+W3), 0, W1 + S1 + W2 + W3 + W4 + W5 + W6 + S2 + S3 + S4 + S5 + gap * 2, h);
-                var groundRect = new Rect(-(gap + W1 + S1 + W2 + S2 + W3), h, W1 + S1 + W2 + W3 + W4 + W5 + W6 + S2 + S3 + S4 + S5 + gap * 2, groung);
+                var groundRect = new Rect(-(gap + W1 + S1 + W2 + S2 + W3), h, W1 + S1 + W2 + W3 + W4 + W5 + W6 + S2 + S3 + S4 + S5 + gap * 2, ground);
                 var widthRect = new Rect(-(W1 + S1 + W2 + S2 + W3), -t, W1, t);
                 var widthRect2 = new Rect(-(W2 + S2 + W3), -t, W2, t);
                 var widthRect3 = new Rect(-W3, -t, W3, t);
@@ -381,12 +444,12 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 dc.DrawLine(penLine, new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 20), -t - 5), new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 20), h + 5));
 
                 //Подписи зазоров и ширин линий
-                dc.DrawText(textWidth, new Point(-(W1/2 + S1 + W2 + S2 + W3 + 4), -(t + 25)));
-                dc.DrawText(textWidth2, new Point(-(W2/2 + S2 + W3 + 4), -(t + 25)));
-                dc.DrawText(textWidth3, new Point(-W3/2 -4, -(t + 25)));
-                dc.DrawText(textWidth4, new Point(S3 + W4 / 2 - 4, -(t + 25)));
-                dc.DrawText(textWidth5, new Point(S3 + W4 +S4+W5/2- 4, -(t + 25)));
-                dc.DrawText(textWidth6, new Point(S3 + W4 + S4 + W5+S5+W6/2 - 4, -(t + 25)));
+                dc.DrawText(textWidth, new Point(-(W1/2 + S1 + W2 + S2 + W3 + 3), -(t + 25)));
+                dc.DrawText(textWidth2, new Point(-(W2/2 + S2 + W3 + 3), -(t + 25)));
+                dc.DrawText(textWidth3, new Point(-W3/2 - 3, -(t + 25)));
+                dc.DrawText(textWidth4, new Point(S3 + W4 / 2 - 3, -(t + 25)));
+                dc.DrawText(textWidth5, new Point(S3 + W4 +S4+W5/2- 3, -(t + 25)));
+                dc.DrawText(textWidth6, new Point(S3 + W4 + S4 + W5+S5+W6/2 - 3, -(t + 25)));
                 dc.DrawText(textS1, new Point(-(S1 / 2 + W2 +S2+W3+ 3), -(t + 25)));
                 dc.DrawText(textS2, new Point(-(S2/2 + W3 + 3), -(t + 25)));
                 dc.DrawText(textS3, new Point(S3 / 2 - 3, -(t + 25)));

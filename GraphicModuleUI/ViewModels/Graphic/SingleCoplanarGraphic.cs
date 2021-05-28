@@ -17,7 +17,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
         private double slot1;
         private double slot2;
 
-        private double width;
+        private double stripWidth;
         private double stripsThicknees;
         private double substrateHeight;
 
@@ -36,7 +36,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
             slot1 = _geometry[ParameterName.Slot].Value;
             slot2 = _geometry[ParameterName.Slot,1].Value;
-            width = _geometry[ParameterName.StripWidth].Value;
+            stripWidth = _geometry[ParameterName.StripWidth].Value;
             stripsThicknees = _geometry[ParameterName.StripsThickness].Value;
             substrateHeight = _geometry[ParameterName.SubstrateHeight].Value;
 
@@ -49,9 +49,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
             base.OnRender(dc);
             zoomt = (stripsThicknees / substrateHeight);
             zoomh = (substrateHeight / stripsThicknees);
-            zooms1 = slot1 / ((slot2 + width) / 2);
-            zooms2 = slot2 / ((slot1 + width) / 2);
-            zoomw = width / ((slot1 + slot2) / 2);
+            zooms1 = slot1 / ((slot2 + stripWidth) / 2);
+            zooms2 = slot2 / ((slot1 + stripWidth) / 2);
+            zoomw = stripWidth / ((slot1 + slot2) / 2);
 
             if (zoomh > 3)
             {
@@ -70,11 +70,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 zoomt = 0.2;
             }
 
-            var S1 = 20 * zooms1;
-            var S2 = 20 * zooms2;
-            var W1 = 30 * zoomw;
-            var t = 20 * zoomt;
-            var h = 20 * zoomh;
+            var S1 = 20 * zooms1+slot1/5;
+            var S2 = 20 * zooms2+slot2/ 5;
+            var W1 = 30 * zoomw+ stripWidth/ 5;
+            var t = 20 * zoomt+stripsThicknees/ 5;
+            var h = 20 * zoomh+substrateHeight/ 5;
 
 
             var wSolidBrush = new SolidColorBrush(Color.FromRgb(80, 80, 230));
