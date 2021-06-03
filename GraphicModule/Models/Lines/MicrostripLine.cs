@@ -42,7 +42,7 @@ namespace GraphicModule.Models
                         for (var i = 0; i <= diff; i++)
                         {
                             var lastWidth = _parameters.FindLast((elem) => elem.ParameterName.Equals(ParameterName.StripWidth));
-                            var newWidth = new Parameter(ParameterName.StripWidth, 70, 1, 20, lastWidth.Number + 1);
+                            var newWidth = new Parameter(ParameterName.StripWidth, 70, 1, 15, lastWidth.Number + 1);
                             var index = _parameters.IndexOf(lastWidth);
                             _parameters.Insert(index + 1, newWidth);
                         }
@@ -70,10 +70,10 @@ namespace GraphicModule.Models
             _parameters = new List<Parameter>
             {
                 new Parameter(ParameterName.StripsNumber,6,1,2),
-                new Parameter(ParameterName.StripsThickness,70,1,10),
+                new Parameter(ParameterName.StripsThickness,70,1,5),
                 new Parameter(ParameterName.SubstrateHeight,70,1,10),
-                new Parameter(ParameterName.StripWidth, 70,1,20),
-                new Parameter(ParameterName.StripWidth, 70,1,20,1),
+                new Parameter(ParameterName.StripWidth, 70,1,15),
+                new Parameter(ParameterName.StripWidth, 70,1,15,1),
                 new Parameter(ParameterName.Slot,70,1,10)
             };
         }
