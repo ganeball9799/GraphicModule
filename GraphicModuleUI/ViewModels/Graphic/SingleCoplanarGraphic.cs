@@ -73,11 +73,16 @@ namespace GraphicModuleUI.ViewModels.Graphic
             DrawRectangle(dc, ColorGround, ColorPen, W1 / 2 + S2, -t, screenWidth, t);
             
             //Линии разделения для слотов и ширины
-            dc.DrawLine(ColorLine, new Point(-(S1 + W1 / 2), -t), new Point(-(S1 + W1 / 2), -(t + 15)));
-            dc.DrawLine(ColorLine, new Point(-W1 / 2, -t), new Point(-W1 / 2, -(t + 15)));
-            dc.DrawLine(ColorLine, new Point(W1 / 2, -t), new Point(W1 / 2, -(t + 15)));
-            dc.DrawLine(ColorLine, new Point(W1 / 2 + S2, -t), new Point(W1 / 2 + S2, -(t + 15)));
-            dc.DrawLine(ColorLine, new Point(-(S1 + W1 / 2 + 5), -(t + 10)), new Point(W1 / 2 + S2 + 5, -(t + 10)));
+            dc.DrawLine(ColorLine, new Point(-(S1 + W1 / 2), -t),
+                new Point(-(S1 + W1 / 2), -(t + 15)));
+            dc.DrawLine(ColorLine, new Point(-W1 / 2, -t), 
+                new Point(-W1 / 2, -(t + 15)));
+            dc.DrawLine(ColorLine, new Point(W1 / 2, -t), 
+                new Point(W1 / 2, -(t + 15)));
+            dc.DrawLine(ColorLine, new Point(W1 / 2 + S2, -t), 
+                new Point(W1 / 2 + S2, -(t + 15)));
+            dc.DrawLine(ColorLine, new Point(-(S1 + W1 / 2 + 5), -(t + 10)), 
+                new Point(W1 / 2 + S2 + 5, -(t + 10)));
 
             //Подписи ширины и зазоров
             dc.DrawText(GetDrawingText("W"), new Point(-5, -(t + 30)));
@@ -85,10 +90,14 @@ namespace GraphicModuleUI.ViewModels.Graphic
             dc.DrawText(GetDrawingText("S2"), new Point(W1 / 2 + S2 / 2 - 5, -(t + 30)));
 
             //Линии для разделения толщины линии и подложки
-            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), -t), new Point(-(10 + screenWidth + S1 + W1 / 2), -t));
-            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), 0), new Point(-(10 + screenWidth + S1 + W1 / 2), 0));
-            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), h), new Point(-(10 + screenWidth + S1 + W1 / 2), h));
-            dc.DrawLine(ColorLine, new Point(-(5 + screenWidth + S1 + W1 / 2), -5 - t), new Point(-(5 + screenWidth + S1 + W1 / 2), h + 5));
+            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), -t), 
+                new Point(-(10 + screenWidth + S1 + W1 / 2), -t));
+            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), 0), 
+                new Point(-(10 + screenWidth + S1 + W1 / 2), 0));
+            dc.DrawLine(ColorLine, new Point(-(screenWidth + S1 + W1 / 2), h), 
+                new Point(-(10 + screenWidth + S1 + W1 / 2), h));
+            dc.DrawLine(ColorLine, new Point(-(5 + screenWidth + S1 + W1 / 2), -5 - t), 
+                new Point(-(5 + screenWidth + S1 + W1 / 2), h + 5));
 
             //Подписи линий разделения толщины линии и подложки
             dc.DrawText(GetDrawingText("h"), new Point(-(20 + screenWidth + S1 + W1 / 2), h / 2 - 10));

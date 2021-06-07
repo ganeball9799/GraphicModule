@@ -62,7 +62,7 @@
                             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Stretch">
                                 <TextBox  Width="70" Height="20"
                                               HorizontalAlignment="Stretch"
-                                         Text="{Binding Value, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay }">
+                                         Text="{Binding Value, ValidatesOnDataErrors=True,UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
                                     <i:Interaction.Triggers>
                                         <i:EventTrigger EventName="PreviewMouseWheel">
                                             <command:EventToCommand Command="{Binding MouseWheelCommand}"
@@ -71,7 +71,6 @@
                                     </i:Interaction.Triggers>
                                 </TextBox>
                             </StackPanel>
-
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

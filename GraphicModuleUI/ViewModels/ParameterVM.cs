@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -11,7 +12,7 @@ using GraphicModule.Models;
 
 namespace GraphicModuleUI.ViewModels
 {
-    public class ParameterVM : ViewModelBase
+    public class ParameterVM : ViewModelBase, IDataErrorInfo
     {
         /// <summary>
         /// Регулярное выражения для числа типа double.
@@ -60,11 +61,22 @@ namespace GraphicModuleUI.ViewModels
             get => _value;
             set
             {
-                _value = DotToComma(value);
-                RaisePropertyChanged(nameof(Value));
-                UpdateValue?.Invoke(this);
+                try
+                {
+                    _value = DotToComma(value);
+                    RaisePropertyChanged(nameof(Value));
+                    UpdateValue?.Invoke(this);
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("Value is not Null!", "Graphic module",
+                        MessageBoxButton.OK);
+                }
+
             }
         }
+
+        string IDataErrorInfo.Error => throw new NotImplementedException();
 
         public ParameterName ParameterName;
 
@@ -102,7 +114,7 @@ namespace GraphicModuleUI.ViewModels
                 return error;
             }
         }
-        
+
         //public ParameterVM(Parameter parameter)
         //{
         //    _parameter = parameter;
@@ -116,14 +128,14 @@ namespace GraphicModuleUI.ViewModels
         {
             _parameter = parameter;
             Value = _parameter.Value.ToString();
-            SetSign(_parameter.ParameterName,_parameter.Number);
+            SetSign(_parameter.ParameterName, _parameter.Number);
             ParameterName = _parameter.ParameterName;
             Number = _parameter.Number.ToString();
             PropertyChanged += (s, e) =>
             {
                 if (s is ParameterVM p && e.PropertyName == nameof(p.Value) && p[e.PropertyName] is null)
                 {
-                    action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min , double.Parse(p.Value),_parameter.Number));
+                    action?.Invoke(new Parameter(ParameterName, _parameter.Max, _parameter.Min, double.Parse(p.Value), _parameter.Number));
                 }
             };
             UpdateValue += Render;
