@@ -53,9 +53,9 @@ namespace GraphicModuleUI.ViewModels
             {
                 zoom = 1.4;
             }
-            else if (zoom < 0.5)
+            else if (zoom < 0.4)
             {
-                zoom = 0.5;
+                zoom = 0.4;
             }
 
             return zoom;
@@ -77,6 +77,6 @@ namespace GraphicModuleUI.ViewModels
         /// </summary>
         private FormattedText GetDrawingText(string measure) =>
             new FormattedText(measure, CultureInfo.GetCultureInfo("en-Us"),
-                FlowDirection.LeftToRight, new Typeface("verdana"), 13, Brushes.DarkBlue);
+                FlowDirection.LeftToRight, new Typeface("verdana"), 12, Brushes.DarkBlue);
     }
 }
