@@ -81,9 +81,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
             DrawLine(dc, new Point(-(S1 + W1 / 2 + 5), -(t + 10)), new Point(W1 / 2 + S2 + 5, -(t + 10)));
 
             //Подписи ширины и зазоров
-            DrawText(dc, "W", new Point(-5, -(t + 30)));
-            DrawText(dc, "S1", new Point(-(S1 / 2 + W1 / 2 + 5), -(t + 30)));
-            DrawText(dc, "S2", new Point(W1 / 2 + S2 / 2 - 5, -(t + 30)));
+            DrawText(dc, "W", 13, new Point(-5, -(t + 30)));
+            DrawText(dc, "S1", 13, new Point(-(S1 / 2 + W1 / 2 + 5), -(t + 30)));
+            DrawText(dc, "S2", 13, new Point(W1 / 2 + S2 / 2 - 5, -(t + 30)));
 
             //Линии для разделения толщины линии и подложки
             DrawLine(dc, new Point(-(screenWidth + S1 + W1 / 2), -t),
@@ -96,8 +96,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
                         new Point(-(5 + screenWidth + S1 + W1 / 2), h + 5));
 
             //Подписи линий разделения толщины линии и подложки
-            DrawText(dc, "h", new Point(-(20 + screenWidth + S1 + W1 / 2), h / 2 - 10));
-            DrawText(dc, "t", new Point(-(20 + screenWidth + S1 + W1 / 2), -t / 2 - 10));
+            DrawText(dc, "h", 13, new Point(-(20 + screenWidth + S1 + W1 / 2), h / 2 - 10));
+            DrawText(dc, "t", 13, new Point(-(20 + screenWidth + S1 + W1 / 2), -t / 2 - 10));
         }
     }
 }

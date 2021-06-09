@@ -71,11 +71,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(-5 - (W1 + gap * 2) / 2, -t - 5), new Point(-5 - (W1 + gap * 2) / 2, h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", new Point(-5, -(t + 25)));
+                DrawText(dc, "W", 13, new Point(-5, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-20 - (W1 + gap * 2) / 2, h / 2 - 9));
-                DrawText(dc, "t", new Point(-20 - (W1 + gap * 2) / 2, -(t / 2) - 9));
+                DrawText(dc, "h", 13, new Point(-20 - (W1 + gap * 2) / 2, h / 2 - 9));
+                DrawText(dc, "t", 13, new Point(-20 - (W1 + gap * 2) / 2, -(t / 2) - 9));
 
             }
             else if (n == 2)
@@ -121,13 +121,13 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(-(W1 + S1 / 2 + 15), -t - 5), new Point(-(W1 + S1 / 2 + 15), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W1", new Point(-(W1 / 2 + S1 / 2 + 5), -(t + 25)));
-                DrawText(dc, "W2", new Point(W2 / 2 + S1 / 2 - 5, -(t + 25)));
-                DrawText(dc, "S1", new Point( - 5, -(t + 25)));
+                DrawText(dc, "W1", 12, new Point(-(W1 / 2 + S1 / 2 + 5), -(t + 25)));
+                DrawText(dc, "W2", 12, new Point(W2 / 2 + S1 / 2 - 5, -(t + 25)));
+                DrawText(dc, "S1", 12, new Point(-5, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-(W1 + S1 / 2 + 20 + gap), h / 2 - 9));
-                DrawText(dc, "t", new Point(-(W1 + S1 / 2 + 20 + gap), -(t / 2) - 9));
+                DrawText(dc, "h", 12, new Point(-(W1 + S1 / 2 + 20 + gap), h / 2 - 9));
+                DrawText(dc, "t", 12, new Point(-(W1 + S1 / 2 + 20 + gap), -(t / 2) - 9));
 
                 ////Линии для разделения ширин и зазоров
                 //DrawLine(dc, new Point(-W1, -t), new Point(-W1, -(t + 10)));
@@ -159,29 +159,27 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 _slots.Add(_geometry[ParameterName.Slot, 0].Value);
                 _slots.Add(_geometry[ParameterName.Slot, 1].Value);
 
-                var zoomw1 = _stripWidths[0] / ((_slots[0] + _slots[1] + _stripWidths[1] + _stripWidths[2] + substrateHeight) / 5);
-                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _slots[0] + _slots[1] + substrateHeight) / 5);
-                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _slots[0] + _slots[1] + substrateHeight) / 5);
-                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[1] + substrateHeight) / 5);
-                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + substrateHeight) / 5);
-                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + stripsThicknees) / 4);
-                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2]) / 4);
+                var zoomw1 = _stripWidths[0] / ((_slots[0] + _slots[1] + _stripWidths[1] + _stripWidths[2] + substrateHeight + stripsThicknees) / 6);
+                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _slots[0] + _slots[1] + substrateHeight + stripsThicknees) / 6);
+                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _slots[0] + _slots[1] + substrateHeight + stripsThicknees) / 6);
+                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[1] + substrateHeight + stripsThicknees) / 6);
+                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + substrateHeight + stripsThicknees) / 6);
+                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + _slots[1] + stripsThicknees) / 6);
+                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _slots[0] + _slots[1] + _stripWidths[2]) / 6);
 
-                double W1 = 30 * ZoomIn(zoomw1);
-                double W2 = 30 * ZoomIn(zoomw2);
-                double W3 = 30 * ZoomIn(zoomw3);
-                double S1 = 15 * ZoomIn(zooms1);
-                double S2 = 15 * ZoomIn(zooms2);
+                double W1 = 40 * ZoomIn(zoomw1);
+                double W2 = 40 * ZoomIn(zoomw2);
+                double W3 = 40 * ZoomIn(zoomw3);
+                double S1 = 10 * ZoomIn(zooms1);
+                double S2 = 10 * ZoomIn(zooms2);
                 double h = 20 * ZoomIn(zoomh);
                 double t = 20 * ZoomIn(zoomt);
-
 
                 DrawRectangle(dc, WidthColor, PenColor, -(W1 + S1), -t, W1, t);
                 DrawRectangle(dc, WidthColor, PenColor, 0, -t, W2, t);
                 DrawRectangle(dc, WidthColor, PenColor, W2 + S2, -t, W3, t);
                 DrawRectangle(dc, SubstrateColor, PenColor, -(W1 + S1 + gap), 0, W1 + S1 + W2 + W3 + S2 + gap * 2, h);
                 DrawRectangle(dc, GroundColor, PenColor, -(W1 + S1 + gap), h, W1 + S1 + W2 + W3 + S2 + gap * 2, ground);
-
 
                 //Линии для разделения ширин и зазоров
                 DrawLine(dc, new Point(-(W1 + S1 - z), -t), new Point(-(W1 + S1 - z), -(t + 10)));
@@ -190,7 +188,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(W2 - z, -t), new Point(W2 - z, -(t + 10)));
                 DrawLine(dc, new Point(S2 + W2 + z, -t), new Point(S2 + W2 + z, -(t + 10)));
                 DrawLine(dc, new Point(S2 + W2 + W3 - z, -t), new Point(S2 + W2 + W3 - z, -(t + 10)));
-
                 DrawLine(dc, new Point(-(gap - 5 + W1 + S1), -(t + 5)), new Point(S2 + W2 + W3 + gap - 5, -(t + 5)));
 
                 //Линии для разделения толщин линии и подложки
@@ -200,15 +197,15 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(-(W1 + S1 + gap + 5), -t - 5), new Point(-(W1 + S1 + gap + 5), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", new Point(-(W1 / 2 + S1 + 2), -(t + 15)));
-                DrawText(dc, "W2", new Point(W2 / 2 - 4, -(t + 15)));
-                DrawText(dc, "W3", new Point(W2 + S2 + W3 / 2 - 4, -(t + 15)));
-                DrawText(dc, "S", new Point(-(S1 / 2 + 2), -(t + 15)));
-                DrawText(dc, "S2", new Point(W2 + S2 / 2 - 2, -(t + 15)));
+                DrawText(dc, "W", 11, new Point(-(W1 / 2 + S1 + 2), -(t + 25)));
+                DrawText(dc, "W2", 11, new Point(W2 / 2 - 10, -(t + 25)));
+                DrawText(dc, "W3", 11, new Point(W2 + S2 + W3 / 2 - 10, -(t + 25)));
+                DrawText(dc, "S", 11, new Point(-(S1 / 2 + 5), -(t + 25)));
+                DrawText(dc, "S2", 11, new Point(W2 + S2 / 2 - 5, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-(W1 + S1 + gap + 10), h / 2 - 3));
-                DrawText(dc, "t", new Point(-(W1 + S1 + gap + 10), -(t / 2) - 3));
+                DrawText(dc, "h", 11, new Point(-(W1 + S1 + gap + 20), h / 2 - 9));
+                DrawText(dc, "t", 11, new Point(-(W1 + S1 + gap + 20), -(t / 2) - 9));
             }
             else if (n == 4)
             {
@@ -220,23 +217,23 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 _slots.Add(_geometry[ParameterName.Slot, 1].Value);
                 _slots.Add(_geometry[ParameterName.Slot, 2].Value);
 
-                var zoomw1 = _stripWidths[0] / ((_slots[0] + _slots[1] + _slots[2] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + substrateHeight) / 7);
-                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + substrateHeight) / 7);
-                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + substrateHeight) / 7);
-                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + _slots[1] + _slots[2] + substrateHeight) / 7);
-                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[1] + _slots[2]) / 6);
-                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[2]) / 6);
-                var zooms3 = _slots[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1]) / 6);
-                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + stripsThicknees) / 5);
-                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3]) / 5);
+                var zoomw1 = _stripWidths[0] / ((_stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + substrateHeight + stripsThicknees) / 8);
+                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + substrateHeight + stripsThicknees) / 8);
+                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + substrateHeight + stripsThicknees) / 8);
+                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + _slots[1] + _slots[2] + substrateHeight + stripsThicknees) / 8);
+                var zooms1 = _slots[0] / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[1] + _slots[2] + stripsThicknees) / 8);
+                var zooms2 = _slots[1] / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[2] + stripsThicknees) / 8);
+                var zooms3 = _slots[2] / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + stripsThicknees) / 8);
+                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + stripsThicknees) / 8);
+                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _slots[0] + _slots[1] + _slots[2] + _stripWidths[3]) / 8);
 
-                double W1 = 15 * ZoomIn(zoomw1);
-                double W2 = 15 * ZoomIn(zoomw2);
-                double W3 = 15 * ZoomIn(zoomw3);
-                double W4 = 15 * ZoomIn(zoomw4);
-                double S1 = 10 * ZoomIn(zooms1);
-                double S2 = 10 * ZoomIn(zooms2);
-                double S3 = 10 * ZoomIn(zooms3);
+                double W1 = 25 * ZoomIn(zoomw1);
+                double W2 = 25 * ZoomIn(zoomw2);
+                double W3 = 25 * ZoomIn(zoomw3);
+                double W4 = 25 * ZoomIn(zoomw4);
+                double S1 = 15 * ZoomIn(zooms1);
+                double S2 = 15 * ZoomIn(zooms2);
+                double S3 = 15 * ZoomIn(zooms3);
                 double h = 20 * ZoomIn(zoomh);
                 double t = 20 * ZoomIn(zoomt);
 
@@ -247,7 +244,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawRectangle(dc, SubstrateColor, PenColor, -(gap + W1 + S1 + W2), 0, W1 + S1 + W2 + W3 + W4 + S2 + S3 + gap * 2, h);
                 DrawRectangle(dc, GroundColor, PenColor, -(gap + W1 + S1 + W2), h, W1 + S1 + W2 + W3 + W4 + S2 + S3 + gap * 2, ground);
 
-
                 //Линии для разделения ширин и зазоров
                 DrawLine(dc, new Point(-(W1 + S1 + W2 - z), -t), new Point(-(W1 + S1 + W2 - z), -(t + 10)));
                 DrawLine(dc, new Point(-(W2 + S1 + z), -t), new Point(-(W2 + S1 + z), -(t + 10)));
@@ -257,28 +253,26 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(S2 + W3 - z, -t), new Point(S2 + W3 - z, -(t + 10)));
                 DrawLine(dc, new Point(S2 + W3 + S3 + z, -t), new Point(S2 + W3 + S3 + z, -(t + 10)));
                 DrawLine(dc, new Point(S2 + W3 + S3 + W4 - z, -t), new Point(S2 + W3 + S3 + W4 - z, -(t + 10)));
-
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 - 5), -(t + 5)), new Point(S2 + W3 + S3 + W4 + gap - 5, -(t + 5)));
 
                 //Линии для разделения толщин линии и подложки
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + 10), 0), new Point(-(W1 + S1 + W2 + gap), 0));
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + 10), h), new Point(-(W1 + S1 + W2 + gap), h));
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + 10), -t), new Point(-(W1 + S1 + W2), -t));
-
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + 5), -t - 5), new Point(-(gap + W1 + S1 + W2 + 5), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", new Point(-(W1 / 2 + S1 + W2 + 3), -(t + 15)));
-                DrawText(dc, "W2", new Point(-(W2 / 2 + 3), -(t + 15)));
-                DrawText(dc, "W3", new Point(S2 + W3 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W4", new Point(S2 + S3 + W3 + W4 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S", new Point(-(S1 / 2 + W2 + 3), -(t + 15)));
-                DrawText(dc, "S2", new Point(S2 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S3", new Point(W3 + S2 + S3 / 2 - 3, -(t + 15)));
+                DrawText(dc, "W", 7, new Point(-(W1 / 2 + S1 + W2 + 9), -(t + 25)));
+                DrawText(dc, "W2", 7, new Point(-(W2 / 2 + 9), -(t + 25)));
+                DrawText(dc, "W3", 7, new Point(S2 + W3 / 2 - 9, -(t + 25)));
+                DrawText(dc, "W4", 7, new Point(S2 + S3 + W3 + W4 / 2 - 9, -(t + 25)));
+                DrawText(dc, "S", 7, new Point(-(S1 / 2 + W2 + 9), -(t + 25)));
+                DrawText(dc, "S2", 7, new Point(S2 / 2 - 9, -(t + 25)));
+                DrawText(dc, "S3", 7, new Point(W3 + S2 + S3 / 2 - 9, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-(gap + W1 + S1 + W2 + 10), h / 2 - 3));
-                DrawText(dc, "t", new Point(-(gap + W1 + S1 + W2 + 10), -(t / 2) - 3));
+                DrawText(dc, "h", 7, new Point(-(gap + W1 + S1 + W2 + 20), h / 2 - 9));
+                DrawText(dc, "t", 7, new Point(-(gap + W1 + S1 + W2 + 20), -(t / 2) - 9));
             }
             else if (n == 5)
             {
@@ -293,24 +287,24 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 _slots.Add(_geometry[ParameterName.Slot, 3].Value);
 
 
-                var zoomw1 = _stripWidths[0] / ((_stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight) / 8);
-                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight) / 8);
-                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight) / 8);
-                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight) / 8);
-                var zoomw5 = _stripWidths[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight) / 8);
-                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[1] + _slots[2] + _slots[3]) / 8);
-                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[2] + _slots[3]) / 8);
-                var zooms3 = _slots[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[3]) / 8);
-                var zooms4 = _slots[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2]) / 8);
-                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + stripsThicknees) / 5);
-                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4]) / 5);
+                var zoomw1 = _stripWidths[0] / ((_stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zoomw5 = _stripWidths[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zooms3 = _slots[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[3] + substrateHeight + stripsThicknees) / 11);
+                var zooms4 = _slots[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + substrateHeight + stripsThicknees) / 11);
+                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + stripsThicknees) / 11);
+                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3]) / 11);
 
 
-                double W1 = 15 * ZoomIn(zoomw1);
-                double W2 = 15 * ZoomIn(zoomw2);
-                double W3 = 15 * ZoomIn(zoomw3);
-                double W4 = 15 * ZoomIn(zoomw4);
-                double W5 = 15 * ZoomIn(zoomw5);
+                double W1 = 20 * ZoomIn(zoomw1);
+                double W2 = 20 * ZoomIn(zoomw2);
+                double W3 = 20 * ZoomIn(zoomw3);
+                double W4 = 20 * ZoomIn(zoomw4);
+                double W5 = 20 * ZoomIn(zoomw5);
                 double S1 = 10 * ZoomIn(zooms1);
                 double S2 = 10 * ZoomIn(zooms2);
                 double S3 = 10 * ZoomIn(zooms3);
@@ -349,19 +343,19 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + S2 + 5), -t - 5), new Point(-(gap + W1 + S1 + W2 + S2 + 5), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", new Point(-(W1 / 2 + S1 + W2 + S2 + 3), -(t + 15)));
-                DrawText(dc, "W2", new Point(-(W2 / 2 + S2 + 3), -(t + 15)));
-                DrawText(dc, "W3", new Point(W3 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W4", new Point(S3 + W3 + W4 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W5", new Point(S3 + W3 + W4 + S4 + W5 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S", new Point(-(S1 / 2 + W2 + S2 + 2), -(t + 15)));
-                DrawText(dc, "S2", new Point(-S2 / 2 - 2, -(t + 15)));
-                DrawText(dc, "S3", new Point(W3 + S3 / 2 - 2, -(t + 15)));
-                DrawText(dc, "S4", new Point(W3 + S3 + W4 + S4 / 2 - 2, -(t + 15)));
+                DrawText(dc, "W", 7, new Point(-(W1 / 2 + S1 + W2 + S2 + 10), -(t + 25)));
+                DrawText(dc, "W2", 7, new Point(-(W2 / 2 + S2 + 10), -(t + 25)));
+                DrawText(dc, "W3", 7, new Point(W3 / 2 - 10, -(t + 25)));
+                DrawText(dc, "W4", 7, new Point(S3 + W3 + W4 / 2 - 10, -(t + 25)));
+                DrawText(dc, "W5", 7, new Point(S3 + W3 + W4 + S4 + W5 / 2 - 10, -(t + 25)));
+                DrawText(dc, "S", 7, new Point(-(S1 / 2 + W2 + S2 + 10), -(t + 25)));
+                DrawText(dc, "S2", 7, new Point(-S2 / 2 - 10, -(t + 25)));
+                DrawText(dc, "S3", 7, new Point(W3 + S3 / 2 - 10, -(t + 25)));
+                DrawText(dc, "S4", 7, new Point(W3 + S3 + W4 + S4 / 2 - 10, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-(gap + W1 + S1 + W2 + S2 + 10), h / 2 - 3));
-                DrawText(dc, "t", new Point(-(gap + W1 + S1 + W2 + S2 + 10), -(t / 2) - 3));
+                DrawText(dc, "h", 7, new Point(-(gap + W1 + S1 + W2 + S2 + 20), h / 2 - 9));
+                DrawText(dc, "t", 7, new Point(-(gap + W1 + S1 + W2 + S2 + 20), -(t / 2) - 9));
 
             }
             else if (n == 6)
@@ -378,34 +372,34 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 _slots.Add(_geometry[ParameterName.Slot, 3].Value);
                 _slots.Add(_geometry[ParameterName.Slot, 4].Value);
 
-                var zoomw1 = _stripWidths[0] / ((_stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
-                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
-                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
-                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
-                var zoomw5 = _stripWidths[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
-                var zoomw6 = _stripWidths[5] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight) / 11);
+                var zoomw1 = _stripWidths[0] / ((_stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zoomw3 = _stripWidths[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zoomw4 = _stripWidths[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zoomw5 = _stripWidths[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zoomw6 = _stripWidths[5] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
 
-                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[1] + _slots[2] + _slots[3] + _slots[4]) / 9);
-                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[2] + _slots[3] + _slots[4]) / 9);
-                var zooms3 = _slots[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[3] + _slots[4]) / 9);
-                var zooms4 = _slots[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[4]) / 9);
-                var zooms5 = _slots[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3]) / 9);
-                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + stripsThicknees) / 7);
-                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5]) / 7);
+                var zooms1 = _slots[0] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zooms2 = _slots[1] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[2] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zooms3 = _slots[2] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[3] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zooms4 = _slots[3] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[4] + substrateHeight + stripsThicknees) / 12);
+                var zooms5 = _slots[4] / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + substrateHeight + stripsThicknees) / 12);
+                var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4] + stripsThicknees) / 12);
+                var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4]) / 12);
 
-                double W1 = 12 * ZoomIn(zoomw1);
-                double W2 = 12 * ZoomIn(zoomw2);
-                double W3 = 12 * ZoomIn(zoomw3);
-                double W4 = 12 * ZoomIn(zoomw4);
-                double W5 = 12 * ZoomIn(zoomw5);
-                double W6 = 12 * ZoomIn(zoomw6);
-                double S1 = 8 * ZoomIn(zooms1);
-                double S2 = 8 * ZoomIn(zooms2);
-                double S3 = 8 * ZoomIn(zooms3);
-                double S4 = 8 * ZoomIn(zooms4);
-                double S5 = 8 * ZoomIn(zooms5);
-                double h = 20 * ZoomIn(zoomh);
-                double t = 20 * ZoomIn(zoomt);
+                double W1 = 20 * ZoomIn(zoomw1);
+                double W2 = 20 * ZoomIn(zoomw2);
+                double W3 = 20 * ZoomIn(zoomw3);
+                double W4 = 20 * ZoomIn(zoomw4);
+                double W5 = 20 * ZoomIn(zoomw5);
+                double W6 = 20 * ZoomIn(zoomw6);
+                double S1 = 10 * ZoomIn(zooms1);
+                double S2 = 10 * ZoomIn(zooms2);
+                double S3 = 10 * ZoomIn(zooms3);
+                double S4 = 10 * ZoomIn(zooms4);
+                double S5 = 10 * ZoomIn(zooms5);
+                double h = 15 * ZoomIn(zoomh);
+                double t = 15 * ZoomIn(zoomt);
 
 
                 DrawRectangle(dc, WidthColor, PenColor, -(W1 + S1 + W2 + S2 + W3), -t, W1, t);
@@ -442,21 +436,21 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 DrawLine(dc, new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 5), -t - 5), new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 5), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", new Point(-(W1 / 2 + S1 + W2 + S2 + W3 + 3), -(t + 15)));
-                DrawText(dc, "W2", new Point(-(W2 / 2 + S2 + W3 + 3), -(t + 15)));
-                DrawText(dc, "W3", new Point(-W3 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W4", new Point(S3 + W4 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W5", new Point(S3 + W4 + S4 + W5 / 2 - 3, -(t + 15)));
-                DrawText(dc, "W6", new Point(S3 + W4 + S4 + W5 + S5 + W6 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S1", new Point(-(S1 / 2 + W2 + S2 + W3 + 3), -(t + 15)));
-                DrawText(dc, "S2", new Point(-(S2 / 2 + W3 + 3), -(t + 15)));
-                DrawText(dc, "S3", new Point(S3 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S4", new Point(S3 + W4 + S4 / 2 - 3, -(t + 15)));
-                DrawText(dc, "S5", new Point(S3 + W4 + S4 + W5 + S5 / 2 - 3, -(t + 15)));
+                DrawText(dc, "W", 7, new Point(-(W1 / 2 + S1 + W2 + S2 + W3 + 9), -(t + 25)));
+                DrawText(dc, "W2", 7, new Point(-(W2 / 2 + S2 + W3 + 9), -(t + 25)));
+                DrawText(dc, "W3", 7, new Point(-W3 / 2 - 9, -(t + 25)));
+                DrawText(dc, "W4", 7, new Point(S3 + W4 / 2 - 9, -(t + 25)));
+                DrawText(dc, "W5", 7, new Point(S3 + W4 + S4 + W5 / 2 - 9, -(t + 25)));
+                DrawText(dc, "W6", 7, new Point(S3 + W4 + S4 + W5 + S5 + W6 / 2 - 9, -(t + 25)));
+                DrawText(dc, "S1", 7, new Point(-(S1 / 2 + W2 + S2 + W3 + 9), -(t + 25)));
+                DrawText(dc, "S2", 7, new Point(-(S2 / 2 + W3 + 9), -(t + 25)));
+                DrawText(dc, "S3", 7, new Point(S3 / 2 - 9, -(t + 25)));
+                DrawText(dc, "S4", 7, new Point(S3 + W4 + S4 / 2 - 9, -(t + 25)));
+                DrawText(dc, "S5", 7, new Point(S3 + W4 + S4 + W5 + S5 / 2 - 9, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 10), h / 2 - 3));
-                DrawText(dc, "t", new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 10), -(t / 2) - 3));
+                DrawText(dc, "h", 7, new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 20), h / 2 - 9));
+                DrawText(dc, "t", 7, new Point(-(gap + W1 + S1 + W2 + S2 + W3 + 20), -(t / 2) - 9));
 
             }
         }

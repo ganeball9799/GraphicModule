@@ -53,9 +53,9 @@ namespace GraphicModuleUI.ViewModels
             {
                 zoom = 1.4;
             }
-            else if (zoom < 0.4)
+            else if (zoom < 0.5)
             {
-                zoom = 0.4;
+                zoom = 0.5;
             }
 
             return zoom;
@@ -64,8 +64,8 @@ namespace GraphicModuleUI.ViewModels
         /// <summary>
         /// Метод для отрисовки текста
         /// </summary>
-        protected void DrawText(DrawingContext dc, string measure, Point point) =>
-            dc.DrawText(GetDrawingText(measure), point);
+        protected void DrawText(DrawingContext dc, string measure,double textSize, Point point) =>
+            dc.DrawText(GetDrawingText(measure,textSize), point);
 
         /// <summary>
         /// Метод для отрисовки линии
@@ -75,8 +75,8 @@ namespace GraphicModuleUI.ViewModels
         /// <summary>
         /// Метод для задания подписи
         /// </summary>
-        private FormattedText GetDrawingText(string measure) =>
+        private FormattedText GetDrawingText(string measure, double textSize) =>
             new FormattedText(measure, CultureInfo.GetCultureInfo("en-Us"),
-                FlowDirection.LeftToRight, new Typeface("verdana"), 12, Brushes.DarkBlue);
+                FlowDirection.LeftToRight, new Typeface("verdana"), textSize, Brushes.DarkBlue);
     }
 }
