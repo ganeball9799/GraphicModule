@@ -28,7 +28,7 @@ namespace GraphicModule.Models
             _parameters = new List<Parameter>
             {
                 new Parameter(ParameterName.StripWidth, 70,1,20),
-                new Parameter(ParameterName.StripsThickness,70,1,20),
+                new Parameter(ParameterName.StripsThickness,70,1,10),
                 new Parameter(ParameterName.SubstrateHeight,70,1,20),
                 new Parameter(ParameterName.SubstrateHeight,70,1,20,1)
             };

@@ -11,7 +11,7 @@
         xmlns:models="clr-namespace:GraphicModule.Models"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="GraphicModule" Height="500" Width="700" >
+        Title="GraphicModule" Height="500" Width="700" Icon="3605317-centimeter-geometric-measure-measurement-ruler-rulers-scale_107850.png" >
     <Window.DataContext>
         <viewModel:MainWindowVM/>
     </Window.DataContext>

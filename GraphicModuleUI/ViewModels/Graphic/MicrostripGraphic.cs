@@ -175,37 +175,37 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 double h = 20 * ZoomIn(zoomh);
                 double t = 20 * ZoomIn(zoomt);
 
-                DrawRectangle(dc, WidthColor, PenColor, -(W1 + S1), -t, W1, t);
-                DrawRectangle(dc, WidthColor, PenColor, 0, -t, W2, t);
-                DrawRectangle(dc, WidthColor, PenColor, W2 + S2, -t, W3, t);
-                DrawRectangle(dc, SubstrateColor, PenColor, -(W1 + S1 + gap), 0, W1 + S1 + W2 + W3 + S2 + gap * 2, h);
-                DrawRectangle(dc, GroundColor, PenColor, -(W1 + S1 + gap), h, W1 + S1 + W2 + W3 + S2 + gap * 2, ground);
+                DrawRectangle(dc, WidthColor, PenColor, -(W1 + S1 + W2 / 2), -t, W1, t);
+                DrawRectangle(dc, WidthColor, PenColor, -W2 / 2, -t, W2, t);
+                DrawRectangle(dc, WidthColor, PenColor, W2 / 2 + S2, -t, W3, t);
+                DrawRectangle(dc, SubstrateColor, PenColor, -(W1 + S1 + W2 / 2 + gap), 0, W1 + S1 + W2 + W3 + S2 + gap * 2, h);
+                DrawRectangle(dc, GroundColor, PenColor, -(W1 + S1 + W2 / 2 + gap), h, W1 + S1 + W2 + W3 + S2 + gap * 2, ground);
 
                 //Линии для разделения ширин и зазоров
-                DrawLine(dc, new Point(-(W1 + S1 - z), -t), new Point(-(W1 + S1 - z), -(t + 10)));
-                DrawLine(dc, new Point(-S1 - z, -t), new Point(-S1 - z, -(t + 10)));
-                DrawLine(dc, new Point(z, -t), new Point(z, -(t + 10)));
-                DrawLine(dc, new Point(W2 - z, -t), new Point(W2 - z, -(t + 10)));
-                DrawLine(dc, new Point(S2 + W2 + z, -t), new Point(S2 + W2 + z, -(t + 10)));
-                DrawLine(dc, new Point(S2 + W2 + W3 - z, -t), new Point(S2 + W2 + W3 - z, -(t + 10)));
-                DrawLine(dc, new Point(-(gap - 5 + W1 + S1), -(t + 5)), new Point(S2 + W2 + W3 + gap - 5, -(t + 5)));
+                DrawLine(dc, new Point(-(W1 + S1 + W2 / 2 - z), -t), new Point(-(W1 + S1 + W2 / 2 - z), -(t + 10)));
+                DrawLine(dc, new Point(-S1 - W2 / 2 - z, -t), new Point(-S1 - W2 / 2 - z, -(t + 10)));
+                DrawLine(dc, new Point(-W2 / 2, -t), new Point(-W2 / 2, -(t + 10)));
+                DrawLine(dc, new Point(W2 / 2 - z, -t), new Point(W2 / 2 - z, -(t + 10)));
+                DrawLine(dc, new Point(S2 + W2 / 2 + z, -t), new Point(S2 + W2 / 2 + z, -(t + 10)));
+                DrawLine(dc, new Point(S2 + W2 / 2 + W3 - z, -t), new Point(S2 + W2 / 2 + W3 - z, -(t + 10)));
+                DrawLine(dc, new Point(-(gap - 5 + W1 + S1 + W2 / 2), -(t + 5)), new Point(S2 + W2 / 2 + W3 + gap - 5, -(t + 5)));
 
                 //Линии для разделения толщин линии и подложки
-                DrawLine(dc, new Point(-(W1 + S1 + gap + 10), 0), new Point(-(W1 + S1 + gap), 0));
-                DrawLine(dc, new Point(-(W1 + S1 + gap + 10), h), new Point(-(W1 + S1 + gap), h));
-                DrawLine(dc, new Point(-(W1 + S1 + gap + 10), -t), new Point(-(W1 + S1), -t));
-                DrawLine(dc, new Point(-(W1 + S1 + gap + 5), -t - 5), new Point(-(W1 + S1 + gap + 5), h + 5));
+                DrawLine(dc, new Point(-(W1 + S1 + W2 / 2 + gap + 10), 0), new Point(-(W1 + S1 + W2 / 2 + gap), 0));
+                DrawLine(dc, new Point(-(W1 + S1 + W2 / 2 + gap + 10), h), new Point(-(W1 + S1 + W2 / 2 + gap), h));
+                DrawLine(dc, new Point(-(W1 + S1 + W2 / 2 + gap + 10), -t), new Point(-(W1 + S1 + W2 / 2), -t));
+                DrawLine(dc, new Point(-(W1 + S1 + W2 / 2 + gap + 5), -t - 5), new Point(-(W1 + S1 + W2 / 2 + gap + 5), h + 5));
 
                 //Подписи зазоров и ширин линий
-                DrawText(dc, "W", 11, new Point(-(W1 / 2 + S1 + 2), -(t + 25)));
-                DrawText(dc, "W2", 11, new Point(W2 / 2 - 10, -(t + 25)));
-                DrawText(dc, "W3", 11, new Point(W2 + S2 + W3 / 2 - 10, -(t + 25)));
-                DrawText(dc, "S", 11, new Point(-(S1 / 2 + 5), -(t + 25)));
-                DrawText(dc, "S2", 11, new Point(W2 + S2 / 2 - 5, -(t + 25)));
+                DrawText(dc, "W", 11, new Point(-(W1 / 2 + S1 + W2 / 2 + 4), -(t + 25)));
+                DrawText(dc, "W2", 11, new Point(-5, -(t + 25)));
+                DrawText(dc, "W3", 11, new Point(W2 / 2 + S2 + W3 / 2 - 5, -(t + 25)));
+                DrawText(dc, "S", 11, new Point(-(S1 / 2 + W2 / 2 + 3), -(t + 25)));
+                DrawText(dc, "S2", 11, new Point(W2 / 2 + S2 / 2 - 5, -(t + 25)));
 
                 //Подписи толщин линии и подложки
-                DrawText(dc, "h", 11, new Point(-(W1 + S1 + gap + 20), h / 2 - 9));
-                DrawText(dc, "t", 11, new Point(-(W1 + S1 + gap + 20), -(t / 2) - 9));
+                DrawText(dc, "h", 11, new Point(-(W1 + S1 + W2 / 2 + gap + 20), h / 2 - 9));
+                DrawText(dc, "t", 11, new Point(-(W1 + S1 + W2 / 2 + gap + 20), -(t / 2) - 9));
             }
             else if (n == 4)
             {

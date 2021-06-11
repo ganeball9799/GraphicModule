@@ -30,6 +30,11 @@ namespace GraphicModuleUI.ViewModels
         protected SolidColorBrush SubstrateColor = new SolidColorBrush(Color.FromRgb(140, 137, 126));
 
         /// <summary>
+        /// Задает цвет подложки для линии с вертикальной вставкой
+        /// </summary>
+        protected SolidColorBrush SubstrateColorSecond = new SolidColorBrush(Color.FromRgb(204, 173, 96));
+
+        /// <summary>
         /// Задает цвет экрана
         /// </summary>
         protected SolidColorBrush GroundColor = new SolidColorBrush(Colors.Black);

@@ -12,6 +12,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
 {
     public class SingleCoplanarGraphic : StructureImage
     {
+        /// <summary>
+        /// Экземпляр линии
+        /// </summary>
         private Geometry _geometry;
 
         /// <summary>

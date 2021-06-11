@@ -116,6 +116,8 @@
       <Name>GraphicModule</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="View\3605317-centimeter-geometric-measure-measurement-ruler-rulers-scale_107850.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
