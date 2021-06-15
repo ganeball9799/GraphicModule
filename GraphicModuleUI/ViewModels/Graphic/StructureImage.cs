@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Windows.Shapes;
 
 namespace GraphicModuleUI.ViewModels
 {
@@ -50,6 +51,12 @@ namespace GraphicModuleUI.ViewModels
         }
 
         /// <summary>
+        /// Метод для отрисовки элипса
+        /// </summary>
+        protected void DrawEllipse(DrawingContext dc, SolidColorBrush color, Point point, double r1, double r2) =>
+            dc.DrawEllipse(color, PenColor, point, r1, r2);
+        
+        /// <summary>
         /// Метод для коэффициентов масштабирования
         /// </summary>
         protected double ZoomIn(double zoom)
@@ -61,6 +68,20 @@ namespace GraphicModuleUI.ViewModels
             else if (zoom < 0.5)
             {
                 zoom = 0.5;
+            }
+
+            return zoom;
+        }
+
+        protected double ZoomIn(double zoom,double max,double min)
+        {
+            if (zoom > max)
+            {
+                zoom = max;
+            }
+            else if (zoom < min)
+            {
+                zoom = min;
             }
 
             return zoom;

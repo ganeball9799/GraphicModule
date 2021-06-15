@@ -12,7 +12,7 @@
     {
         private readonly Geometry _line;
 
-        private ObservableCollection<ParameterVM> parameters;
+        private ObservableCollection<ParameterVM> _parameters;
 
         public LinesStructure Type;
 
@@ -26,15 +26,14 @@
 
         public ObservableCollection<StructureImage> GraphicComponent { get; set; }
 
-
         public string Name { get;private set; }
 
         public ObservableCollection<ParameterVM> Parameters
         {
-            get => parameters;
+            get => _parameters;
             set
             {
-                parameters = value;
+                _parameters = value;
                 RaisePropertyChanged(nameof(Parameters));
             }
         }
@@ -55,12 +54,17 @@
                     Name = "Microstrip";
                     Type = LinesStructure.Microstrip;
                     break;
+                case LinesStructure.Coaxial:
+                    Name = "Coaxial";
+                    Type = LinesStructure.Coaxial;
+                    break;
             }
         }
 
         private void InitGraphicComponent()
         {
             GraphicComponent = new ObservableCollection<StructureImage>();
+
             switch (_line.Structure)
             {
                 case LinesStructure.SingleCoplanar:
@@ -72,12 +76,13 @@
                 case LinesStructure.Microstrip:
                     GraphicComponent.Add(new MicrostripGraphic(_line));
                     break;
-
+                case LinesStructure.Coaxial:
+                    GraphicComponent.Add(new CoaxialGraphic(_line));
+                    break;
                 default:
                     throw new ArgumentException($"{_line.Structure} is not found");
             }
         }
-
 
         private void InitParameters()
         {
@@ -99,15 +104,14 @@
 
         private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
         {
-            var parametersVM = new List<ParameterVM>();
+            var _parametersVM = new List<ParameterVM>();
             foreach (var param in paramsList)
             {
                 var parametrVm = new ParameterVM((Parameter)param.Clone(), OnParameterChanged, Render);
 
-                parametersVM.Add(parametrVm);
+                _parametersVM.Add(parametrVm);
             }
-
-            return parametersVM;
+            return _parametersVM;
         }
 
         private void Render(ParameterVM parameter)
@@ -123,6 +127,9 @@
                     break;
                 case LinesStructure.Microstrip:
                     GraphicComponent.Add(new MicrostripGraphic(_line));
+                    break;
+                case LinesStructure.Coaxial:
+                    GraphicComponent.Add(new CoaxialGraphic(_line));
                     break;
 
                 default:

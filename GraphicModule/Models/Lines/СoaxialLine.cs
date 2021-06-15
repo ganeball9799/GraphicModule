@@ -9,7 +9,7 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
-    public class SingleCoplanarLine : Geometry
+    public class CoaxialLine : Geometry
     {
         public override Parameter this[ParameterName paramName, int number = 0]
         {
@@ -20,16 +20,14 @@ namespace GraphicModule.Models
                 param.Value = value.Value;
             }
         }
-        public SingleCoplanarLine()
+        public CoaxialLine()
         {
-            Structure = LinesStructure.SingleCoplanar;
+            Structure = LinesStructure.Coaxial;
             _parameters = new List<Parameter>
             {
-                new Parameter(ParameterName.Slot,70,1,20),
-                new Parameter(ParameterName.Slot,70,1,20,1),
-                new Parameter(ParameterName.StripWidth,70,1,30),
-                new Parameter(ParameterName.StripsThickness,70,1,30),
-                new Parameter(ParameterName.SubstrateHeight,70,1,30),
+                new Parameter(ParameterName.DiameterDielectric,70,1,10),
+                new Parameter(ParameterName.DiameterLine,70,1,8)
+                
             };
         }
 
@@ -37,11 +35,8 @@ namespace GraphicModule.Models
         {
             var Params = new List<Parameter>
             {
-                GetParam(ParameterName.Slot),
-                GetParam(ParameterName.Slot,1),
-                GetParam(ParameterName.StripWidth),
-                GetParam(ParameterName.StripsThickness),
-                GetParam(ParameterName.SubstrateHeight),
+                GetParam(ParameterName.DiameterLine),
+                GetParam(ParameterName.DiameterDielectric)
             };
             return Params;
         }

@@ -67,6 +67,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModels\Graphic\CoupledVerticalInsertGraphic.cs" />
     <Compile Include="ViewModels\Graphic\MicrostripGraphic.cs" />
+    <Compile Include="ViewModels\Graphic\CoaxialGraphic.cs" />
     <Compile Include="ViewModels\Graphic\SingleCoplanarGraphic.cs" />
     <Compile Include="ViewModels\Graphic\StructureImage.cs" />
     <Compile Include="ViewModels\LineVM.cs" />

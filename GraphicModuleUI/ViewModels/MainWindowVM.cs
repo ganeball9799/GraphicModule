@@ -19,29 +19,19 @@ namespace GraphicModuleUI.ViewModel
         public MainWindowVM()
         {
             SelectedLine = new LineVM(new SingleCoplanarLine());
-
             Lines = new ObservableCollection<LineVM>
             {
                 SelectedLine,
                 new LineVM(new CoupledVerticalInsertLine()),
-                new LineVM(new MicrostripLine())
+                new LineVM(new MicrostripLine()),
+                new LineVM(new CoaxialLine())
             };
-
         }
+
         public ObservableCollection<LineVM> Lines { get; set; }
 
         private LineVM _selectedLine;
 
-        //private ObservableCollection<ParameterVM> _parameters;
-        //public ObservableCollection<ParameterVM> Parameters
-        //{
-        //    get => _parameters;
-        //    set
-        //    {
-        //        _parameters = value;
-        //        RaisePropertyChanged(nameof(Parameters));
-        //    }
-        //}
 
         public LineVM SelectedLine
         {
@@ -49,7 +39,6 @@ namespace GraphicModuleUI.ViewModel
             set
             {
                 _selectedLine = value;
-                //Parameters = SelectedLine.Parameters;
                 RaisePropertyChanged(nameof(SelectedLine));
             }
         }

@@ -171,7 +171,7 @@ namespace GraphicModuleUI.ViewModels
         private void SetSign(ParameterName parameterName, int num)
         {
             var numberEl = num + 1;
-            var numElm = num.ToString();
+            //var numElm = num.ToString();
             switch (parameterName)
             {
                 case ParameterName.Slot:
@@ -188,6 +188,12 @@ namespace GraphicModuleUI.ViewModels
                     break;
                 case ParameterName.SubstrateHeight:
                     Sign = $"h{numberEl}";
+                    break;
+                case ParameterName.DiameterLine:
+                    Sign = $"d{numberEl}";
+                    break;
+                case ParameterName.DiameterDielectric:
+                    Sign = $"D{numberEl}";
                     break;
             }
         }

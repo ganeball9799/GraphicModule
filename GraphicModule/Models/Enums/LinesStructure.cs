@@ -4,6 +4,7 @@
     {
         SingleCoplanar,
         CoupledVerticalInsert,
-        Microstrip
+        Microstrip,
+        Coaxial
     }
 }

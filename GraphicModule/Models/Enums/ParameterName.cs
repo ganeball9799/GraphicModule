@@ -6,6 +6,8 @@
         StripsNumber,
         StripsThickness,
         StripWidth,
-        SubstrateHeight
+        SubstrateHeight,
+        DiameterLine,
+        DiameterDielectric
     }
 }

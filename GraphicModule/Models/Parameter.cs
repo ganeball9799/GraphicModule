@@ -20,10 +20,8 @@ namespace GraphicModule.Models
         private double _min;
 
         /// <summary>
-        /// Свойство минимальной границы параметра.
+        /// Свойство максимальной границы параметра.
         /// </summary>
-        
-
         private double _max;
 
         public double Value
@@ -38,7 +36,6 @@ namespace GraphicModule.Models
                         $"Parameter value cannot be more than {_max}"
                     );
                 }
-
                 var compareResMin = Comparer<double>.Default.Compare(value, _min);
                 if (compareResMin < 0)
                 {
@@ -46,7 +43,6 @@ namespace GraphicModule.Models
                         $"Parameter value cannot be less than {_min}"
                     );
                 }
-
                 _value = value;
             }
         }
