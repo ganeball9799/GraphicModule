@@ -85,7 +85,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
 
                 var zoomw1 = _stripWidths[0] / (_slots[0] + _stripWidths[0] + _stripWidths[1]);
                 var zoomw2 = _stripWidths[1] / (_slots[0] + _stripWidths[0] + _stripWidths[1]);
-                var zooms1 = _slots[0] / (_slots[0] + _stripWidths[0] + _stripWidths[1]); ;
+                var zooms1 = _slots[0] / (_slots[0] + _stripWidths[0] + _stripWidths[1]);
 
                 //var zoomw1 = _stripWidths[0] / ((_slots[0] + _stripWidths[1] + substrateHeight + stripsThicknees) / 4);
                 //var zoomw2 = _stripWidths[1] / ((_stripWidths[0] + _slots[0] + substrateHeight + stripsThicknees) / 4);
@@ -93,9 +93,9 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 var zoomh = substrateHeight / ((_stripWidths[0] + _stripWidths[1] + _slots[0] + stripsThicknees) / 4);
                 var zoomt = stripsThicknees / ((substrateHeight + _stripWidths[0] + _stripWidths[1] + _slots[0]) / 4);
 
-                double W1 = 80 * ZoomIn(zoomw1);
-                double W2 = 80 * ZoomIn(zoomw2);
-                double S1 = 40 * ZoomIn(zooms1);
+                double W1 = 80 * zoomw1;
+                double W2 = 80 * zoomw2;
+                double S1 = 80 * zooms1;
                 double h = 30 * ZoomIn(zoomh);
                 double t = 30 * ZoomIn(zoomt);
 
