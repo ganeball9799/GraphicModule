@@ -32,7 +32,6 @@ namespace GraphicModuleUI.ViewModel
 
         private LineVM _selectedLine;
 
-
         public LineVM SelectedLine
         {
             get => _selectedLine;
