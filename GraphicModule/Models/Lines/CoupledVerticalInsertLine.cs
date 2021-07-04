@@ -11,7 +11,6 @@ namespace GraphicModule.Models
 {
     public class CoupledVerticalInsertLine : Geometry
     {
-
         public override Parameter this[ParameterName paramName,int number = 0]
         {
             get => GetParam(paramName, number);

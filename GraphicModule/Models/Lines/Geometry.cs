@@ -6,7 +6,6 @@ using GraphicModule.Models.Enums;
 
 namespace GraphicModule.Models
 {
-    
     public abstract class Geometry
     {
         public LinesStructure Structure;
@@ -19,9 +18,5 @@ namespace GraphicModule.Models
 
         protected Parameter GetParam(ParameterName paramName, int paramNumber = 0) =>
             _parameters.Find((parameter) => parameter.ParameterName.Equals(paramName) && parameter.Number.Equals(paramNumber));
-
-       
-
-
     }
 }

@@ -71,6 +71,7 @@ namespace GraphicModuleUI.ViewModels
                 {
                     MessageBox.Show("Value is not Null!", "Graphic module",
                         MessageBoxButton.OK);
+                    _value = _parameter.Min.ToString();
                 }
 
             }
@@ -171,7 +172,6 @@ namespace GraphicModuleUI.ViewModels
         private void SetSign(ParameterName parameterName, int num)
         {
             var numberEl = num + 1;
-            //var numElm = num.ToString();
             switch (parameterName)
             {
                 case ParameterName.Slot:
