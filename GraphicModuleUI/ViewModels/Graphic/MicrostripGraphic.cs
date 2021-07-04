@@ -279,7 +279,6 @@ namespace GraphicModuleUI.ViewModels.Graphic
                 _slots.Add(_geometry[ParameterName.Slot, 2].Value);
                 _slots.Add(_geometry[ParameterName.Slot, 3].Value);
 
-
                 var zoomw1 = _stripWidths[0] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3]);
                 var zoomw2 = _stripWidths[1] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3]);
                 var zoomw3 = _stripWidths[2] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _slots[0] + _slots[1] + _slots[2] + _slots[3]);
@@ -349,6 +348,18 @@ namespace GraphicModuleUI.ViewModels.Graphic
             }
             else if (n == 6)
             {
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 0].Value);
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 1].Value);
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 2].Value);
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 3].Value);
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 4].Value);
+                _stripWidths.Add(_geometry[ParameterName.StripWidth, 5].Value);
+                _slots.Add(_geometry[ParameterName.Slot, 0].Value);
+                _slots.Add(_geometry[ParameterName.Slot, 1].Value);
+                _slots.Add(_geometry[ParameterName.Slot, 2].Value);
+                _slots.Add(_geometry[ParameterName.Slot, 3].Value);
+                _slots.Add(_geometry[ParameterName.Slot, 4].Value);
+
                 var zoomw1 = _stripWidths[0] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4]);
                 var zoomw2 = _stripWidths[1] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4]);
                 var zoomw3 = _stripWidths[2] / (_stripWidths[0] + _stripWidths[1] + _stripWidths[2] + _stripWidths[3] + _stripWidths[4] + _stripWidths[5] + _slots[0] + _slots[1] + _slots[2] + _slots[3] + _slots[4]);
