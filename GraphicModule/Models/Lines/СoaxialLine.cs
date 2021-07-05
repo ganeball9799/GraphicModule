@@ -11,6 +11,9 @@ namespace GraphicModule.Models
 {
     public class CoaxialLine : Geometry
     {
+        /// <summary>
+        /// Индексатор параметров линии.
+        /// </summary>
         public override Parameter this[ParameterName paramName, int number = 0]
         {
             get => GetParam(paramName, number);
@@ -20,6 +23,10 @@ namespace GraphicModule.Models
                 param.Value = value.Value;
             }
         }
+
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
         public CoaxialLine()
         {
             Structure = LinesStructure.Coaxial;
@@ -31,6 +38,9 @@ namespace GraphicModule.Models
             };
         }
 
+        /// <summary>
+        /// Получение физических параметров.
+        /// </summary>
         public override List<Parameter> ParametersLine()
         {
             var Params = new List<Parameter>

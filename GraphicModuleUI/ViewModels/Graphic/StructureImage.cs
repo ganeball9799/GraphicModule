@@ -72,21 +72,7 @@ namespace GraphicModuleUI.ViewModels
 
             return zoom;
         }
-
-        protected double ZoomIn(double zoom,double max,double min)
-        {
-            if (zoom > max)
-            {
-                zoom = max;
-            }
-            else if (zoom < min)
-            {
-                zoom = min;
-            }
-
-            return zoom;
-        }
-
+        
         /// <summary>
         /// Метод для отрисовки текста
         /// </summary>

@@ -10,8 +10,14 @@ namespace GraphicModule.Models
 {
     public class Parameter: ICloneable
     {
+        /// <summary>
+        /// Свойство имения параметра
+        /// </summary>
         public ParameterName ParameterName;
 
+        /// <summary>
+        /// значение параметра
+        /// </summary>
         private double _value;
         
         /// <summary>
@@ -24,6 +30,9 @@ namespace GraphicModule.Models
         /// </summary>
         private double _max;
 
+        /// <summary>
+        /// Свойство для значения параметра
+        /// </summary>
         public double Value
         {
             get => _value;
@@ -86,8 +95,15 @@ namespace GraphicModule.Models
                 _max = value;
             }
         }
+
+        /// <summary>
+        /// Поле для номера параметра
+        /// </summary>
         public int Number { get;private set; }
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public Parameter(ParameterName parameterName, double max, double min, double value, int number = 0)
         {
             ParameterName = parameterName;
@@ -98,6 +114,9 @@ namespace GraphicModule.Models
             Number = number;
         }
 
+        /// <summary>
+        /// Метод Clone
+        /// </summary>
         public object Clone() => new Parameter(ParameterName, Max, Min,  Value, Number);
     }
 }

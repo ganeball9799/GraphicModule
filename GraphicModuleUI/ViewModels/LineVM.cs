@@ -10,12 +10,24 @@
 
     public class LineVM : ViewModelBase
     {
+        /// <summary>
+        /// Экземпляр линии.
+        /// </summary>
         private readonly Geometry _line;
 
+        /// <summary>
+        /// Список параметров.
+        /// </summary>
         private ObservableCollection<ParameterVM> _parameters;
 
+        /// <summary>
+        /// Тип линии.
+        /// </summary>
         public LinesStructure Type;
 
+        /// <summary>
+        /// Конструктор класса
+        /// </summary>
         public LineVM(Geometry line)
         {
             _line = line;
@@ -24,10 +36,19 @@
             InitParameters();
         }
 
+        /// <summary>
+        /// Список графических компонентов
+        /// </summary>
         public ObservableCollection<StructureImage> GraphicComponent { get; set; }
 
+        /// <summary>
+        /// Название линии
+        /// </summary>
         public string Name { get;private set; }
 
+        /// <summary>
+        /// Свойство списков параметров структуры.
+        /// </summary>
         public ObservableCollection<ParameterVM> Parameters
         {
             get => _parameters;
@@ -38,6 +59,9 @@
             }
         }
 
+        /// <summary>
+        /// Метод, определяющий название и тип линии.
+        /// </summary>
         private void DefineLine(Geometry line)
         {
             switch (line.Structure)
@@ -61,6 +85,9 @@
             }
         }
 
+        /// <summary>
+        /// Метод инициализации графического компонента
+        /// </summary>
         private void InitGraphicComponent()
         {
             GraphicComponent = new ObservableCollection<StructureImage>();
@@ -84,6 +111,9 @@
             }
         }
 
+        /// <summary>
+        /// Метод инициализации списка параметров линии.
+        /// </summary>
         private void InitParameters()
         {
             var physParams = _line.ParametersLine();
@@ -92,6 +122,9 @@
             Parameters = new ObservableCollection<ParameterVM>(physParamsVM);
         }
 
+        /// <summary>
+        /// Метод, отследывающий изменение значений параметров.
+        /// </summary>
         private void OnParameterChanged(Parameter parameter)
         {
             _line[parameter.ParameterName, parameter.Number] = parameter;
@@ -102,6 +135,9 @@
             }
         }
 
+        /// <summary>
+        /// Конвертация списка параметров в список его вью-моделей.
+        /// </summary>
         private List<ParameterVM> ParamsToParamsVM(List<Parameter> paramsList)
         {
             var _parametersVM = new List<ParameterVM>();
@@ -114,6 +150,10 @@
             return _parametersVM;
         }
 
+        /// <summary>
+        /// Метод инициализации измений в структуре
+        /// </summary>
+        /// <param name="parameter"></param>
         private void Render(ParameterVM parameter)
         {
             GraphicComponent.Clear();

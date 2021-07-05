@@ -1,5 +1,8 @@
 ﻿namespace GraphicModule.Models
 {
+    /// <summary>
+    /// Перечесление имен параметров
+    /// </summary>
     public enum ParameterName
     {
         Slot,

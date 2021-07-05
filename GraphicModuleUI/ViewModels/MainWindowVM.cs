@@ -16,6 +16,9 @@ namespace GraphicModuleUI.ViewModel
 {
     public class MainWindowVM : ViewModelBase
     {
+        /// <summary>
+        /// Конструктор класска
+        /// </summary>
         public MainWindowVM()
         {
             SelectedLine = new LineVM(new SingleCoplanarLine());
@@ -28,10 +31,14 @@ namespace GraphicModuleUI.ViewModel
             };
         }
 
-        public ObservableCollection<LineVM> Lines { get; set; }
-
+        /// <summary>
+        /// Выбранная линия
+        /// </summary>
         private LineVM _selectedLine;
 
+        /// <summary>
+        /// Свойство выбранной линии
+        /// </summary>
         public LineVM SelectedLine
         {
             get => _selectedLine;
@@ -41,6 +48,11 @@ namespace GraphicModuleUI.ViewModel
                 RaisePropertyChanged(nameof(SelectedLine));
             }
         }
+
+        /// <summary>
+        /// Коллекция линий
+        /// </summary>
+        public ObservableCollection<LineVM> Lines { get; set; }
     }
 
 

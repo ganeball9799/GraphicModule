@@ -11,6 +11,9 @@ namespace GraphicModule.Models
 {
     public class MicrostripLine : Geometry
     {
+        /// <summary>
+        /// Индексатор параметров линии.
+        /// </summary>
         public override Parameter this[ParameterName paramName, int number = 0]
         {
             get => GetParam(paramName, number);
@@ -63,7 +66,9 @@ namespace GraphicModule.Models
             }
         }
 
-
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
         public MicrostripLine()
         {
             Structure = LinesStructure.Microstrip;
@@ -78,6 +83,9 @@ namespace GraphicModule.Models
             };
         }
 
+        /// <summary>
+        /// Метод получения параметров.
+        /// </summary>
         public override List<Parameter> ParametersLine()
         {
             var parameters = new List<Parameter>

@@ -11,6 +11,9 @@ namespace GraphicModule.Models
 {
     public class CoupledVerticalInsertLine : Geometry
     {
+        /// <summary>
+        /// Индексатор параметров линии.
+        /// </summary>
         public override Parameter this[ParameterName paramName,int number = 0]
         {
             get => GetParam(paramName, number);
@@ -21,6 +24,9 @@ namespace GraphicModule.Models
             }
         }
 
+        /// <summary>
+        /// Конструктор класса.
+        /// </summary>
         public CoupledVerticalInsertLine()
         {
             Structure = LinesStructure.CoupledVerticalInsert;
@@ -32,7 +38,11 @@ namespace GraphicModule.Models
                 new Parameter(ParameterName.SubstrateHeight,70,1,20,1)
             };
         }
-        
+
+        /// <summary>
+        /// Получение параметров.
+        /// </summary>
+        /// <returns>Список физических параметров структуры.</returns>
         public override List<Parameter> ParametersLine()
         {
             var parameters = new List<Parameter>

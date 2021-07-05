@@ -48,14 +48,23 @@ namespace GraphicModuleUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Обозначение параметра.
+        /// </summary>
         public string Sign { get; set; }
 
+        /// <summary>
+        /// Номер параметра.
+        /// </summary>
         public string Number { get; private set; }
 
         public delegate void ValueHandler(ParameterVM parameter);
 
         public event ValueHandler UpdateValue;
 
+        /// <summary>
+        /// Свойство значения параметра.
+        /// </summary>
         public string Value
         {
             get => _value;
@@ -77,10 +86,19 @@ namespace GraphicModuleUI.ViewModels
             }
         }
 
+        /// <summary>
+        /// Строка для выявления ошибок
+        /// </summary>
         string IDataErrorInfo.Error => throw new NotImplementedException();
 
+        /// <summary>
+        /// Имя параметра.
+        /// </summary>
         public ParameterName ParameterName;
 
+        /// <summary>
+        /// Индексатор ошибок.
+        /// </summary>
         public string this[string propertyName]
         {
             get
@@ -125,6 +143,9 @@ namespace GraphicModuleUI.ViewModels
         //    Number = _parameter.Number.ToString();
         //}
 
+        /// <summary>
+        /// Конструктор вью-модели параметра, принимающий на вход делегат.
+        /// </summary>
         public ParameterVM(Parameter parameter, Action<Parameter> action, ValueHandler Render) /*: this(parameter, action)*/
         {
             _parameter = parameter;

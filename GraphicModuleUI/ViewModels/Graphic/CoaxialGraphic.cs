@@ -43,7 +43,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             
             var zoomd = _diameters[0] / _diameters[1];
 
-            var d = 50 * ZoomIn(zoomd,1,0.2);
+            var d = 50 * ZoomIn(zoomd);
             
             DrawEllipse(dc, SubstrateColor, new Point(0, 0), 100, 100);
             DrawEllipse(dc, WidthColor, new Point(0, 0), d * 2, d * 2);
