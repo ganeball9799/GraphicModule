@@ -62,7 +62,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             var zoomw = _stripsWidth / ((_substrateHeight1 + _substrateHeight2 + _stripsWidth) / 3);
             var zoomh1 = _substrateHeight1 / ((_substrateHeight2 + _stripsThicknees + _stripsWidth) / 3);
             var zoomh2 = _substrateHeight2 / ((_substrateHeight1 + _stripsWidth + _stripsThicknees) / 3);
-            var zoomt = _stripsThicknees / ((_substrateHeight1 + _stripsWidth + _substrateHeight2) / 3);
+            var zoomt = _stripsThicknees*2 / ((_substrateHeight1 + _stripsWidth + _substrateHeight2) / 3);
 
             double h1 = 40 * ZoomIn(zoomh1);
             double h2 = 40 * ZoomIn(zoomh2);
