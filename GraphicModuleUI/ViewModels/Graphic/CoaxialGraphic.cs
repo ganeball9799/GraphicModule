@@ -43,36 +43,26 @@ namespace GraphicModuleUI.ViewModels.Graphic
             
             var zoomd = _diameters[0] / _diameters[1];
 
-            var d = 50 * ZoomIn(zoomd,1,0.2);
+            var d = 45 * ZoomIn(zoomd,1,0.02);
             
-            DrawEllipse(dc, SubstrateColor, new Point(0, 0), 100, 100);
+            DrawEllipse(dc, SubstrateColor, new Point(0, 0), 90, 90);
             DrawEllipse(dc, WidthColor, new Point(0, 0), d * 2, d * 2);
 
-            ////Линии разделения для слотов и ширины
-            //DrawLine(dc, new Point(-(S1 + W1 / 2), -t), new Point(-(S1 + W1 / 2), -(t + 15)));
-            //DrawLine(dc, new Point(-W1 / 2, -t), new Point(-W1 / 2, -(t + 15)));
-            //DrawLine(dc, new Point(W1 / 2, -t), new Point(W1 / 2, -(t + 15)));
-            //DrawLine(dc, new Point(W1 / 2 + S2, -t), new Point(W1 / 2 + S2, -(t + 15)));
-            //DrawLine(dc, new Point(-(S1 + W1 / 2 + 5), -(t + 10)), new Point(W1 / 2 + S2 + 5, -(t + 10)));
+            //Линии внешнего круга
+            DrawLine(dc, new Point(0, 90), new Point(-105, 90));
+            DrawLine(dc, new Point(0, -90), new Point(-105, -90));
+            DrawLine(dc, new Point(-95, 100), new Point(-95, -100));
+            
+            //Подписи ширины и зазоров
+            DrawText(dc, "D", 13, new Point(-110, -5));
 
-            ////Подписи ширины и зазоров
-            //DrawText(dc, "W", 13, new Point(-5, -(t + 30)));
-            //DrawText(dc, "S1", 13, new Point(-(S1 / 2 + W1 / 2 + 5), -(t + 30)));
-            //DrawText(dc, "S2", 13, new Point(W1 / 2 + S2 / 2 - 5, -(t + 30)));
+            //Линии внутреннего круга
+            DrawLine(dc, new Point(0, d*2), new Point(110, d*2));
+            DrawLine(dc, new Point(0, -d*2), new Point(110, -d*2));
+            DrawLine(dc, new Point(100, d*2+10), new Point(100, -d*2-10));
 
-            ////Линии для разделения толщины линии и подложки
-            //DrawLine(dc, new Point(-(screenWidth + S1 + W1 / 2), -t),
-            //            new Point(-(10 + screenWidth + S1 + W1 / 2), -t));
-            //DrawLine(dc, new Point(-(screenWidth + S1 + W1 / 2), 0),
-            //            new Point(-(10 + screenWidth + S1 + W1 / 2), 0));
-            //DrawLine(dc, new Point(-(screenWidth + S1 + W1 / 2), h),
-            //            new Point(-(10 + screenWidth + S1 + W1 / 2), h));
-            //DrawLine(dc, new Point(-(5 + screenWidth + S1 + W1 / 2), -5 - t),
-            //            new Point(-(5 + screenWidth + S1 + W1 / 2), h + 5));
-
-            ////Подписи линий разделения толщины линии и подложки
-            //DrawText(dc, "h", 13, new Point(-(20 + screenWidth + S1 + W1 / 2), h / 2 - 10));
-            //DrawText(dc, "t", 13, new Point(-(20 + screenWidth + S1 + W1 / 2), -t / 2 - 10));
+            //Подписи ширины и зазоров
+            DrawText(dc, "d", 13, new Point(110, -10));
         }
     }
 }
