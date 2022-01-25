@@ -5,6 +5,7 @@
         SingleCoplanar,
         CoupledVerticalInsert,
         Microstrip,
-        Coaxial
+        Coaxial,
+        RndSql
     }
 }

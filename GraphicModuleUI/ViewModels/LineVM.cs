@@ -58,6 +58,10 @@
                     Name = "Coaxial";
                     Type = LinesStructure.Coaxial;
                     break;
+                case LinesStructure.RndSql:
+                    Name = "RndSql";
+                    Type = LinesStructure.RndSql;
+                    break;
             }
         }
 
@@ -78,6 +82,9 @@
                     break;
                 case LinesStructure.Coaxial:
                     GraphicComponent.Add(new CoaxialGraphic(_line));
+                    break;
+                case LinesStructure.RndSql:
+                    GraphicComponent.Add(new RndSqlGraphic(_line));
                     break;
                 default:
                     throw new ArgumentException($"{_line.Structure} is not found");
@@ -130,6 +137,9 @@
                     break;
                 case LinesStructure.Coaxial:
                     GraphicComponent.Add(new CoaxialGraphic(_line));
+                    break;
+                case LinesStructure.RndSql:
+                    GraphicComponent.Add(new RndSqlGraphic(_line));
                     break;
 
                 default:

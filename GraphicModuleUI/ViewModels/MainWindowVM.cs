@@ -10,6 +10,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GraphicModule.Models;
 using GraphicModule.Models.Enums;
+using GraphicModule.Models.Lines;
 using GraphicModuleUI.ViewModels;
 
 namespace GraphicModuleUI.ViewModel
@@ -24,7 +25,8 @@ namespace GraphicModuleUI.ViewModel
                 SelectedLine,
                 new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine()),
-                new LineVM(new CoaxialLine())
+                new LineVM(new CoaxialLine()),
+                new LineVM(new RndSqr())
             };
         }
 

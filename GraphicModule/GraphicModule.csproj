@@ -48,6 +48,7 @@
     <Compile Include="Models\Lines\Geometry.cs" />
     <Compile Include="Models\Lines\MicrostripLine.cs" />
     <Compile Include="Models\Enums\ParameterName.cs" />
+    <Compile Include="Models\Lines\RndSqr.cs" />
     <Compile Include="Models\Lines\СoaxialLine.cs" />
     <Compile Include="Models\Parameter.cs" />
     <Compile Include="Models\Lines\SingleCoplanarLine.cs" />
