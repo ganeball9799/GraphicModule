@@ -8,6 +8,9 @@
         StripWidth,
         SubstrateHeight,
         DiameterLine,
-        DiameterDielectric
+        DiameterDielectric,
+        HeightDielectric,
+        WidthDielectric,
+        Height
     }
 }

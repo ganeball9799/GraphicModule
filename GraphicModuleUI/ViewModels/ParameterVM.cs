@@ -195,6 +195,15 @@ namespace GraphicModuleUI.ViewModels
                 case ParameterName.DiameterDielectric:
                     Sign = $"D{numberEl}";
                     break;
+                case ParameterName.HeightDielectric:
+                    Sign = $"a ";
+                    break;
+                case ParameterName.WidthDielectric:
+                    Sign = $"b ";
+                    break;
+                case ParameterName.Height:
+                    Sign = $"h{numberEl}";
+                    break;
             }
         }
     }
