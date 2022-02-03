@@ -30,6 +30,11 @@ namespace GraphicModuleUI.ViewModels.Graphic
         private double _slot;
 
         /// <summary>
+        /// Зазор для левогопроводника
+        /// </summary>
+        private double _slot0;
+
+        /// <summary>
         /// Лист с высотами
         /// </summary>
         private List<double> _height = new List<double>();
@@ -57,7 +62,8 @@ namespace GraphicModuleUI.ViewModels.Graphic
             _b = _geometry[ParameterName.WidthDielectric].Value;
             _diameters.Add(_geometry[ParameterName.DiameterLine].Value);
             _diameters.Add(_geometry[ParameterName.DiameterLine, 1].Value);
-            _slot = _geometry[ParameterName.Slot].Value;
+            _slot0 = _geometry[ParameterName.Slot].Value;
+            _slot = _geometry[ParameterName.Slot, 1].Value;
 
             Canvas.SetLeft(this, 125);
             Canvas.SetTop(this, 125);
@@ -71,74 +77,65 @@ namespace GraphicModuleUI.ViewModels.Graphic
         {
             base.OnRender(dc);
 
-            var zoomd1 = _diameters[0] / (_slot + _diameters[0] + _diameters[1] + _b + _a);
-            var zoomd2 = _diameters[1] / (_slot + _diameters[0] + _diameters[1] + _b + _a);
-            var zooms = _slot / (_slot + _diameters[0] + _diameters[1] + _b + _a);
-            var zooma = _a / ((_slot + _diameters[0] + _diameters[1] + _b+_a) / 5);
-            var zoomb = _b / ((_slot + _diameters[0] + _diameters[1] + _a+_b) / 5);
-            var zoomh1 = _height[0] / (_a/_diameters[0]+_a/_height[0]);
-            var zoomh2 = _height[1] / (_a / _diameters[1] + _a / _height[1]);
+            var zoomd1 = _diameters[0] / (_slot + _diameters[1] + _slot0 + _diameters[0]);
+            var zoomd2 = _diameters[1] / (_slot + _diameters[0] + _slot0 + _diameters[1]);
+            var zooms = _slot / (_slot0 + _diameters[0] + _diameters[1] + _slot);
+            var zooms0 = _slot0 / (_slot + _diameters[0] + _diameters[1] + _slot0);
+            var zooma = _a / ((_slot + _diameters[0] + _diameters[1] + _b + _a + _slot0) / 6);
+            var zoomb = _b / ((_slot + _diameters[0] + _diameters[1] + _a + _b + _slot0) / 6);
+            var zoomh1 = (_height[0] / _b) * zoomb;
+            var zoomh2 = (_height[1] / _b) * zoomb;
 
-            var d1 = 250 * zoomd1;
-            var d2 = 250 * zoomd2;
-            var s = 250 * zooms;
-            var a = 80 * ZoomIn(zooma, 2.5, 0.5);
-            var b = 80 * ZoomIn(zoomb, 2.5, 0.5);
-            var h1 = 70 *zoomh1;
-            var h2 = 70 * zoomh2;
+            var d1 = 100 * ZoomIn(zoomd1, 2, 0.05);
+            var d2 = 100 * ZoomIn(zoomd2, 2, 0.05);
+            var s = 50 * ZoomIn(zooms, 2, 0.05);
+            var s0 = 50 * ZoomIn(zooms0, 2, 0.05);
+            var a = 50 * ZoomIn(zooma, 3, 0.6);
+            var b = 50 * ZoomIn(zoomb, 3, 0.6);
+            var h1 = 50 * zoomh1;
+            var h2 = 50 * zoomh2;
 
-            //Вторая версия коэффициентов
-            //var a = 180 * zooma;
-            //var b = 180 * zoomb;
-            //var d1 = 150 * ZoomIn(zoomd1, 1.5, 0.02);
-            //var d2 = 150 * ZoomIn(zoomd2, 1.5, 0.02);
-            //var s = 300 * ZoomIn(zooms, 1, 0.01);
-            //var a = 300 * ZoomIn(zooma, 2.5, 0.4);
-            //var b = 300 * ZoomIn(zoomb, 2.5, 0.4);
-            //var h1 = 300 * ZoomIn(zoomh1, 1, 0.01);
-            //var h2 = 300 * ZoomIn(zoomh2, 1, 0.01);
-            
-            DrawRectangle(dc, SubstrateColor, PenColor, -b / 2, -a / 2, b, a);
-            DrawEllipse(dc, WidthColor, new Point(-s / 2 - d1 / 2, a / 2 - h1 - d1 / 2), d1 / 2, d1 / 2);
-            DrawEllipse(dc, WidthColor, new Point(s / 2 + d2 / 2, a / 2 - h2 - d2 / 2), d2 / 2, d2 / 2);
+            DrawRectangle(dc, SubstrateColor, PenColor, -a / 2, -b / 2, a, b);
+            DrawEllipse(dc, WidthColor, new Point(-a / 2 + s0 + d1 / 2, b / 2 - h1 - d1 / 2), d1 / 2, d1 / 2);
+            DrawEllipse(dc, WidthColor, new Point(-a / 2 + s0 + d1 + s + d2 / 2, b / 2 - h2 - d2 / 2), d2 / 2, d2 / 2);
 
             //Линии подписи высоты диэлектрика
-            DrawLine(dc, new Point(-b/2, -a/2), new Point(-b/2-15, -a/2));
-            DrawLine(dc, new Point(-b/2, a/2), new Point(-b/2-15, a/2));
-            DrawLine(dc, new Point(-b/2-10, -a/2-5), new Point(-b/2-10, a/2+5));
+            DrawLine(dc, new Point(-a / 2, -b / 2), new Point(-a / 2 - 15, -b / 2));
+            DrawLine(dc, new Point(-a / 2, b / 2), new Point(-a / 2 - 15, b / 2));
+            DrawLine(dc, new Point(-a / 2 - 10, -b / 2 - 5), new Point(-a / 2 - 10, b / 2 + 5));
 
             //Подписи высоты диэлектрика
-            DrawText(dc, "а", 13, new Point(-b/2-20, -3));
+            DrawText(dc, "b", 13, new Point(-a / 2 - 20, -3));
 
             //Линии подписи ширины диэлектрика
-            DrawLine(dc, new Point(-b / 2, a / 2), new Point(-b / 2, a / 2+15));
-            DrawLine(dc, new Point(b / 2, a / 2), new Point(b / 2, a / 2 + 15));
-            DrawLine(dc, new Point(-b / 2-5, a / 2+10), new Point(b / 2+5, a / 2 + 10));
+            DrawLine(dc, new Point(-a / 2, b / 2), new Point(-a / 2, b / 2 + 15));
+            DrawLine(dc, new Point(a / 2, b / 2), new Point(a / 2, b / 2 + 15));
+            DrawLine(dc, new Point(-a / 2 - 5, b / 2 + 10), new Point(a / 2 + 5, b / 2 + 10));
 
             //Подписи высоты диэлектрика
-            DrawText(dc, "b", 13, new Point(-3, a/2+10));
+            DrawText(dc, "a", 13, new Point(-3, b / 2 + 10));
 
             //Линии подписи левого проводника
-            DrawLine(dc, new Point(-s / 2 - d1 / 2, a / 2 - h1 - d1), new Point(-s / 2 - d1 / 2-15, a / 2 - h1 - d1));
-            DrawLine(dc, new Point(-s / 2 - d1 / 2, a / 2 - h1 ), new Point(-s / 2 - d1 / 2 - 15, a / 2 - h1));
-            DrawLine(dc, new Point(-s / 2 - d1 / 2-10, a / 2 - h1 - d1-5), new Point(-s / 2 - d1 / 2 - 10, a / 2));
-
-            //Подписи левого проводника
-            DrawText(dc, "d1", 9, new Point(-s / 2 - d1 / 2 - 25, a / 2 - h1 - d1 / 2-5));
+            DrawLine(dc, new Point(-a / 2 + s0 + d1 / 2, b / 2 - h1 - d1), new Point(-a / 2 + s0 - 5, b / 2 - h1 - d1));
+            DrawLine(dc, new Point(-a / 2 + s0 + d1 / 2, b / 2 - h1), new Point(-a / 2 + s0 - 5, b / 2 - h1));
+            DrawLine(dc, new Point(-a / 2 + s0 - 3, b / 2 - h1 - d1 - 5), new Point(-a / 2 + s0 - 3, b / 2));
 
             //Линии подписи правого проводника
-            DrawLine(dc, new Point(s / 2 + d1 / 2, a / 2 - h1 - d1), new Point(s / 2 + d1 / 2 + 15, a / 2 - h1 - d1));
-            DrawLine(dc, new Point(s / 2 + d1 / 2, a / 2 - h1), new Point(s / 2 + d1 / 2 + 15, a / 2 - h1));
-            DrawLine(dc, new Point(s / 2 + d1 / 2 + 10, a / 2 - h1 - d1 - 5), new Point(s / 2 + d1 / 2 + 10, a / 2));
+            DrawLine(dc, new Point(-a / 2 + s0 + d1 + s + d2 / 2, b / 2 - h1 - d1), new Point(-a / 2 + s0 + d1 + s + d2 +5, b / 2 - h1 - d1));
+            DrawLine(dc, new Point(-a / 2 + s0 + d1 + s + d2 / 2, b / 2 - h1), new Point(-a / 2 + s0 + d1 + s + d2 +5, b / 2 - h1));
+            DrawLine(dc, new Point(-a / 2 + s0 + d1 + s + d2  + 3, b / 2 - h1 - d1 - 5), new Point(-a / 2 + s0 + d1 + s + d2 + 3, b / 2));
+
+            //Подписи левого проводника
+            DrawText(dc, "d1", 9, new Point(-a / 2 + s0 - 15, b / 2 - h1 - d1 / 2 - 5));
 
             //Подписи правого проводника
-            DrawText(dc, "d2", 9, new Point(s / 2 + d1 / 2 + 25, a / 2 - h1 - d1 / 2 - 5));
+            DrawText(dc, "d2", 9, new Point(-a / 2 + s0 + d1 + s + d2+5, b / 2 - h1 - d1 / 2 - 5));
 
             //Подпись h1
-            DrawText(dc, "h1", 9, new Point(-s / 2 - d1 / 2 - 25, a / 2 - h1  + 3));
+            DrawText(dc, "h1", 9, new Point(-a / 2 + s0 - 15, b / 2 - h1 + 3));
 
             //Подпись h2
-            DrawText(dc, "h2", 9, new Point(s / 2 + d1 / 2 + 25, a / 2 - h1 + 3));
+            DrawText(dc, "h2", 9, new Point(-a / 2 + s0 + d1 + s + d2+5 , b / 2 - h1 + 3));
         }
     }
 }

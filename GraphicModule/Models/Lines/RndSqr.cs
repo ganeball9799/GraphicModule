@@ -23,14 +23,14 @@ namespace GraphicModule.Models.Lines
             Structure = LinesStructure.RndSql;
             _parameters = new List<Parameter>
             {
-                new Parameter(ParameterName.HeightDielectric,200,5,10),
-                new Parameter(ParameterName.WidthDielectric,200,5,15),
+                new Parameter(ParameterName.HeightDielectric,200,5,15),
+                new Parameter(ParameterName.WidthDielectric,200,5,10),
                 new Parameter(ParameterName.Height,100,0,2),
                 new Parameter(ParameterName.Height,100,0,2,1),
                 new Parameter(ParameterName.DiameterLine,70,0.1,2),
                 new Parameter(ParameterName.DiameterLine,70,0.1,2,1),
                 new Parameter(ParameterName.Slot,70,0,2),
-
+                new Parameter(ParameterName.Slot,70,0,2,1)
             };
         }
         public override List<Parameter> ParametersLine()
@@ -44,6 +44,7 @@ namespace GraphicModule.Models.Lines
                 GetParam(ParameterName.DiameterLine),
                 GetParam(ParameterName.DiameterLine,1),
                 GetParam(ParameterName.Slot),
+                GetParam(ParameterName.Slot,1),
             };
             return Params;
         }

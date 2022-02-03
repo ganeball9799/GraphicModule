@@ -78,7 +78,7 @@
                     GraphicComponent.Add(new CoupledVerticalInsertGraphic(_line));
                     break;
                 case LinesStructure.Microstrip:
-                    GraphicComponent.Add(new MicrostripGraphic(_line));
+                    GraphicComponent.Add(new MicrostripGraphic(_line));                                                                                                                                                                                                                                                                                              ;// :p )))))))))))))))
                     break;
                 case LinesStructure.Coaxial:
                     GraphicComponent.Add(new CoaxialGraphic(_line));
