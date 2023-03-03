@@ -6,6 +6,7 @@
         CoupledVerticalInsert,
         Microstrip,
         Coaxial,
-        RndSql
+        RndSql,
+        WireOnMSL
     }
 }

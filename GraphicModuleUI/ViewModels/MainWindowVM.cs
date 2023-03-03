@@ -26,7 +26,8 @@ namespace GraphicModuleUI.ViewModel
                 new LineVM(new CoupledVerticalInsertLine()),
                 new LineVM(new MicrostripLine()),
                 new LineVM(new CoaxialLine()),
-                new LineVM(new RndSqr())
+                new LineVM(new RndSqr()),
+                new LineVM(new WireOnMSL())
             };
         }
 

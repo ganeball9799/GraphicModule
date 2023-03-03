@@ -62,6 +62,10 @@
                     Name = "RndSql";
                     Type = LinesStructure.RndSql;
                     break;
+                case LinesStructure.WireOnMSL:
+                    Name = "WireOnMSL";
+                    Type = LinesStructure.WireOnMSL;
+                    break;
             }
         }
 
@@ -85,6 +89,9 @@
                     break;
                 case LinesStructure.RndSql:
                     GraphicComponent.Add(new RndSqlGraphic(_line));
+                    break;
+                case LinesStructure.WireOnMSL:
+                    GraphicComponent.Add(new WireOnMSLGC(_line));
                     break;
                 default:
                     throw new ArgumentException($"{_line.Structure} is not found");
@@ -140,6 +147,9 @@
                     break;
                 case LinesStructure.RndSql:
                     GraphicComponent.Add(new RndSqlGraphic(_line));
+                    break;
+                case LinesStructure.WireOnMSL:
+                    GraphicComponent.Add(new WireOnMSLGC(_line));
                     break;
 
                 default:
