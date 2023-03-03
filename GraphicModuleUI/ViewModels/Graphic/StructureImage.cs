@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Windows.Controls;
 using System.Windows.Shapes;
 
 namespace GraphicModuleUI.ViewModels
@@ -11,35 +12,46 @@ namespace GraphicModuleUI.ViewModels
     public class StructureImage : FrameworkElement
     {
         /// <summary>
-        /// Задает цвет обводки фигуры
+        /// Цвет линии подписи
         /// </summary>
-        protected Pen PenColor = new Pen(Brushes.Black, 0.1);
+        private readonly Pen _lineColor;
 
         /// <summary>
-        /// Задает цвет линии подписи
+        /// Цвет обводки фигуры
         /// </summary>
-        private Pen LineColor = new Pen(Brushes.Red, 0.5);
+        protected Pen PenColor;
 
         /// <summary>
-        /// Задает цвет линии
+        /// Цвет линии
         /// </summary>
-        protected SolidColorBrush WidthColor = new SolidColorBrush(Color.FromRgb(80, 80, 230));
+        protected SolidColorBrush WidthColor;
 
         /// <summary>
-        /// Задает цвет подложки
+        /// Цвет подложки
         /// </summary>
-        protected SolidColorBrush SubstrateColor = new SolidColorBrush(Color.FromRgb(140, 137, 126));
+        protected SolidColorBrush SubstrateColor;
 
         /// <summary>
-        /// Задает цвет подложки для линии с вертикальной вставкой
+        /// Цвет второй подложки
         /// </summary>
-        protected SolidColorBrush SubstrateColorSecond = new SolidColorBrush(Color.FromRgb(204, 173, 96));
+        protected SolidColorBrush SubstrateSecondColor;
 
         /// <summary>
-        /// Задает цвет экрана
+        /// Цвет экрана
         /// </summary>
-        protected SolidColorBrush GroundColor = new SolidColorBrush(Colors.Black);
+        protected SolidColorBrush GroundColor;
 
+        public StructureImage()
+        {
+            Canvas.SetLeft(this, 120);
+            Canvas.SetTop(this, 120);
+            _lineColor = new Pen(Brushes.Red, 0.5);
+            PenColor = new Pen(Brushes.Black, 0.1);
+            WidthColor = new SolidColorBrush(Color.FromRgb(184, 115, 51));
+            SubstrateColor = new SolidColorBrush(Color.FromRgb(249, 250, 222));
+            SubstrateSecondColor = new SolidColorBrush(Color.FromRgb(149, 194, 234));
+            GroundColor = new SolidColorBrush(Colors.Black);
+        }
         /// <summary>
         /// Метод для отрисовки прямоугольника
         /// </summary>
@@ -55,25 +67,28 @@ namespace GraphicModuleUI.ViewModels
         /// </summary>
         protected void DrawEllipse(DrawingContext dc, SolidColorBrush color, Point point, double r1, double r2) =>
             dc.DrawEllipse(color, PenColor, point, r1, r2);
-        
+
         /// <summary>
         /// Метод для коэффициентов масштабирования
         /// </summary>
         protected double ZoomIn(double zoom)
         {
-            if (zoom > 1.4)
+            if (zoom > 1.7)
             {
-                zoom = 1.4;
+                zoom = 1.7;
             }
-            else if (zoom < 0.5)
+            else if (zoom < 0.05)
             {
-                zoom = 0.5;
+                zoom = 0.05;
             }
 
             return zoom;
         }
 
-        protected double ZoomIn(double zoom,double max,double min)
+        /// <summary>
+        /// Метод для коэффициентов масштабирования
+        /// </summary>
+        protected double ZoomIn(double zoom, double max, double min)
         {
             if (zoom > max)
             {
@@ -90,17 +105,19 @@ namespace GraphicModuleUI.ViewModels
         /// <summary>
         /// Метод для отрисовки текста
         /// </summary>
-        protected void DrawText(DrawingContext dc, string measure,double textSize, Point point) =>
-            dc.DrawText(GetDrawingText(measure,textSize), point);
+        [System.Obsolete]
+        protected void DrawText(DrawingContext dc, string measure, double textSize, Point point) =>
+            dc.DrawText(GetDrawingText(measure, textSize), point);
 
         /// <summary>
         /// Метод для отрисовки линии
         /// </summary>
-        protected void DrawLine(DrawingContext dc, Point p1, Point p2) => dc.DrawLine(LineColor, p1, p2);
+        protected void DrawLine(DrawingContext dc, Point p1, Point p2) => dc.DrawLine(_lineColor, p1, p2);
 
         /// <summary>
         /// Метод для задания подписи
         /// </summary>
+        [System.Obsolete]
         private FormattedText GetDrawingText(string measure, double textSize) =>
             new FormattedText(measure, CultureInfo.GetCultureInfo("en-Us"),
                 FlowDirection.LeftToRight, new Typeface("verdana"), textSize, Brushes.DarkBlue);

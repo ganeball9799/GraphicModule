@@ -73,7 +73,7 @@ namespace GraphicModuleUI.ViewModels.Graphic
             DrawRectangle(dc, WidthColor, PenColor, -(h2 / 2 + t), -W, t, W);
             DrawRectangle(dc, WidthColor, PenColor, h2 / 2, -W, t, W);
             DrawRectangle(dc, SubstrateColor, PenColor, -(gapLine + t + h2 / 2), 0, t * 2 + h2 + gapLine * 2, h1);
-            DrawRectangle(dc, SubstrateColorSecond, PenColor, -h2 / 2, -W, h2, W);
+            DrawRectangle(dc, SubstrateSecondColor, PenColor, -h2 / 2, -W, h2, W);
             DrawRectangle(dc, GroundColor, PenColor, -(gapLine + t + h2 / 2), h1, t * 2 + h2 + gapLine * 2, ground);
 
             //Линии разделения для толщины линии и диэлектрика
