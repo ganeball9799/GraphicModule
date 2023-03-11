@@ -66,6 +66,10 @@
                     Name = "WireOnMSL";
                     Type = LinesStructure.WireOnMSL;
                     break;
+                case LinesStructure.WireAboveMSL:
+                    Name = "WireAboveMSL";
+                    Type = LinesStructure.WireAboveMSL;
+                    break;
             }
         }
 
@@ -92,6 +96,9 @@
                     break;
                 case LinesStructure.WireOnMSL:
                     GraphicComponent.Add(new WireOnMSLGC(_line));
+                    break;
+                case LinesStructure.WireAboveMSL:
+                    GraphicComponent.Add(new WireAboveMSLGC(_line));
                     break;
                 default:
                     throw new ArgumentException($"{_line.Structure} is not found");
@@ -150,6 +157,9 @@
                     break;
                 case LinesStructure.WireOnMSL:
                     GraphicComponent.Add(new WireOnMSLGC(_line));
+                    break;
+                case LinesStructure.WireAboveMSL:
+                    GraphicComponent.Add(new WireAboveMSLGC(_line));
                     break;
 
                 default:

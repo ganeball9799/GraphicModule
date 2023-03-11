@@ -187,7 +187,7 @@ namespace GraphicModuleUI.ViewModels
                     Sign = $"W{numberEl}";
                     break;
                 case ParameterName.SubstrateHeight:
-                    Sign = $"h{numberEl}";
+                    Sign = $"H{numberEl}";
                     break;
                 case ParameterName.DiameterLine:
                     Sign = $"d{numberEl}";

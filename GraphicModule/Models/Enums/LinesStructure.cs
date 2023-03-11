@@ -7,6 +7,7 @@
         Microstrip,
         Coaxial,
         RndSql,
-        WireOnMSL
+        WireOnMSL,
+        WireAboveMSL
     }
 }
